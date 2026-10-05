@@ -49,7 +49,7 @@ You do **not** need to install Gradle yourself; the project uses the Gradle wrap
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/<github-username>/ENG1-GoosePatrol-TeamN.git
+git clone https://github.com/E26180/ENG1-GoosePatrol-TeamN.git
 cd ENG1-GoosePatrol-TeamN
 ```
 
