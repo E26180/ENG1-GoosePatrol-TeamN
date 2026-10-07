@@ -1,8 +1,8 @@
-package src.main.java.uk.ac.york.eng1.goosepatrol.lwjgl3;
+package uk.ac.york.eng1.goosepatrol.lwjgl3;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import src.main.java.uk.ac.york.eng1.goosepatrol.Main;
+import uk.ac.york.eng1.goosepatrol.Main;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
