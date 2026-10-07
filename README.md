@@ -27,7 +27,8 @@ infamous campus geese along the way.
 
 ```
 ENG1-GoosePatrol-TeamN/
-├── src/               Java 17 / LibGDX core game source code
+├── core/              Game code shared by all platforms (package uk.ac.york.eng1.goosepatrol)
+├── lwjgl3/            Desktop launcher (LWJGL3 backend)
 ├── assets/            Game assets
 │   ├── textures/      Sprites, tilesets, UI images
 │   ├── audio/         Music and sound effects
@@ -87,11 +88,6 @@ gradlew.bat lwjgl3:run
 - **Eclipse:** *File → Import → Gradle → Existing Gradle Project*.
 - **VS Code:** open the folder with the *Extension Pack for Java* and *Gradle for Java* installed.
 
-> **Note:** The Gradle build files are not in the repository yet. Generate them once with
-> [gdx-liftoff](https://github.com/libgdx/gdx-liftoff) (Java 17, Desktop/LWJGL3 platform),
-> commit `gradlew`, `gradlew.bat`, `gradle/`, `settings.gradle` and `build.gradle`, and the
-> commands above will work for everyone.
-
 ## Team Workflow
 
 1. Pull the latest `main` before starting work: `git pull origin main`.
@@ -99,6 +95,12 @@ gradlew.bat lwjgl3:run
 3. Commit small, focused changes with clear messages.
 4. Push your branch and open a pull request into `main`.
 5. Get at least one teammate to review before merging.
+
+`main` is protected: direct pushes are blocked, and a pull request needs **1 approval** from
+someone other than its author before it can be merged.
+
+When you add a new file (e.g. an image in `assets/`), check `git status` before committing so
+it is not left out.
 
 ## Assessment 1 Deliverables
 
