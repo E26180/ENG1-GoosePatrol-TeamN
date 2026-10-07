@@ -1,4 +1,4 @@
-package src.main.java.uk.ac.york.eng1.goosepatrol;
+package uk.ac.york.eng1.goosepatrol;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;

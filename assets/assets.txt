@@ -1,4 +1,5 @@
 audio/.gitkeep
+libgdx.png
 maps/.gitkeep
 textures/.gitkeep
 ui/font-list.fnt
