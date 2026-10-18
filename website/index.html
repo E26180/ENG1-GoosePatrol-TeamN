@@ -3,10 +3,112 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Goose Patrol - Team N</title>
+  <title>Goose Patrol · ENG1 Team 2</title>
+  <meta name="description" content="Goose Patrol, a 5-minute campus escape game made by ENG1 Team 2 at the University of York.">
+  <style>
+    :root {
+      --bg: #f5f2e8;
+      --card: #fffdf7;
+      --text: #1e2b26;
+      --muted: #4a5149;
+      --accent: #b85f0a;
+      --line: #e2dccb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1e2b26;
+        --card: #26362f;
+        --text: #f5f2e8;
+        --muted: #c9d2c5;
+        --accent: #f2a541;
+        --line: #3a4a42;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.6;
+    }
+    main { max-width: 860px; margin: 0 auto; padding: 48px 16px 64px; }
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+    h1 { font-size: clamp(2.4rem, 7vw, 3.6rem); line-height: 1.1; margin: 8px 0 12px; }
+    h2 { font-size: 1.5rem; margin: 48px 0 12px; }
+    .lead { font-size: 1.15rem; color: var(--muted); margin: 0; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px 24px;
+    }
+    ul { padding-left: 1.2rem; margin: 0; }
+    .team { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding: 0; list-style: none; }
+    .team li { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
+    .soon { color: var(--muted); font-style: italic; }
+    a { color: var(--accent); }
+    footer { margin-top: 56px; color: var(--muted); font-size: 0.9rem; }
+  </style>
 </head>
 <body>
-  <h1>Goose Patrol</h1>
-  <p>ENG1 Software Engineering group project, University of York. Team website coming soon.</p>
+  <main>
+    <p class="eyebrow">ENG1 Software Engineering · University of York</p>
+    <h1>Goose Patrol</h1>
+    <p class="lead">A 5-minute escape game set on the University of York campus. Find your way out before the time runs out, and watch out for the geese.</p>
+
+    <h2>The game</h2>
+    <div class="card">
+      <ul>
+        <li>A 5-minute countdown timer that is always on screen, with a pause option</li>
+        <li>A map of the York campus to explore</li>
+        <li>Two items in your inventory at the start</li>
+        <li>Two hidden events waiting to be found</li>
+        <li>Counters for the items you find and the events you trigger</li>
+      </ul>
+      <p>Built in Java 17 with LibGDX.</p>
+    </div>
+
+    <h2>Team 2</h2>
+    <ul class="team">
+      <li>Ahmet</li>
+      <li>Alex</li>
+      <li>Angelina</li>
+      <li>Aybike</li>
+      <li>Ghalia</li>
+      <li>Kev</li>
+      <li>Leo</li>
+      <li>Sean</li>
+    </ul>
+
+    <h2>Assessment 1 deliverables</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th scope="col">Deliverable</th><th scope="col">Document</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Requirements</td><td class="soon">Req1.pdf, coming soon</td></tr>
+          <tr><td>Architecture</td><td class="soon">Arch1.pdf, coming soon</td></tr>
+          <tr><td>Method selection and planning</td><td class="soon">Plan1.pdf, coming soon</td></tr>
+          <tr><td>Risk assessment and mitigation</td><td class="soon">Risk1.pdf, coming soon</td></tr>
+          <tr><td>Implementation</td><td class="soon">Impl1.pdf, coming soon</td></tr>
+          <tr><td>Game download</td><td class="soon">Coming soon</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>Goose Patrol · ENG1 Team 2 · University of York, 2026</footer>
+  </main>
 </body>
 </html>
