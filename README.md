@@ -13,15 +13,18 @@ University of York · ENG1 Software Engineering · Team N
 
 ## Game Concept
 
-**Goose Patrol** is a short, top-down escape game set on the University of York campus.
-The player is a student who has five minutes to make it off campus, avoiding the
-infamous campus geese along the way.
+**Goose Patrol** is a short, non-violent "bullet hell" / wave-survival game set on the
+University of York campus. Waves of hungry geese come at the player, who feeds them until
+they fly away. Nothing is ever hurt.
 
-- **Time limit:** each run lasts 5 minutes; the clock is always visible on screen.
-- **Map:** a stylised University of York campus built with Tiled.
-- **Obstacles:** patrolling geese and other campus hazards that slow down or catch the player.
-- **Events:** positive, negative and hidden events encountered along the route.
-- **Win/lose:** escape before the timer runs out to win; get caught or run out of time to lose.
+- **Time limit:** each run lasts at most 5 minutes; the clock is always visible on screen.
+- **Win/lose:** disperse every wave to win (finishing early is possible); lose if geese are
+  left when the timer runs out, or if the player gets too tired.
+- **Items and events:** the player starts with 2 items and can discover 2 hidden events.
+- **Map:** a stylised part of the University of York campus built with Tiled.
+- **Audience:** A-level students and first-year students; easy by default and accessible.
+
+Details from the client meeting: [docs/meetings/2026-10-14-client-meeting-notes.md](docs/meetings/2026-10-14-client-meeting-notes.md)
 
 ## Repository Layout
 
