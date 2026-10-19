@@ -9,7 +9,7 @@
 
 **Negotiation.** Where the client's answers differed from or extended the product brief, the client's view was taken as decisive. The most important constraint is that the game must contain no violence at all, because it will be used as marketing material on the university's website and must be friendly in tone. Within this constraint, and as long as the brief's requirements are met, the client gave the team creative freedom over the story, setting, items and events. One conflict remains open: the brief describes hidden events as "invisible until triggered", whereas the client explained that hidden "does not mean invisible" (the player may see something, but not know what it will do). We have contacted the client to confirm which interpretation to follow, and the affected requirements are marked as pending until then.
 
-**Presentation.** Following common practice [1], [2], requirements are split into user requirements (what the client and players need, in plain language) and system requirements, which are further divided into functional requirements (what the game does) and non-functional requirements (qualities and constraints, such as platforms and accessibility). Each requirement has a unique, meaningful identifier (e.g. `UR_TIMER`, `FR_PAUSE`, `NFR_PLATFORM`), so that it can be traced to the architecture, code and tests in later deliverables. Every system requirement lists the user requirement(s) it supports. Priorities use the keywords *shall* (mandatory), *should* (important) and *may* (optional) [4]. To keep requirements objective and testable, each non-functional requirement has a fit criterion that states how it can be measured [3]. Requirements are presented in tables because they are easy to scan and to cross-reference.
+**Presentation.** As the brief asks, and following common practice [1], [2], requirements are split into user requirements (`UR_`: what the client and players need, in plain language) and system requirements (`SR_`: what the game must do to meet them). A *Type* column marks each system requirement as functional (behaviour of the game) or non-functional (qualities and constraints, such as platforms and accessibility). Each requirement has a unique, meaningful identifier (e.g. `UR_TIMER`, `SR_PAUSE`, `SR_PLATFORM`), so that it can be traced to the architecture, code and tests in later deliverables, and every system requirement lists the user requirement(s) it supports. Priorities follow the MoSCoW method [4]: *Must* (required for this version), *Should* (important) and *Could* (desirable if time allows). To keep requirements objective and testable, each non-functional requirement has a fit criterion that states how it can be measured [3]. Requirements are presented in tables because they are easy to scan and to cross-reference.
 
 ---
 
@@ -18,12 +18,12 @@
 [1] I. Sommerville, *Software Engineering*, 10th ed. Pearson, 2016, ch. 4.
 [2] ISO/IEC/IEEE 29148:2018, *Systems and software engineering — Life cycle processes — Requirements engineering*.
 [3] S. Robertson and J. Robertson, *Mastering the Requirements Process*, 3rd ed. Addison-Wesley, 2012.
-[4] S. Bradner, "Key words for use in RFCs to Indicate Requirement Levels", RFC 2119, IETF, 1997.
+[4] Agile Business Consortium, "MoSCoW Prioritisation", in *The DSDM Agile Project Framework*, 2014.
 
 ---
 
 ### Before submitting (checklist)
 - [ ] Send the hidden-events email to the client; update the "one conflict remains open" sentence with the answer
-- [ ] Make sure the IDs and priorities here match the tables in part b
+- [ ] Make sure the IDs (UR_/SR_), Type column and MoSCoW priorities match the tables in part b
 - [ ] Check the references are cited in the format the team uses for all documents
 - [ ] Check it fits on one page in the final template (sans-serif 11pt, 1 cm margins)
