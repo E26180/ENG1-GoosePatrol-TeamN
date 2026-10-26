@@ -35,7 +35,7 @@ class EnergyDrinkItemTest {
     void usingADrinkBoostsThePlayer() {
         FakePlayer player = new FakePlayer();
         EnergyDrinkItem drink = new EnergyDrinkItem(player);
-        drink.use();
+        drink.use(0f, 0f);
         assertEquals(1, player.boosts);
         assertEquals(EnergyDrinkItem.SPEED_MULTIPLIER, player.lastMultiplier);
         assertEquals(EnergyDrinkItem.BOOST_SECONDS, player.lastSeconds);
@@ -46,8 +46,8 @@ class EnergyDrinkItemTest {
     void secondDrinkHasToWaitForTheCooldown() {
         FakePlayer player = new FakePlayer();
         EnergyDrinkItem drink = new EnergyDrinkItem(player);
-        drink.use();
-        drink.use();
+        drink.use(0f, 0f);
+        drink.use(0f, 0f);
         assertEquals(1, player.boosts);
         assertFalse(drink.canUse());
         drink.update(EnergyDrinkItem.COOLDOWN_SECONDS);
