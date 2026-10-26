@@ -20,7 +20,7 @@ class ItemTest {
         }
 
         @Override
-        protected void applyEffect() {
+        protected void applyEffect(float x, float y) {
             effectCount++;
         }
     }
@@ -35,7 +35,7 @@ class ItemTest {
     @Test
     void useSpendsOneUseAndAppliesTheEffectOnce() {
         CountingItem item = new CountingItem(3, 0f);
-        item.use();
+        item.use(0f, 0f);
         assertEquals(2, item.getUsesLeft());
         assertEquals(1, item.effectCount);
     }
@@ -43,9 +43,9 @@ class ItemTest {
     @Test
     void itemCannotBeUsedWhenNoUsesAreLeft() {
         CountingItem item = new CountingItem(1, 0f);
-        item.use();
+        item.use(0f, 0f);
         assertFalse(item.canUse());
-        item.use();
+        item.use(0f, 0f);
         assertEquals(0, item.getUsesLeft());
         assertEquals(1, item.effectCount);
     }
@@ -53,7 +53,7 @@ class ItemTest {
     @Test
     void cooldownBlocksUseUntilItHasRunOut() {
         CountingItem item = new CountingItem(5, 10f);
-        item.use();
+        item.use(0f, 0f);
         assertFalse(item.canUse());
         item.update(9f);
         assertFalse(item.canUse());
@@ -64,7 +64,7 @@ class ItemTest {
     @Test
     void cooldownNeverGoesBelowZero() {
         CountingItem item = new CountingItem(5, 2f);
-        item.use();
+        item.use(0f, 0f);
         item.update(100f);
         assertEquals(0f, item.getCooldownLeft());
     }
@@ -72,8 +72,8 @@ class ItemTest {
     @Test
     void useDuringCooldownDoesNothing() {
         CountingItem item = new CountingItem(5, 10f);
-        item.use();
-        item.use();
+        item.use(0f, 0f);
+        item.use(0f, 0f);
         assertEquals(4, item.getUsesLeft());
         assertEquals(1, item.effectCount);
     }
@@ -82,14 +82,14 @@ class ItemTest {
     void oatsHaveTenUsesAndNoCooldown() {
         OatsItem oats = new OatsItem();
         assertEquals(10, oats.getUsesLeft());
-        oats.use();
+        oats.use(0f, 0f);
         assertTrue(oats.canUse());
     }
 
     @Test
     void breadPicnicHasATwentySecondCooldown() {
         BreadPicnicItem picnic = new BreadPicnicItem();
-        picnic.use();
+        picnic.use(0f, 0f);
         assertFalse(picnic.canUse());
         picnic.update(19f);
         assertFalse(picnic.canUse());

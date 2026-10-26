@@ -18,8 +18,8 @@ public class OatsItem extends Item {
     }
 
     @Override
-    protected void applyEffect() {
-        // TODO: feed the clicked goose by HUNGER_FILLED once the Goose class
+    protected void applyEffect(float x, float y) {
+        // TODO: feed the goose at (x, y) by HUNGER_FILLED once the Goose class
         // (Leo) offers a feed(amount) method.
     }
 }

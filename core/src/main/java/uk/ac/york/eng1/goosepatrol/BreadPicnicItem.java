@@ -25,8 +25,8 @@ public class BreadPicnicItem extends Item {
     }
 
     @Override
-    protected void applyEffect() {
-        // TODO: send geese within RADIUS_PIXELS to the blanket for EFFECT_SECONDS
-        // once the Goose class (Leo) can be sent to a point for a number of seconds.
+    protected void applyEffect(float x, float y) {
+        // TODO: send geese within RADIUS_PIXELS of (x, y) to the blanket for
+        // EFFECT_SECONDS once the Goose class (Leo) can be sent to a point.
     }
 }
