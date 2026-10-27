@@ -1,8 +1,9 @@
 package uk.ac.york.eng1.goosepatrol;
 
 /**
- * Bag of Oats: a single-target item. Using it on one goose fills that goose's
+ * Bag of Oats: a single-target item. Clicking a goose fills that goose's
  * hunger bar by {@link #HUNGER_FILLED}. It has 10 uses and no cooldown.
+ * A click that misses every goose does not spend a use.
  */
 public class OatsItem extends Item {
 
@@ -12,14 +13,26 @@ public class OatsItem extends Item {
     /** Number of uses the player starts with. */
     public static final int START_USES = 10;
 
-    /** Creates a full bag of oats. */
-    public OatsItem() {
+    /** Finds the goose the player clicked. */
+    private final GooseLocator geese;
+
+    /**
+     * Creates a full bag of oats.
+     *
+     * @param geese used to find the goose at the click position
+     */
+    public OatsItem(GooseLocator geese) {
         super("Bag of Oats", START_USES, 0f);
+        this.geese = geese;
     }
 
     @Override
-    protected void applyEffect(float x, float y) {
-        // TODO: feed the goose at (x, y) by HUNGER_FILLED once the Goose class
-        // (Leo) offers a feed(amount) method.
+    protected boolean applyEffect(float x, float y) {
+        Feedable goose = geese.gooseAt(x, y);
+        if (goose == null) {
+            return false;
+        }
+        goose.feed(HUNGER_FILLED);
+        return true;
     }
 }
