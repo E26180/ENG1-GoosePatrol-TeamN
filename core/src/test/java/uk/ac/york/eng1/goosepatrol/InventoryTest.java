@@ -12,10 +12,13 @@ import org.junit.jupiter.api.Test;
  */
 class InventoryTest {
 
+    /** A world with one goose at (10, 20), so clicks at (10, 20) hit it. */
     private Inventory twoItems() {
+        FakeGeese world = new FakeGeese();
+        world.add(10f, 20f);
         Inventory inventory = new Inventory();
-        inventory.addItem(new OatsItem());
-        inventory.addItem(new BreadPicnicItem());
+        inventory.addItem(new OatsItem(world));
+        inventory.addItem(new BreadItem(world));
         return inventory;
     }
 
@@ -52,9 +55,16 @@ class InventoryTest {
     void failedUseIsNotCounted() {
         Inventory inventory = twoItems();
         inventory.select(2);
-        assertTrue(inventory.useSelected(0f, 0f));
-        assertFalse(inventory.useSelected(0f, 0f));
+        assertTrue(inventory.useSelected(10f, 20f));
+        assertFalse(inventory.useSelected(10f, 20f));
         assertEquals(1, inventory.getItemsUsed());
+    }
+
+    @Test
+    void oatsClickOnEmptyGroundIsNotCounted() {
+        Inventory inventory = twoItems();
+        assertFalse(inventory.useSelected(900f, 900f));
+        assertEquals(0, inventory.getItemsUsed());
     }
 
     @Test
@@ -68,19 +78,20 @@ class InventoryTest {
     void updateCountsCooldownsDown() {
         Inventory inventory = twoItems();
         inventory.select(2);
-        inventory.useSelected(0f, 0f);
-        inventory.update(20f);
-        assertTrue(inventory.useSelected(0f, 0f));
+        inventory.useSelected(10f, 20f);
+        inventory.update(BreadItem.COOLDOWN_SECONDS);
+        assertTrue(inventory.useSelected(10f, 20f));
         assertEquals(2, inventory.getItemsUsed());
     }
 
     @Test
     void inventoryHoldsAtMostNineItems() {
         Inventory inventory = new Inventory();
+        FakeGeese world = new FakeGeese();
         for (int i = 0; i < Inventory.MAX_SLOTS; i++) {
-            assertTrue(inventory.addItem(new OatsItem()));
+            assertTrue(inventory.addItem(new OatsItem(world)));
         }
-        assertFalse(inventory.addItem(new OatsItem()));
+        assertFalse(inventory.addItem(new OatsItem(world)));
         assertEquals(9, inventory.getItems().size());
     }
 
@@ -88,7 +99,7 @@ class InventoryTest {
     void slotTextShowsNumberNameAndUses() {
         Inventory inventory = twoItems();
         assertEquals("1: Bag of Oats 10/10", inventory.slotText(1));
-        inventory.useSelected(0f, 0f);
+        inventory.useSelected(10f, 20f);
         assertEquals("1: Bag of Oats 9/10", inventory.slotText(1));
     }
 
@@ -96,10 +107,10 @@ class InventoryTest {
     void slotTextShowsTheWaitTimeDuringACooldown() {
         Inventory inventory = twoItems();
         inventory.select(2);
-        inventory.useSelected(0f, 0f);
-        assertEquals("2: Bread Picnic 4/5 (wait 20s)", inventory.slotText(2));
-        inventory.update(8.5f);
-        assertEquals("2: Bread Picnic 4/5 (wait 12s)", inventory.slotText(2));
+        inventory.useSelected(10f, 20f);
+        assertEquals("2: Bread 4/5 (wait 3s)", inventory.slotText(2));
+        inventory.update(1.5f);
+        assertEquals("2: Bread 4/5 (wait 2s)", inventory.slotText(2));
     }
 
     @Test

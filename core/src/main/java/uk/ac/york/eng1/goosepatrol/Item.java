@@ -10,7 +10,7 @@ public abstract class Item {
     private final String name;
 
     /** How many times the item can be used in total. */
-    private final int maxUses;
+    private int maxUses;
 
     /** How many times the item can still be used. */
     private int usesLeft;
@@ -46,8 +46,9 @@ public abstract class Item {
     }
 
     /**
-     * Uses the item: spends one use, starts the cooldown and applies the effect.
-     * Does nothing if the item cannot be used.
+     * Uses the item: applies the effect, then spends one use and starts the cooldown.
+     * Does nothing if the item is not ready or if the effect found nothing to act on
+     * (for example a click that missed every goose).
      *
      * @param x where the player aimed (world x), ignored by items that need no target
      * @param y where the player aimed (world y), ignored by items that need no target
@@ -57,9 +58,11 @@ public abstract class Item {
         if (!canUse()) {
             return false;
         }
+        if (!applyEffect(x, y)) {
+            return false;
+        }
         usesLeft--;
         cooldownLeft = cooldownSeconds;
-        applyEffect(x, y);
         return true;
     }
 
@@ -79,8 +82,9 @@ public abstract class Item {
      *
      * @param x where the player aimed (world x)
      * @param y where the player aimed (world y)
+     * @return true if the effect happened, false if there was nothing to act on
      */
-    protected abstract void applyEffect(float x, float y);
+    protected abstract boolean applyEffect(float x, float y);
 
     /**
      * Returns the display name of the item.
@@ -89,6 +93,18 @@ public abstract class Item {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Adds uses, for example when a hidden event gives the player more food.
+     *
+     * @param extra how many uses to add (ignored if zero or less)
+     */
+    public void addUses(int extra) {
+        if (extra > 0) {
+            usesLeft += extra;
+            maxUses = Math.max(maxUses, usesLeft);
+        }
     }
 
     /**
