@@ -18,9 +18,11 @@ public interface IHiddenEvent {
     //Actions and Execution
     void showFlag();
     void trigger();
+    boolean checkActive();
 
     //Get methods for config data
     float getActivationRadius();
     float[] getPos();
     float getFlagRadius();
+    boolean getIsActivated();
 }

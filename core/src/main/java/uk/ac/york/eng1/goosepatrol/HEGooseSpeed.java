@@ -1,11 +1,16 @@
 package uk.ac.york.eng1.goosepatrol;
 
+import java.time.Instant;
+
 public class HEGooseSpeed implements IHiddenEvent{
 
     private float posX;
     private float posY;
     private final float activationRadius = 50;
     private final float flagRadius = 100;
+
+    private float activationTime = 0f;
+    private boolean isActivated = false;
 
     public HEGooseSpeed(float posX, float posY) {
         this.posX = posX;
@@ -32,11 +37,23 @@ public class HEGooseSpeed implements IHiddenEvent{
 
     @Override
     public void showFlag() {
-
+        //TODO: Setup the flag to show an event is nearby.  Dont show which event or exactly where
     }
     @Override
     public void trigger() {
+        //TODO: Goose speed multiplier
+        this.activationTime = Instant.now().getEpochSecond() + 10;
+        this.isActivated = true;
+    }
 
+    @Override
+    public boolean checkActive() {
+        if (Instant.now().getEpochSecond() > this.activationTime) {
+            //TODO: Goose speed multiplier
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
@@ -52,5 +69,10 @@ public class HEGooseSpeed implements IHiddenEvent{
     @Override
     public float getFlagRadius() {
         return this.flagRadius;
+    }
+
+    @Override
+    public boolean getIsActivated() {
+        return this.isActivated;
     }
 }

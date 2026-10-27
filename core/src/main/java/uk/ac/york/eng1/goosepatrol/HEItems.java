@@ -7,6 +7,8 @@ public class HEItems implements IHiddenEvent{
     private final float activationRadius = 50;
     private final float flagRadius = 100;
 
+    private boolean isActivated = false;
+
     public HEItems(float posX, float posY) {
         this.posX = posX;
         this.posY = posY;
@@ -32,11 +34,18 @@ public class HEItems implements IHiddenEvent{
 
     @Override
     public void showFlag() {
-
+        //TODO: Setup the flag to show an event is nearby.  Dont show what event or exactly where
     }
     @Override
     public void trigger() {
+        //TODO: Increase energy drink count by 3
+        //TODO: Increase bread count by 10
+        this.isActivated = true;
+    }
 
+    @Override
+    public boolean checkActive() {
+        return false;
     }
 
     @Override
@@ -52,5 +61,10 @@ public class HEItems implements IHiddenEvent{
     @Override
     public float getFlagRadius() {
         return this.flagRadius;
+    }
+
+    @Override
+    public boolean getIsActivated() {
+        return this.isActivated;
     }
 }
