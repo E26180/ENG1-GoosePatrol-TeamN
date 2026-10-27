@@ -44,7 +44,8 @@ public class EnergyDrinkItem extends Item {
     }
 
     @Override
-    protected void applyEffect() {
+    protected boolean applyEffect(float x, float y) {
         target.applySpeedBoost(SPEED_MULTIPLIER, BOOST_SECONDS);
+        return true;
     }
 }
