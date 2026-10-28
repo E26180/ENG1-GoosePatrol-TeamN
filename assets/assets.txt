@@ -1,7 +1,11 @@
+CREDITS.md
 audio/.gitkeep
 libgdx.png
 maps/.gitkeep
 textures/.gitkeep
+textures/items/bread.png
+textures/items/energy-drink.png
+textures/items/oats.png
 ui/font-list.fnt
 ui/font-subtitle.fnt
 ui/font-window.fnt
