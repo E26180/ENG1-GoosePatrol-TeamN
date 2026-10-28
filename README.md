@@ -35,15 +35,17 @@ ENG1-GoosePatrol-TeamN/
 │       ├── item/      Items, inventory and the interfaces they use (Feedable, GooseLocator, SpeedBoostTarget)
 │       └── ...        One sub-package per area: goose, map, player, event, ui (add yours here)
 ├── lwjgl3/            Desktop launcher (LWJGL3 backend)
-├── assets/            Game assets
-│   ├── textures/      Sprites, tilesets, UI images
+├── assets/            Game assets; every file is listed in assets/CREDITS.md with its licence
+│   ├── textures/      Sprites, tilesets, UI images (items/ holds the item icons)
 │   ├── audio/         Music and sound effects
 │   └── maps/          Tiled map files (.tmx / .tsx)
 ├── docs/
 │   ├── assessment1/   Deliverables (Req1.pdf, url1.txt; Arch1, Plan1, Risk1 and Impl1 follow)
+│   ├── architecture/  Diagram versions for Arch1 and the scripts that draw them
 │   ├── meetings/      Meeting notes
 │   └── templates/     Empty tables for the Req1, Risk1 and Plan1 documents
-└── website/           Static files for the team website
+├── tools/             Small scripts, for example the one that draws the item icons
+└── website/           Team website; the PDFs in docs/ are added when it is published
 ```
 
 Tests live next to the code they test: `core/src/test/java/uk/ac/york/eng1/goosepatrol/<area>/`.

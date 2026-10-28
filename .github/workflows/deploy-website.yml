@@ -1,6 +1,7 @@
 # Publishes the website/ folder to GitHub Pages:
 # https://e26180.github.io/ENG1-GoosePatrol-TeamN/
-# Runs when a change to website/ is merged into main, or by hand from the Actions tab.
+# Runs when the website or a deliverable changes on main, or by hand from the Actions tab.
+# The PDFs are copied from docs/ at build time, so each file lives in one place only.
 name: Deploy website
 
 on:
@@ -8,6 +9,8 @@ on:
     branches: [main]
     paths:
       - "website/**"
+      - "docs/assessment1/**"
+      - "docs/architecture/**"
       - ".github/workflows/deploy-website.yml"
   workflow_dispatch:
 
@@ -29,8 +32,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Put the website and the deliverables together
+        run: |
+          mkdir -p _site/docs _site/architecture
+          cp -r website/. _site/
+          cp docs/assessment1/*.pdf _site/docs/ 2>/dev/null || true
+          cp docs/architecture/*.pdf docs/architecture/*.svg _site/architecture/
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: website
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
