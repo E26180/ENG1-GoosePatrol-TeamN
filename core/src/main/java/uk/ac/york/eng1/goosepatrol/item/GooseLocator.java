@@ -1,4 +1,4 @@
-package uk.ac.york.eng1.goosepatrol;
+package uk.ac.york.eng1.goosepatrol.item;
 
 import java.util.List;
 

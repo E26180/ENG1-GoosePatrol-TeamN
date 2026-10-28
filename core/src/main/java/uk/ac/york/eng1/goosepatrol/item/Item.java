@@ -1,4 +1,4 @@
-package uk.ac.york.eng1.goosepatrol;
+package uk.ac.york.eng1.goosepatrol.item;
 
 /**
  * Base class for all items the player can use to deal with the geese.

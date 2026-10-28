@@ -1,4 +1,4 @@
-package uk.ac.york.eng1.goosepatrol;
+package uk.ac.york.eng1.goosepatrol.item;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

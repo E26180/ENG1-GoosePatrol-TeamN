@@ -1,4 +1,4 @@
-package uk.ac.york.eng1.goosepatrol;
+package uk.ac.york.eng1.goosepatrol.item;
 
 /**
  * Something with a hunger bar that food can fill, normally a goose.

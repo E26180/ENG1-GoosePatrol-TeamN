@@ -1,4 +1,4 @@
-package uk.ac.york.eng1.goosepatrol;
+package uk.ac.york.eng1.goosepatrol.item;
 
 /**
  * Bread: an area item. Clicking a point throws bread there and fills the hunger

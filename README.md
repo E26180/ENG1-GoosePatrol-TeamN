@@ -30,15 +30,24 @@ Details from the client meeting: [docs/meetings/2026-10-14-client-meeting-notes.
 
 ```
 ENG1-GoosePatrol-TeamN/
-├── core/              Game code shared by all platforms (package uk.ac.york.eng1.goosepatrol)
+├── core/              Game code shared by all platforms
+│   └── src/main/java/uk/ac/york/eng1/goosepatrol/
+│       ├── item/      Items, inventory and the interfaces they use (Feedable, GooseLocator, SpeedBoostTarget)
+│       └── ...        One sub-package per area: goose, map, player, event, ui (add yours here)
 ├── lwjgl3/            Desktop launcher (LWJGL3 backend)
 ├── assets/            Game assets
 │   ├── textures/      Sprites, tilesets, UI images
 │   ├── audio/         Music and sound effects
 │   └── maps/          Tiled map files (.tmx / .tsx)
-├── docs/assessment1/  Assessment 1 deliverables (url1.txt, Req1/Arch1/Plan1/Risk1/Impl1.pdf)
+├── docs/
+│   ├── assessment1/   Deliverables (Req1.pdf, url1.txt; Arch1, Plan1, Risk1 and Impl1 follow)
+│   ├── meetings/      Meeting notes
+│   └── templates/     Empty tables for the Req1, Risk1 and Plan1 documents
 └── website/           Static files for the team website
 ```
+
+Tests live next to the code they test: `core/src/test/java/uk/ac/york/eng1/goosepatrol/<area>/`.
+Run them with `./gradlew core:test`.
 
 ## Getting Started
 
