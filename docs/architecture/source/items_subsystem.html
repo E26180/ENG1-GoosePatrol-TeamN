@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Items and Inventory subsystem</title>
+<style>
+  @page { size: A4; margin: 1.5cm; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 11pt; line-height: 1.3; color: #111; margin: 0; }
+  h1 { font-size: 16pt; margin: 0 0 4pt; }
+  h2 { font-size: 13pt; margin: 14pt 0 5pt; page-break-after: avoid; }
+  h3 { font-size: 11pt; margin: 9pt 0 3pt; }
+  p { margin: 0 0 6pt; }
+  ul { margin: 0 0 6pt; padding-left: 16pt; }
+  li { margin-bottom: 2pt; }
+  .sub { color: #444; margin-bottom: 10pt; }
+  table { border-collapse: collapse; width: 100%; font-size: 10pt; margin: 4pt 0 8pt; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid #999; padding: 3pt 5pt; vertical-align: top; text-align: left; }
+  th { background: #e8e8e8; }
+  code { font-family: "Courier New", monospace; font-size: 9.5pt; }
+  figure { margin: 6pt 0 10pt; text-align: center; page-break-inside: avoid; }
+  figure img { width: 100%; }
+  figcaption { font-size: 10pt; color: #333; margin-top: 3pt; }
+  .crc { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; margin: 4pt 0 8pt; }
+  .card { border: 1px solid #555; font-size: 10pt; page-break-inside: avoid; }
+  .card .name { background: #e8e8e8; font-weight: bold; padding: 3pt 6pt; border-bottom: 1px solid #555; }
+  .card .body { display: grid; grid-template-columns: 1.6fr 1fr; }
+  .card .body div { padding: 3pt 6pt; }
+  .card .body div + div { border-left: 1px solid #555; }
+  .card ul { margin: 0; padding-left: 12pt; }
+  .label { font-weight: bold; font-size: 9pt; color: #444; }
+  .break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<h1>Items and Inventory subsystem</h1>
+<p class="sub">Architecture of the <code>item</code> package, written by its developer for the Arch1 report. It gives the structural view (class diagram), a behavioural view (sequence diagram), the class responsibilities (CRC cards), the reasons for the design, how it changed, and how it traces to Req1.</p>
+
+<h2>1. Scope</h2>
+<p>The package holds everything the player carries and uses: the abstract <code>Item</code>, three concrete items, the <code>Inventory</code> that holds up to nine of them, and the number-key input. It meets these requirements from Req1: FR_START_INVENTORY, FR_SINGLE_TARGET, FR_MULTI_TARGET, FR_CONTROLS (items with the mouse, slots with keys 1 to 9), FR_COUNTERS (items used), and the item side of FR_EVENT_EFFECT (an event can add items or uses). The constants for uses, cooldowns, radius and speed also serve QR_NEWBIE, QR_WINNABLE and QR_AVOID_EXTREME.</p>
+
+<table>
+  <thead><tr><th>Item</th><th>Type</th><th>Effect</th><th>Start uses</th><th>Cooldown</th><th>Requirement</th></tr></thead>
+  <tr><td>Bag of Oats</td><td>single target</td><td>fills 50% of the hunger of the clicked goose</td><td>10</td><td>none</td><td>FR_SINGLE_TARGET</td></tr>
+  <tr><td>Bread</td><td>area</td><td>fills 50% of the hunger of every goose within 30 px of the click</td><td>5</td><td>3 s</td><td>FR_MULTI_TARGET</td></tr>
+  <tr><td>Energy Drink</td><td>player boost</td><td>player moves 1.5x faster for 5 s</td><td>3</td><td>10 s</td><td>FR_EVENT_EFFECT (given by the helping event)</td></tr>
+</table>
+
+<h2>2. Why it is designed this way</h2>
+<ul>
+  <li><b>One abstract <code>Item</code> with a template method.</b> <code>use(x, y)</code> holds the shared rules (uses, cooldown, only spend on success) once, and each item only writes <code>applyEffect</code>. A new item for Assessment 2 (for example the pick-up items in UR_MAP_ITEMS) is one new subclass, with no change to <code>Inventory</code> (open for extension, closed for change).</li>
+  <li><b>Small interfaces instead of the real goose and player classes.</b> Items talk to <code>GooseLocator</code>, <code>Feedable</code> and <code>SpeedBoostTarget</code>. This keeps the item package free of the enemy and player code (dependency inversion), so it could be built and tested before the geese existed, and the enemy team can change how geese are stored without breaking the items.</li>
+  <li><b><code>applyEffect</code> returns a boolean.</b> A click on empty ground does not cost an Oats use and is not counted. This keeps the "items used" counter honest (FR_COUNTERS) and avoids punishing new players (QR_NEWBIE).</li>
+  <li><b>Time is passed in as <code>delta</code>.</b> Cooldowns count down in <code>update(delta)</code> rather than reading the clock, so they stop while the game is paused (the game screen simply stops calling it, FR_PAUSE_KEY) and can be tested without waiting.</li>
+  <li><b>Balancing values are named constants.</b> All numbers in the table in section 1 are <code>public static final</code> fields, so play-testing for QR_WINNABLE and QR_AVOID_EXTREME changes one line, and the tests check the limits (for example the boost is at most 1.5x).</li>
+  <li><b>Nine slots, keys 1 to 9.</b> The slot limit matches the number keys, so every item can always be selected (FR_CONTROLS). <code>slotText</code> shows the uses and the wait time as text as well as the icon, which supports QR_ACCESS_CUES.</li>
+</ul>
+
+<h2 class="break">3. Structure: class diagram</h2>
+<figure>
+  <img src="../items-class.svg" alt="Class diagram of the item package">
+  <figcaption>Figure 1. Class diagram of <code>uk.ac.york.eng1.goosepatrol.item</code> (UML, drawn as code with <code>draw_items.py</code>). Dashed grey classes belong to other packages and are not written yet, so their names may change.</figcaption>
+</figure>
+
+<h2 class="break">4. Behaviour: sequence diagram</h2>
+<figure>
+  <img src="../items-sequence.svg" alt="Sequence diagram: feeding a group of geese with Bread">
+  <figcaption>Figure 2. The player selects Bread with key 2 and clicks near a group of geese. The <code>alt</code> frame shows that a use is only spent when the item can be used; the <code>loop</code> frame feeds every goose in the radius.</figcaption>
+</figure>
+<p>Oats follow the same path, but <code>applyEffect</code> calls <code>gooseAt(x, y)</code> instead of <code>geeseNear</code>. If the click misses every goose, <code>applyEffect</code> returns <code>false</code>, so no use is spent and nothing is counted. The Energy Drink calls <code>applySpeedBoost(1.5, 5)</code> on the player and does not need the click position.</p>
+
+<h2>5. Class responsibilities (CRC cards)</h2>
+<div class="crc">
+  <div class="card"><div class="name">Item (abstract)</div><div class="body">
+    <div><span class="label">Responsibilities</span><ul><li>Know its name, uses left and maximum uses</li><li>Run its own cooldown timer</li><li>Decide if it can be used now</li><li>Spend a use only when the effect worked</li><li>Accept extra uses from an event</li></ul></div>
+    <div><span class="label">Collaborators</span><ul><li>Inventory</li><li>subclasses (applyEffect)</li></ul></div></div></div>
+  <div class="card"><div class="name">Inventory</div><div class="body">
+    <div><span class="label">Responsibilities</span><ul><li>Hold up to 9 items in slots</li><li>Remember the selected slot</li><li>Use the selected item at a point</li><li>Count successful uses</li><li>Tick all cooldowns each frame</li><li>Give the HUD text for each slot</li></ul></div>
+    <div><span class="label">Collaborators</span><ul><li>Item</li><li>InventoryInput</li><li>GameScreen / HUD</li><li>hidden events</li></ul></div></div></div>
+  <div class="card"><div class="name">OatsItem</div><div class="body">
+    <div><span class="label">Responsibilities</span><ul><li>Find the goose under the click</li><li>Fill half of its hunger</li><li>Report a miss so no use is lost</li></ul></div>
+    <div><span class="label">Collaborators</span><ul><li>GooseLocator</li><li>Feedable</li></ul></div></div></div>
+  <div class="card"><div class="name">BreadItem</div><div class="body">
+    <div><span class="label">Responsibilities</span><ul><li>Find every goose within 30 px</li><li>Fill half of each goose's hunger</li><li>Wait 3 s between uses</li></ul></div>
+    <div><span class="label">Collaborators</span><ul><li>GooseLocator</li><li>Feedable</li></ul></div></div></div>
+  <div class="card"><div class="name">EnergyDrinkItem</div><div class="body">
+    <div><span class="label">Responsibilities</span><ul><li>Speed the player up 1.5x for 5 s</li><li>Wait 10 s, so boosts never stack</li></ul></div>
+    <div><span class="label">Collaborators</span><ul><li>SpeedBoostTarget</li></ul></div></div></div>
+  <div class="card"><div class="name">InventoryInput</div><div class="body">
+    <div><span class="label">Responsibilities</span><ul><li>Turn keys 1 to 9 into slot numbers</li><li>Select that slot in the inventory</li></ul></div>
+    <div><span class="label">Collaborators</span><ul><li>Inventory</li><li>LibGDX Input</li></ul></div></div></div>
+  <div class="card"><div class="name">GooseLocator, Feedable (interfaces)</div><div class="body">
+    <div><span class="label">Responsibilities</span><ul><li>Find the goose at a point or the geese in a radius</li><li>Let an item feed a goose without knowing its class</li></ul></div>
+    <div><span class="label">Collaborators</span><ul><li>implemented by the enemy package</li></ul></div></div></div>
+  <div class="card"><div class="name">SpeedBoostTarget (interface)</div><div class="body">
+    <div><span class="label">Responsibilities</span><ul><li>Let an item speed up whoever implements it</li></ul></div>
+    <div><span class="label">Collaborators</span><ul><li>implemented by the player package</li></ul></div></div></div>
+</div>
+
+<h2>6. How the design evolved</h2>
+<table>
+  <thead><tr><th>Version</th><th>Date, commit</th><th>Design</th><th>Why it changed</th></tr></thead>
+  <tr><td>v1</td><td>26 Oct, <code>2550c29</code></td><td><code>Item.use()</code> with no arguments and a <code>void applyEffect()</code>. Items: Bag of Oats and a Bread Picnic that drew geese to a blanket for some seconds, with a 20 s cooldown.</td><td>First draft from the item proposal.</td></tr>
+  <tr><td>v2</td><td>26 Oct, <code>a63ccea</code>, <code>28f4b2b</code></td><td>Added <code>EnergyDrinkItem</code> with the <code>SpeedBoostTarget</code> interface, and the <code>Inventory</code> with number keys, the use counter and slot text.</td><td>The helping hidden event needs an item that helps the player, and the HUD needs the counter (FR_COUNTERS).</td></tr>
+  <tr><td>v3</td><td>27 Oct, <code>fcdc50b</code></td><td><code>use(x, y)</code> and <code>boolean applyEffect(x, y)</code>; the picnic became <code>BreadItem</code>, which feeds all geese in a 30 px radius at once; items find geese through <code>GooseLocator</code>; <code>addUses</code> added.</td><td>Items need to know where the player clicked (FR_CONTROLS). The picnic needed the goose AI to walk to a blanket, which tied two subsystems together; an instant area feed meets FR_MULTI_TARGET directly. A missed click should not waste a use. The helping event gives 10 more Bread through <code>addUses</code>.</td></tr>
+  <tr><td>v4</td><td>28 Oct, <code>40f2c8d</code></td><td>All item classes and tests moved into the <code>item</code> package.</td><td>The main package had become crowded; one package per component matches the component diagram (Arch v2).</td></tr>
+</table>
+
+<h2>7. Traceability and tests</h2>
+<p>33 JUnit 5 tests cover the package (<code>core/src/test/java/.../item</code>). They use a fake goose world (<code>FakeGeese</code>) so they run without LibGDX or the real geese.</p>
+<table>
+  <thead><tr><th>Requirement</th><th>Where in the code</th><th>Tests that check it</th></tr></thead>
+  <tr><td>FR_START_INVENTORY</td><td><code>Inventory.addItem</code>, <code>OatsItem</code>, <code>BreadItem</code></td><td>firstItemIsSelectedAtTheStart, newItemCanBeUsed</td></tr>
+  <tr><td>FR_SINGLE_TARGET</td><td><code>OatsItem.applyEffect</code> using <code>gooseAt</code></td><td>oatsFillHalfOfTheClickedGoosesHunger, oatsClickThatMissesEveryGooseIsNotSpent</td></tr>
+  <tr><td>FR_MULTI_TARGET</td><td><code>BreadItem.applyEffect</code> using <code>geeseNear</code></td><td>breadFeedsEveryGooseInTheRadiusButNotThoseOutside</td></tr>
+  <tr><td>FR_CONTROLS</td><td><code>InventoryInput</code>, <code>Inventory.select</code>, <code>useSelected(x, y)</code></td><td>numberKeysMapToSlotNumbers, selectingByNumberChangesTheSelectedItem, numbersWithoutAnItemAreIgnored</td></tr>
+  <tr><td>FR_COUNTERS (items used)</td><td><code>Inventory.itemsUsed</code></td><td>usingTheSelectedItemSpendsOneUseAndCountsIt, failedUseIsNotCounted, oatsClickOnEmptyGroundIsNotCounted</td></tr>
+  <tr><td>FR_EVENT_EFFECT (helping event)</td><td><code>Item.addUses</code>, <code>EnergyDrinkItem</code></td><td>aHiddenEventCanGiveTenMoreBread, addUsesGivesMoreUses, usingADrinkBoostsThePlayer</td></tr>
+  <tr><td>QR_AVOID_EXTREME</td><td>constants in each item</td><td>boostIsFasterButNotExtreme, cooldownIsLongerThanTheBoostSoBoostsDoNotStack</td></tr>
+  <tr><td>QR_ACCESS_CUES (text cue)</td><td><code>Inventory.slotText</code></td><td>slotTextShowsNumberNameAndUses, slotTextShowsTheWaitTimeDuringACooldown</td></tr>
+</table>
+
+<h2>8. What other packages must provide</h2>
+<ul>
+  <li><b>Enemy package:</b> the goose class implements <code>Feedable</code> (<code>feed(amount)</code> lowers its hunger), and the class that holds all geese implements <code>GooseLocator</code>.</li>
+  <li><b>Player package:</b> the player implements <code>SpeedBoostTarget</code>.</li>
+  <li><b>Core / UI:</b> the game screen calls <code>inventory.update(delta)</code> and <code>inventoryInput.update()</code> each frame, calls <code>useSelected</code> with the mouse position in world coordinates, and draws <code>slotText(1..9)</code> and <code>getItemsUsed()</code>.</li>
+  <li><b>Event package:</b> the helping event calls <code>addItem(new EnergyDrinkItem(player))</code> and <code>addUses(10)</code> on the Bread.</li>
+</ul>
+
+</body>
+</html>
