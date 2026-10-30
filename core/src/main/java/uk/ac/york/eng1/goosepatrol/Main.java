@@ -9,11 +9,14 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
+    private MapManager mapManager;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
+        mapManager = new MapManager();
+
     }
 
     @Override
@@ -22,11 +25,15 @@ public class Main extends ApplicationAdapter {
         batch.begin();
         batch.draw(image, 140, 210);
         batch.end();
+        mapManager.render();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
         image.dispose();
+        if(mapManager != null){
+            mapManager.dispose();
+        }
     }
 }
