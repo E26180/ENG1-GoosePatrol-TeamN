@@ -2,8 +2,7 @@
 <map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="50" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="91">
  <tileset firstgid="1" source="Cozy_World.tsx"/>
  <tileset firstgid="56" source="stone1.tsx"/>
- <tileset firstgid="57" source="Building6.tsx"/>
- <tileset firstgid="58" source="Buildingsss.tsx"/>
+ <tileset firstgid="57" source="Buildingsss.tsx"/>
  <layer id="1" name="ForeGround" width="50" height="40">
   <data encoding="base64" compression="zlib">
    eJztl0sKgDAMRLPQ4jV6/0u6EqFMmta2+UgXgyiC85wJxouIrgVKykIejoA8M/1aMq3olEW3VnJo8pz0zgQ3F6P82nmk4rnP9ZP8+dbo1R84LBi+9JzrmJV/iaOX2QvHSM+sGRBHAufes5D4OA6O36OkjCIwSF4jMfwhB8QSZR62tra2kNBeJt3nTdx+ifyXR0/i9i907oGjpSvl/pvBNY3vaK0faL9Fu28mmWElx5f/JvT+H1n9c81gaMkhAkdrFitZZmQROQ/kO9p81HokdcyaI3fKy3wgX73zbM1R68wogxZHzWskDg1tDl43lmo3/Q==
@@ -11,7 +10,7 @@
  </layer>
  <layer id="4" name="Building" width="50" height="40">
   <data encoding="base64" compression="zlib">
-   eJztzjEKACAMA0DfpYL+/1VOgpuTFfRuCjSQpgQATGXJfXOP0IL3IuXbDwDAQ+qhLgAAAPxmAGTtAag=
+   eJztzjEKACAMA0C/pYL+/1dOgpuTFfRuCjSQpgQATGXJfXOP0IL3IuXbDwDAQ+qhLgAAAPxmAM+iAaE=
   </data>
  </layer>
  <layer id="5" name="Paths" width="50" height="40">

@@ -1,405 +1,52 @@
 audio/.gitkeep
 libgdx.png
 maps/.gitkeep
-maps/Building6.tsx
 maps/Buildingsss.tsx
 maps/Campus-Goose Patrol.tmx
 maps/Cozy_World.tsx
-maps/Grass.tsx
-maps/Mini Nature Tileset Free/preview/preview.png
 maps/Mini Nature Tileset Free/readme.txt.txt
 maps/Mini Nature Tileset Free/tiles/bush1.png
-maps/Mini Nature Tileset Free/tiles/dirt1.png
-maps/Mini Nature Tileset Free/tiles/dirtpath1.png
-maps/Mini Nature Tileset Free/tiles/dirtpath2.png
-maps/Mini Nature Tileset Free/tiles/dirtpath3.png
-maps/Mini Nature Tileset Free/tiles/garass1.png
 maps/Mini Nature Tileset Free/tiles/stone1.png
-maps/Mini Nature Tileset Free/tiles/tree1.png
-maps/Mini Nature Tileset Free/tiles/water1.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/All in one.aseprite
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Back chair.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Back red chair.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Beige Vending Machine.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Bush1.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Bush2.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Circular table.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Closed Trashbin.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Fire Hidrant.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Front chair.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Front red chair.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Green Vending Machine.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Horizental cardboard box.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Light Pole.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Opened Cardboard box.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Opened Trashbin.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Plant1.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Plant2.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Plant3.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Plant4.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Plant5.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Red Table.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Red Vending machine.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Side chair.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Side red chair.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Sign1.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Sign2.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Square table.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Trashbag.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Tree1.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Tree2.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Tree3.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/Yellow Vending Machine.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Assets/vertical cardboardbox.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Building1.aseprite
-maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Building2.aseprite
-maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Building3.aseprite
-maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Building4.aseprite
-maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Building5.aseprite
-maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Building6.aseprite
-maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Building7.aseprite
 maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Pngs/Building1.png
 maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Pngs/Building2.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Pngs/Building3.png
 maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Pngs/Building4.png
-maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Pngs/Building5.png
 maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Pngs/Building6.png
 maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Pngs/Building7.png
-maps/Roguelike.tsx
-maps/Sprites.tsx
 maps/cozy_world_kit_32_free/LICENSE.txt
 maps/cozy_world_kit_32_free/README.txt
-maps/cozy_world_kit_32_free/fills/grass/grass_fill_01.png
-maps/cozy_world_kit_32_free/fills/grass/grass_fill_02.png
-maps/cozy_world_kit_32_free/fills/grass/grass_fill_03.png
 maps/cozy_world_kit_32_free/fills/grass/grass_fill_04.png
-maps/cozy_world_kit_32_free/fills/grass/grass_fill_05.png
-maps/cozy_world_kit_32_free/fills/grass/grass_fill_06.png
-maps/cozy_world_kit_32_free/fills/grass/grass_fill_07.png
 maps/cozy_world_kit_32_free/fills/grass/grass_fill_08.png
 maps/cozy_world_kit_32_free/fills/grass/grass_fill_09.png
-maps/cozy_world_kit_32_free/fills/grass/grass_fill_10.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_01.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_02.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_03.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_04.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_05.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_06.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_07.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_08.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_09.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_10.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_11.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_12.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_13.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_14.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_15.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_16.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/addons/cozy_world_kit/dual_grid_layer.gd
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/addons/cozy_world_kit/dual_grid_layer.gd.uid
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/addons/cozy_world_kit/paint.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/addons/cozy_world_kit/paint.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/addons/cozy_world_kit/water_glints.gd
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/addons/cozy_world_kit/water_glints.gd.uid
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/addons/cozy_world_kit/world_paint.tres
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_01.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_01.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_02.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_02.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_03.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_03.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_04.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_04.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_05.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_05.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_06.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_06.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_07.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_07.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_08.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_08.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_09.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_09.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_10.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_fill_10.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_01.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_01.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_02.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_02.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_03.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_03.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_04.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_04.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_05.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_05.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_06.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_06.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_07.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_07.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_08.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_08.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_09.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_09.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_10.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_10.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_11.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_11.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_12.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_12.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_13.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_13.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_14.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_14.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_15.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_15.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_16.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/fills/grass/grass_variant_16.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/berry_bush.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/berry_bush.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/blue_flowers_patch.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/blue_flowers_patch.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/campfire.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/campfire.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/cattail_reeds.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/cattail_reeds.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/flower_planter_red.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/flower_planter_red.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/grain_sacks.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/grain_sacks.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/hay_bale.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/hay_bale.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/mailbox_red.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/mailbox_red.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/mossy_rock.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/mossy_rock.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/red_mushrooms.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/red_mushrooms.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/rose_bush.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/rose_bush.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/round_leafy_oak_tree.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/round_leafy_oak_tree.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/small_rocks_cluster.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/small_rocks_cluster.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/small_round_bush.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/small_round_bush.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/street_lamp_post.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/street_lamp_post.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/tall_grass_tuft.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/tall_grass_tuft.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/tent.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/tent.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/treasure_chest_closed.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/treasure_chest_closed.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/tree_stump.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/tree_stump.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_barrel.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_barrel.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_bench.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_bench.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_crate.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_crate.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_fence_post.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_fence_post.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_fence_segment.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_fence_segment.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_signpost.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/wooden_signpost.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/yellow_flowers_patch.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_32/yellow_flowers_patch.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/big_mossy_boulder_formation.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/big_mossy_boulder_formation.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/cherry_blossom_tree.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/cherry_blossom_tree.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/chopped_log_pile.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/chopped_log_pile.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/covered_stone_well.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/covered_stone_well.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/farm_cart.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/farm_cart.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/fruit_market_stall.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/fruit_market_stall.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/large_oak_tree.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/large_oak_tree.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/large_willow_tree.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/large_willow_tree.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/tall_pine_tree.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/props_64/tall_pine_tree.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/water_64/cattail_reeds_bank.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/water_64/cattail_reeds_bank.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/water_64/lily_pads_lotus.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/water_64/lily_pads_lotus.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/water_64/small_wooden_rowboat_floating.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/water_64/small_wooden_rowboat_floating.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/water_64/stepping_stones_water.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/water_64/stepping_stones_water.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/water_64/wooden_pier_straight.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/props/water_64/wooden_pier_straight.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/atlas/grass_dirt.json
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/atlas/grass_dirt.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/atlas/grass_dirt.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/atlas/grass_water.json
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/atlas/grass_water.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/atlas/grass_water.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_llll.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_llll.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_lllu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_lllu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_llul.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_llul.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_lluu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_lluu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_lull.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_lull.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_lulu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_lulu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_luul.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_luul.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_luuu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_luuu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_ulll.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_ulll.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_ullu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_ullu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_ulul.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_ulul.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_uluu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_uluu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_uull.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_uull.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_uulu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_uulu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_uuul.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_uuul.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_uuuu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_dirt/grass_dirt_uuuu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_llll.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_llll.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_lllu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_lllu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_llul.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_llul.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_lluu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_lluu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_lull.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_lull.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_lulu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_lulu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_luul.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_luul.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_luuu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_luuu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_ulll.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_ulll.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_ullu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_ullu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_ulul.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_ulul.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_uluu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_uluu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_uull.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_uull.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_uulu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_uulu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_uuul.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_uuul.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_uuuu.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/terrain/grass_water/grass_water_uuuu.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/tilesets/fills_grass.png
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/tilesets/fills_grass.png.import
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/tilesets/fills_grass.tres
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/tilesets/grass_dirt.tres
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/cozy_world_kit/tilesets/grass_water.tres
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/demo.tscn
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/demo_layout.json
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/project.godot
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/tools/build_demo.gd
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/tools/build_demo.gd.uid
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/tools/capture.gd
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/tools/capture.gd.uid
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/tools/capture.tscn
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/tools/check_repaint.gd
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/tools/check_repaint.gd.uid
-maps/cozy_world_kit_32_free/godot/cozy_world_kit_demo/tools/check_repaint.tscn
 maps/cozy_world_kit_32_free/index.csv
-maps/cozy_world_kit_32_free/palette/palette.gpl
-maps/cozy_world_kit_32_free/palette/palette.hex
-maps/cozy_world_kit_32_free/palette/palette.png
 maps/cozy_world_kit_32_free/props/props_32/berry_bush.png
 maps/cozy_world_kit_32_free/props/props_32/blue_flowers_patch.png
-maps/cozy_world_kit_32_free/props/props_32/campfire.png
-maps/cozy_world_kit_32_free/props/props_32/cattail_reeds.png
-maps/cozy_world_kit_32_free/props/props_32/flower_planter_red.png
-maps/cozy_world_kit_32_free/props/props_32/grain_sacks.png
-maps/cozy_world_kit_32_free/props/props_32/hay_bale.png
-maps/cozy_world_kit_32_free/props/props_32/mailbox_red.png
-maps/cozy_world_kit_32_free/props/props_32/mossy_rock.png
 maps/cozy_world_kit_32_free/props/props_32/red_mushrooms.png
-maps/cozy_world_kit_32_free/props/props_32/rose_bush.png
 maps/cozy_world_kit_32_free/props/props_32/round_leafy_oak_tree.png
 maps/cozy_world_kit_32_free/props/props_32/small_rocks_cluster.png
 maps/cozy_world_kit_32_free/props/props_32/small_round_bush.png
 maps/cozy_world_kit_32_free/props/props_32/street_lamp_post.png
 maps/cozy_world_kit_32_free/props/props_32/tall_grass_tuft.png
-maps/cozy_world_kit_32_free/props/props_32/tent.png
-maps/cozy_world_kit_32_free/props/props_32/treasure_chest_closed.png
-maps/cozy_world_kit_32_free/props/props_32/tree_stump.png
-maps/cozy_world_kit_32_free/props/props_32/wooden_barrel.png
 maps/cozy_world_kit_32_free/props/props_32/wooden_bench.png
-maps/cozy_world_kit_32_free/props/props_32/wooden_crate.png
-maps/cozy_world_kit_32_free/props/props_32/wooden_fence_post.png
-maps/cozy_world_kit_32_free/props/props_32/wooden_fence_segment.png
-maps/cozy_world_kit_32_free/props/props_32/wooden_signpost.png
 maps/cozy_world_kit_32_free/props/props_32/yellow_flowers_patch.png
-maps/cozy_world_kit_32_free/props/props_64/big_mossy_boulder_formation.png
-maps/cozy_world_kit_32_free/props/props_64/cherry_blossom_tree.png
-maps/cozy_world_kit_32_free/props/props_64/chopped_log_pile.png
-maps/cozy_world_kit_32_free/props/props_64/covered_stone_well.png
-maps/cozy_world_kit_32_free/props/props_64/farm_cart.png
-maps/cozy_world_kit_32_free/props/props_64/fruit_market_stall.png
 maps/cozy_world_kit_32_free/props/props_64/large_oak_tree.png
 maps/cozy_world_kit_32_free/props/props_64/large_willow_tree.png
 maps/cozy_world_kit_32_free/props/water_64/cattail_reeds_bank.png
 maps/cozy_world_kit_32_free/props/water_64/lily_pads_lotus.png
 maps/cozy_world_kit_32_free/props/water_64/small_wooden_rowboat_floating.png
-maps/cozy_world_kit_32_free/props/water_64/stepping_stones_water.png
-maps/cozy_world_kit_32_free/props/water_64/wooden_pier_straight.png
-maps/cozy_world_kit_32_free/terrain/atlas/grass_dirt.json
-maps/cozy_world_kit_32_free/terrain/atlas/grass_dirt.png
-maps/cozy_world_kit_32_free/terrain/atlas/grass_water.json
-maps/cozy_world_kit_32_free/terrain/atlas/grass_water.png
 maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_llll.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_lllu.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_llul.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_lluu.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_lull.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_lulu.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_luul.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_luuu.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_ulll.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_ullu.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_ulul.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_uluu.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_uull.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_uulu.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_uuul.png
 maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_uuuu.png
 maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_llll.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_lllu.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_llul.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_lluu.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_lull.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_lulu.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_luul.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_luuu.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_ulll.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_ullu.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_ulul.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_uluu.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_uull.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_uulu.png
-maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_uuul.png
 maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_uuuu.png
-maps/cozy_world_kit_32_free/tiled/demo.tmx
 maps/cozy_world_kit_32_free/tiled/tilesets/fills_grass.tsx
 maps/cozy_world_kit_32_free/tiled/tilesets/grass_dirt.tsx
 maps/cozy_world_kit_32_free/tiled/tilesets/grass_water.tsx
