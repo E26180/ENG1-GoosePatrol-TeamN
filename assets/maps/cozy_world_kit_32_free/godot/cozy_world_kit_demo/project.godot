@@ -1,0 +1,20 @@
+config_version=5
+
+[application]
+
+config/name="Cozy World Kit — demo"
+run/main_scene="res://demo.tscn"
+config/features=PackedStringArray("4.4")
+
+[display]
+
+window/size/viewport_width=768
+window/size/viewport_height=448
+window/size/window_width_override=1536
+window/size/window_height_override=896
+window/stretch/mode="viewport"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"

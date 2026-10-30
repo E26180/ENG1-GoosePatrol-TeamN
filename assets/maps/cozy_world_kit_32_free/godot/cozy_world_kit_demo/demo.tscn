@@ -1,0 +1,453 @@
+[gd_scene load_steps=48 format=4]
+
+[ext_resource type="Texture2D" path="res://cozy_world_kit/tilesets/fills_grass.png" id="1_oplge"]
+[ext_resource type="TileSet" path="res://cozy_world_kit/tilesets/grass_dirt.tres" id="2_bjnx1"]
+[ext_resource type="Script" path="res://addons/cozy_world_kit/dual_grid_layer.gd" id="3_rr6ia"]
+[ext_resource type="Texture2D" path="res://addons/cozy_world_kit/paint.png" id="4_vauke"]
+[ext_resource type="TileSet" path="res://cozy_world_kit/tilesets/grass_water.tres" id="5_3ulu0"]
+[ext_resource type="Script" path="res://addons/cozy_world_kit/water_glints.gd" id="6_x2xwo"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/small_round_bush.png" id="7_qwbdf"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/rose_bush.png" id="8_oiboj"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/blue_flowers_patch.png" id="9_yw20h"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_64/tall_pine_tree.png" id="10_sg3tj"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/tall_grass_tuft.png" id="11_ec7gk"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_64/large_oak_tree.png" id="12_35fml"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_64/cherry_blossom_tree.png" id="13_cxfae"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/berry_bush.png" id="14_7vilt"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/round_leafy_oak_tree.png" id="15_7grw0"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/small_rocks_cluster.png" id="16_pnbeo"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/red_mushrooms.png" id="17_am7hm"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/yellow_flowers_patch.png" id="18_y4vt1"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_64/big_mossy_boulder_formation.png" id="19_lh811"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/mossy_rock.png" id="20_5x21y"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/treasure_chest_closed.png" id="21_d0xdr"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/tree_stump.png" id="22_5busl"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/flower_planter_red.png" id="23_5el1k"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/wooden_fence_segment.png" id="24_5arp0"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/mailbox_red.png" id="25_mr7dd"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/wooden_barrel.png" id="26_thp5e"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/wooden_crate.png" id="27_ssf52"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/street_lamp_post.png" id="28_mlmk1"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_64/covered_stone_well.png" id="29_4be7j"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_64/farm_cart.png" id="30_gmxcm"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/hay_bale.png" id="31_k6ds3"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/water_64/lily_pads_lotus.png" id="32_6n42i"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/wooden_signpost.png" id="33_hat0t"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/wooden_bench.png" id="34_c5a2v"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/water_64/small_wooden_rowboat_floating.png" id="35_xgoxt"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/water_64/cattail_reeds_bank.png" id="36_2pq6c"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_64/large_willow_tree.png" id="37_ye1oa"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_64/fruit_market_stall.png" id="38_ffjkj"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/water_64/wooden_pier_straight.png" id="39_0jjka"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/campfire.png" id="40_o3o0h"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/grain_sacks.png" id="41_62mvh"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_64/chopped_log_pile.png" id="42_g11e2"]
+[ext_resource type="Texture2D" path="res://cozy_world_kit/props/props_32/tent.png" id="43_8aiiw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bc0su"]
+texture = ExtResource("1_oplge")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_hixtp"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_bc0su")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ymmy"]
+texture = ExtResource("4_vauke")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_fgno8"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_3ymmy")
+
+[node name="Demo" type="Node2D"]
+
+[node name="grass" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAAAAAAIAAAAAAABAAAAAAAAAAAAAAACAAAAAAACAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAIAAAAAAAFAAAAAAAMAAAAAAAGAAAAAAAIAAAAAAAHAAAAAAAMAAAAAAAIAAAAAAACAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAAGAAAAAAALAAAAAAAHAAAAAAAMAAAAAAAEAAAAAAANAAAAAAAIAAAAAAAOAAAAAAAOAAAAAAAPAAAAAAAIAAAAAAAQAAAAAAAHAAAAAAARAAAAAAAAAAAAAAASAAAAAAAIAAAAAAATAAAAAAAGAAAAAAAUAAAAAAAGAAAAAAAVAAAAAAAGAAAAAAAWAAAAAAAIAAAAAAAXAAAAAAAIAAAAAAAAAAEAAAAJAAAAAAABAAEAAAAOAAAAAAACAAEAAAAOAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAMAAAAAAAFAAEAAAAOAAAAAAAGAAEAAAAGAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAOAAAAAAAJAAEAAAAOAAAAAAAKAAEAAAAGAAAAAAALAAEAAAACAAAAAAAMAAEAAAAGAAAAAAANAAEAAAAAAAAAAAAOAAEAAAAJAAAAAAAPAAEAAAAGAAAAAAAQAAEAAAAGAAAAAAARAAEAAAAOAAAAAAASAAEAAAAPAAAAAAATAAEAAAAAAAAAAAAUAAEAAAAIAAAAAAAVAAEAAAAIAAAAAAAWAAEAAAAGAAAAAAAXAAEAAAAGAAAAAAAAAAIAAAAPAAAAAAABAAIAAAAOAAAAAAACAAIAAAAGAAAAAAADAAIAAAAOAAAAAAAEAAIAAAAOAAAAAAAFAAIAAAAGAAAAAAAGAAIAAAAIAAAAAAAHAAIAAAAEAAAAAAAIAAIAAAAIAAAAAAAJAAIAAAAEAAAAAAAKAAIAAAAAAAAAAAALAAIAAAAOAAAAAAAMAAIAAAAOAAAAAAANAAIAAAAAAAAAAAAOAAIAAAAGAAAAAAAPAAIAAAAGAAAAAAAQAAIAAAAMAAAAAAARAAIAAAACAAAAAAASAAIAAAAGAAAAAAATAAIAAAAOAAAAAAAUAAIAAAAAAAAAAAAVAAIAAAAEAAAAAAAWAAIAAAAOAAAAAAAXAAIAAAAAAAAAAAAAAAMAAAAGAAAAAAABAAMAAAAOAAAAAAACAAMAAAAOAAAAAAADAAMAAAAAAAAAAAAEAAMAAAAGAAAAAAAFAAMAAAAOAAAAAAAGAAMAAAACAAAAAAAHAAMAAAAOAAAAAAAIAAMAAAAIAAAAAAAJAAMAAAAIAAAAAAAKAAMAAAAOAAAAAAALAAMAAAAAAAAAAAAMAAMAAAAOAAAAAAANAAMAAAAAAAAAAAAOAAMAAAAOAAAAAAAPAAMAAAAIAAAAAAAQAAMAAAAIAAAAAAARAAMAAAAOAAAAAAASAAMAAAAIAAAAAAATAAMAAAAGAAAAAAAUAAMAAAAIAAAAAAAVAAMAAAAGAAAAAAAWAAMAAAAAAAAAAAAXAAMAAAAOAAAAAAAAAAQAAAAIAAAAAAABAAQAAAAOAAAAAAACAAQAAAAOAAAAAAADAAQAAAAOAAAAAAAEAAQAAAACAAAAAAAFAAQAAAAIAAAAAAAGAAQAAAAGAAAAAAAHAAQAAAAAAAAAAAAIAAQAAAAOAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAALAAQAAAAIAAAAAAAMAAQAAAAIAAAAAAANAAQAAAAOAAAAAAAOAAQAAAAMAAAAAAAPAAQAAAAAAAAAAAAQAAQAAAAIAAAAAAARAAQAAAAAAAAAAAASAAQAAAAGAAAAAAATAAQAAAAIAAAAAAAUAAQAAAAGAAAAAAAVAAQAAAAOAAAAAAAWAAQAAAAIAAAAAAAXAAQAAAACAAAAAAAAAAUAAAAIAAAAAAABAAUAAAAIAAAAAAACAAUAAAAIAAAAAAADAAUAAAAHAAAAAAAEAAUAAAAIAAAAAAAFAAUAAAAOAAAAAAAGAAUAAAAGAAAAAAAHAAUAAAAAAAAAAAAIAAUAAAAOAAAAAAAJAAUAAAAGAAAAAAAKAAUAAAAIAAAAAAALAAUAAAAAAAAAAAAMAAUAAAAIAAAAAAANAAUAAAAIAAAAAAAOAAUAAAAGAAAAAAAPAAUAAAAAAAAAAAAQAAUAAAAOAAAAAAARAAUAAAAGAAAAAAASAAUAAAAAAAAAAAATAAUAAAAAAAAAAAAUAAUAAAAOAAAAAAAVAAUAAAACAAAAAAAWAAUAAAAAAAAAAAAXAAUAAAAAAAAAAAAAAAYAAAAIAAAAAAABAAYAAAAGAAAAAAACAAYAAAAGAAAAAAADAAYAAAAIAAAAAAAEAAYAAAAOAAAAAAAFAAYAAAAIAAAAAAAGAAYAAAAIAAAAAAAHAAYAAAAGAAAAAAAIAAYAAAAAAAAAAAAJAAYAAAAGAAAAAAAKAAYAAAAJAAAAAAALAAYAAAAIAAAAAAAMAAYAAAAOAAAAAAANAAYAAAAIAAAAAAAOAAYAAAAIAAAAAAAPAAYAAAAAAAAAAAAQAAYAAAAGAAAAAAARAAYAAAAIAAAAAAASAAYAAAAGAAAAAAATAAYAAAAGAAAAAAAUAAYAAAAIAAAAAAAVAAYAAAAAAAAAAAAWAAYAAAAAAAAAAAAXAAYAAAAGAAAAAAAAAAcAAAAAAAAAAAABAAcAAAAOAAAAAAACAAcAAAAAAAAAAAADAAcAAAAHAAAAAAAEAAcAAAAAAAAAAAAFAAcAAAAJAAAAAAAGAAcAAAAEAAAAAAAHAAcAAAAIAAAAAAAIAAcAAAAOAAAAAAAJAAcAAAAGAAAAAAAKAAcAAAAAAAAAAAALAAcAAAAIAAAAAAAMAAcAAAAAAAAAAAANAAcAAAAAAAAAAAAOAAcAAAAOAAAAAAAPAAcAAAAHAAAAAAAQAAcAAAACAAAAAAARAAcAAAAOAAAAAAASAAcAAAAGAAAAAAATAAcAAAAOAAAAAAAUAAcAAAAAAAAAAAAVAAcAAAAIAAAAAAAWAAcAAAAIAAAAAAAXAAcAAAAIAAAAAAAAAAgAAAAAAAAAAAABAAgAAAAAAAAAAAACAAgAAAAAAAAAAAADAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAFAAgAAAAAAAAAAAAGAAgAAAAAAAAAAAAHAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAJAAgAAAAAAAAAAAAKAAgAAAAAAAAAAAALAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAANAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAQAAgAAAAOAAAAAAARAAgAAAAIAAAAAAASAAgAAAAIAAAAAAATAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAVAAgAAAAHAAAAAAAWAAgAAAAIAAAAAAAXAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAABAAkAAAAAAAAAAAACAAkAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAkAAAAAAAAAAAAFAAkAAAAAAAAAAAAGAAkAAAAAAAAAAAAHAAkAAAAAAAAAAAAIAAkAAAAAAAAAAAAJAAkAAAAAAAAAAAAKAAkAAAAAAAAAAAALAAkAAAAAAAAAAAAMAAkAAAAAAAAAAAANAAkAAAAAAAAAAAAOAAkAAAAAAAAAAAAPAAkAAAAAAAAAAAAQAAkAAAAGAAAAAAARAAkAAAAAAAAAAAASAAkAAAAAAAAAAAATAAkAAAAAAAAAAAAUAAkAAAAAAAAAAAAVAAkAAAAAAAAAAAAWAAkAAAAAAAAAAAAXAAkAAAAGAAAAAAAAAAoAAAAOAAAAAAABAAoAAAAIAAAAAAACAAoAAAAIAAAAAAADAAoAAAAOAAAAAAAEAAoAAAAIAAAAAAAFAAoAAAAJAAAAAAAGAAoAAAAAAAAAAAAHAAoAAAAMAAAAAAAIAAoAAAAOAAAAAAAJAAoAAAAOAAAAAAAKAAoAAAAEAAAAAAALAAoAAAAGAAAAAAAMAAoAAAAAAAAAAAANAAoAAAAAAAAAAAAOAAoAAAAKAAAAAAAPAAoAAAAOAAAAAAAQAAoAAAAAAAAAAAARAAoAAAAAAAAAAAASAAoAAAAAAAAAAAATAAoAAAAAAAAAAAAUAAoAAAAAAAAAAAAVAAoAAAAAAAAAAAAWAAoAAAAAAAAAAAAXAAoAAAAAAAAAAAAAAAsAAAAOAAAAAAABAAsAAAAIAAAAAAACAAsAAAAMAAAAAAADAAsAAAAJAAAAAAAEAAsAAAAIAAAAAAAFAAsAAAAAAAAAAAAGAAsAAAACAAAAAAAHAAsAAAAAAAAAAAAIAAsAAAAOAAAAAAAJAAsAAAAIAAAAAAAKAAsAAAAEAAAAAAALAAsAAAAGAAAAAAAMAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAGAAAAAAAPAAsAAAAIAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAAUAAsAAAAAAAAAAAAVAAsAAAAAAAAAAAAWAAsAAAAAAAAAAAAXAAsAAAAAAAAAAAAAAAwAAAAMAAAAAAABAAwAAAAIAAAAAAACAAwAAAAAAAAAAAADAAwAAAAIAAAAAAAEAAwAAAABAAAAAAAFAAwAAAAKAAAAAAAGAAwAAAAGAAAAAAAHAAwAAAAAAAAAAAAIAAwAAAAIAAAAAAAJAAwAAAAAAAAAAAAKAAwAAAAAAAAAAAALAAwAAAAAAAAAAAAMAAwAAAAAAAAAAAANAAwAAAAGAAAAAAAOAAwAAAAAAAAAAAAPAAwAAAAIAAAAAAAQAAwAAAAAAAAAAAARAAwAAAAAAAAAAAASAAwAAAAAAAAAAAATAAwAAAAAAAAAAAAUAAwAAAAAAAAAAAAVAAwAAAAAAAAAAAAWAAwAAAAAAAAAAAAXAAwAAAAAAAAAAAAAAA0AAAAIAAAAAAABAA0AAAAGAAAAAAACAA0AAAAGAAAAAAADAA0AAAAJAAAAAAAEAA0AAAAIAAAAAAAFAA0AAAAEAAAAAAAGAA0AAAAOAAAAAAAHAA0AAAAIAAAAAAAIAA0AAAABAAAAAAAJAA0AAAAAAAAAAAAKAA0AAAAGAAAAAAALAA0AAAAOAAAAAAAMAA0AAAAGAAAAAAANAA0AAAAIAAAAAAAOAA0AAAAAAAAAAAAPAA0AAAAAAAAAAAAQAA0AAAAAAAAAAAARAA0AAAAAAAAAAAASAA0AAAAAAAAAAAATAA0AAAAAAAAAAAAUAA0AAAAAAAAAAAAVAA0AAAAGAAAAAAAWAA0AAAAGAAAAAAAXAA0AAAAIAAAAAAA=")
+tile_set = SubResource("TileSet_hixtp")
+
+[node name="grass_dirt" type="TileMapLayer" parent="." node_paths=PackedStringArray("world")]
+tile_set = ExtResource("2_bjnx1")
+script = ExtResource("3_rr6ia")
+world = NodePath("../grass_dirt_world")
+atlas_json = "res://cozy_world_kit/terrain/atlas/grass_dirt.json"
+skip_codes = PackedStringArray("llll")
+
+[node name="grass_dirt_world" type="TileMapLayer" parent="."]
+self_modulate = Color(1, 1, 1, 0.45)
+position = Vector2(-16, -16)
+tile_map_data = PackedByteArray("AAAAAAkAAAAAAAAAAAABAAkAAAAAAAAAAAACAAkAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAkAAAAAAAAAAAAFAAkAAAAAAAAAAAAGAAkAAAAAAAAAAAAHAAkAAAAAAAAAAAAIAAkAAAAAAAAAAAAJAAkAAAAAAAAAAAAKAAkAAAAAAAAAAAALAAkAAAAAAAAAAAAMAAkAAAAAAAAAAAANAAkAAAAAAAAAAAAOAAkAAAAAAAAAAAAPAAkAAAAAAAAAAAANAAoAAAAAAAAAAAANAAsAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_fgno8")
+
+[node name="grass_water" type="TileMapLayer" parent="." node_paths=PackedStringArray("world")]
+tile_set = ExtResource("5_3ulu0")
+script = ExtResource("3_rr6ia")
+world = NodePath("../grass_water_world")
+atlas_json = "res://cozy_world_kit/terrain/atlas/grass_water.json"
+skip_codes = PackedStringArray("llll")
+
+[node name="grass_water_world" type="TileMapLayer" parent="."]
+self_modulate = Color(1, 1, 1, 0.45)
+position = Vector2(-16, -16)
+tile_map_data = PackedByteArray("AAASAAoAAAAAAAAAAAATAAoAAAAAAAAAAAAUAAoAAAAAAAAAAAAVAAoAAAAAAAAAAAAWAAoAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAAUAAsAAAAAAAAAAAAVAAsAAAAAAAAAAAAWAAsAAAAAAAAAAAAXAAsAAAAAAAAAAAARAAwAAAAAAAAAAAASAAwAAAAAAAAAAAATAAwAAAAAAAAAAAAUAAwAAAAAAAAAAAAVAAwAAAAAAAAAAAAWAAwAAAAAAAAAAAAXAAwAAAAAAAAAAAARAA0AAAAAAAAAAAASAA0AAAAAAAAAAAATAA0AAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_fgno8")
+
+[node name="water_glints" type="Node2D" parent="." node_paths=PackedStringArray("water")]
+script = ExtResource("6_x2xwo")
+water = NodePath("../grass_water")
+
+[node name="props" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="small_round_bush" type="Sprite2D" parent="props"]
+position = Vector2(738, 26)
+texture = ExtResource("7_qwbdf")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="rose_bush" type="Sprite2D" parent="props"]
+position = Vector2(300, 46)
+texture = ExtResource("8_oiboj")
+centered = false
+offset = Vector2(-16, -31)
+
+[node name="blue_flowers_patch" type="Sprite2D" parent="props"]
+position = Vector2(389, 53)
+texture = ExtResource("9_yw20h")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="tall_pine_tree" type="Sprite2D" parent="props"]
+position = Vector2(150, 70)
+texture = ExtResource("10_sg3tj")
+centered = false
+offset = Vector2(-31, -63)
+
+[node name="blue_flowers_patch2" type="Sprite2D" parent="props"]
+position = Vector2(376, 87)
+texture = ExtResource("9_yw20h")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="tall_pine_tree2" type="Sprite2D" parent="props"]
+position = Vector2(180, 92)
+texture = ExtResource("10_sg3tj")
+centered = false
+offset = Vector2(-31, -63)
+
+[node name="tall_grass_tuft" type="Sprite2D" parent="props"]
+position = Vector2(752, 92)
+texture = ExtResource("11_ec7gk")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="large_oak_tree" type="Sprite2D" parent="props"]
+position = Vector2(70, 96)
+texture = ExtResource("12_35fml")
+centered = false
+offset = Vector2(-32, -63)
+
+[node name="cherry_blossom_tree" type="Sprite2D" parent="props"]
+position = Vector2(222, 108)
+texture = ExtResource("13_cxfae")
+centered = false
+offset = Vector2(-32, -63)
+
+[node name="berry_bush" type="Sprite2D" parent="props"]
+position = Vector2(600, 118)
+texture = ExtResource("14_7vilt")
+centered = false
+offset = Vector2(-16, -30)
+
+[node name="tall_grass_tuft2" type="Sprite2D" parent="props"]
+position = Vector2(130, 120)
+texture = ExtResource("11_ec7gk")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="tall_pine_tree3" type="Sprite2D" parent="props"]
+position = Vector2(480, 122)
+texture = ExtResource("10_sg3tj")
+centered = false
+offset = Vector2(-31, -63)
+
+[node name="round_leafy_oak_tree" type="Sprite2D" parent="props"]
+position = Vector2(690, 140)
+texture = ExtResource("15_7grw0")
+centered = false
+offset = Vector2(-16, -32)
+
+[node name="rose_bush2" type="Sprite2D" parent="props"]
+position = Vector2(330, 160)
+texture = ExtResource("8_oiboj")
+centered = false
+offset = Vector2(-16, -31)
+
+[node name="small_rocks_cluster" type="Sprite2D" parent="props"]
+position = Vector2(423, 174)
+texture = ExtResource("16_pnbeo")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="large_oak_tree2" type="Sprite2D" parent="props"]
+position = Vector2(620, 178)
+texture = ExtResource("12_35fml")
+centered = false
+offset = Vector2(-32, -63)
+
+[node name="blue_flowers_patch3" type="Sprite2D" parent="props"]
+position = Vector2(393, 181)
+texture = ExtResource("9_yw20h")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="red_mushrooms" type="Sprite2D" parent="props"]
+position = Vector2(9, 186)
+texture = ExtResource("17_am7hm")
+centered = false
+offset = Vector2(-17, -28)
+
+[node name="yellow_flowers_patch" type="Sprite2D" parent="props"]
+position = Vector2(131, 189)
+texture = ExtResource("18_y4vt1")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="tall_grass_tuft3" type="Sprite2D" parent="props"]
+position = Vector2(545, 192)
+texture = ExtResource("11_ec7gk")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="small_round_bush2" type="Sprite2D" parent="props"]
+position = Vector2(434, 196)
+texture = ExtResource("7_qwbdf")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="big_mossy_boulder_formation" type="Sprite2D" parent="props"]
+position = Vector2(760, 200)
+texture = ExtResource("19_lh811")
+centered = false
+offset = Vector2(-32, -59)
+
+[node name="mossy_rock" type="Sprite2D" parent="props"]
+position = Vector2(300, 204)
+texture = ExtResource("20_5x21y")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="treasure_chest_closed" type="Sprite2D" parent="props"]
+position = Vector2(656, 214)
+texture = ExtResource("21_d0xdr")
+centered = false
+offset = Vector2(-16, -27)
+
+[node name="yellow_flowers_patch2" type="Sprite2D" parent="props"]
+position = Vector2(410, 219)
+texture = ExtResource("18_y4vt1")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="small_rocks_cluster2" type="Sprite2D" parent="props"]
+position = Vector2(354, 223)
+texture = ExtResource("16_pnbeo")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="tree_stump" type="Sprite2D" parent="props"]
+position = Vector2(584, 236)
+texture = ExtResource("22_5busl")
+centered = false
+offset = Vector2(-16, -31)
+
+[node name="flower_planter_red" type="Sprite2D" parent="props"]
+position = Vector2(482, 240)
+texture = ExtResource("23_5el1k")
+centered = false
+offset = Vector2(-16, -30)
+
+[node name="flower_planter_red2" type="Sprite2D" parent="props"]
+position = Vector2(514, 240)
+texture = ExtResource("23_5el1k")
+centered = false
+offset = Vector2(-16, -30)
+
+[node name="red_mushrooms2" type="Sprite2D" parent="props"]
+position = Vector2(705, 250)
+texture = ExtResource("17_am7hm")
+centered = false
+offset = Vector2(-17, -28)
+
+[node name="wooden_fence_segment" type="Sprite2D" parent="props"]
+position = Vector2(482, 264)
+texture = ExtResource("24_5arp0")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="wooden_fence_segment2" type="Sprite2D" parent="props"]
+position = Vector2(512, 264)
+texture = ExtResource("24_5arp0")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="yellow_flowers_patch3" type="Sprite2D" parent="props"]
+position = Vector2(654, 280)
+texture = ExtResource("18_y4vt1")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="mailbox_red" type="Sprite2D" parent="props"]
+position = Vector2(462, 284)
+texture = ExtResource("25_mr7dd")
+centered = false
+offset = Vector2(-16, -31)
+
+[node name="wooden_barrel" type="Sprite2D" parent="props"]
+position = Vector2(400, 290)
+texture = ExtResource("26_thp5e")
+centered = false
+offset = Vector2(-16, -31)
+
+[node name="wooden_crate" type="Sprite2D" parent="props"]
+position = Vector2(425, 292)
+texture = ExtResource("27_ssf52")
+centered = false
+offset = Vector2(-16, -30)
+
+[node name="street_lamp_post" type="Sprite2D" parent="props"]
+position = Vector2(270, 295)
+texture = ExtResource("28_mlmk1")
+centered = false
+offset = Vector2(-18, -32)
+
+[node name="covered_stone_well" type="Sprite2D" parent="props"]
+position = Vector2(560, 300)
+texture = ExtResource("29_4be7j")
+centered = false
+offset = Vector2(-33, -62)
+
+[node name="farm_cart" type="Sprite2D" parent="props"]
+position = Vector2(120, 300)
+texture = ExtResource("30_gmxcm")
+centered = false
+offset = Vector2(-31, -58)
+
+[node name="hay_bale" type="Sprite2D" parent="props"]
+position = Vector2(760, 300)
+texture = ExtResource("31_k6ds3")
+centered = false
+offset = Vector2(-16, -27)
+
+[node name="lily_pads_lotus" type="Sprite2D" parent="props"]
+position = Vector2(578, 352)
+texture = ExtResource("32_6n42i")
+centered = false
+offset = Vector2(-31, -55)
+
+[node name="wooden_signpost" type="Sprite2D" parent="props"]
+position = Vector2(395, 360)
+texture = ExtResource("33_hat0t")
+centered = false
+offset = Vector2(-16, -31)
+
+[node name="wooden_bench" type="Sprite2D" parent="props"]
+position = Vector2(330, 360)
+texture = ExtResource("34_c5a2v")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="small_wooden_rowboat_floating" type="Sprite2D" parent="props"]
+position = Vector2(620, 374)
+texture = ExtResource("35_xgoxt")
+centered = false
+offset = Vector2(-32, -64)
+
+[node name="cattail_reeds_bank" type="Sprite2D" parent="props"]
+position = Vector2(712, 376)
+texture = ExtResource("36_2pq6c")
+centered = false
+offset = Vector2(-32, -62)
+
+[node name="wooden_fence_segment3" type="Sprite2D" parent="props"]
+position = Vector2(30, 380)
+texture = ExtResource("24_5arp0")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="wooden_fence_segment4" type="Sprite2D" parent="props"]
+position = Vector2(62, 380)
+texture = ExtResource("24_5arp0")
+centered = false
+offset = Vector2(-16, -29)
+
+[node name="large_willow_tree" type="Sprite2D" parent="props"]
+position = Vector2(505, 390)
+texture = ExtResource("37_ye1oa")
+centered = false
+offset = Vector2(-32, -61)
+
+[node name="fruit_market_stall" type="Sprite2D" parent="props"]
+position = Vector2(250, 392)
+texture = ExtResource("38_ffjkj")
+centered = false
+offset = Vector2(-31, -60)
+
+[node name="cattail_reeds_bank2" type="Sprite2D" parent="props"]
+position = Vector2(562, 404)
+texture = ExtResource("36_2pq6c")
+centered = false
+offset = Vector2(-32, -62)
+
+[node name="wooden_pier_straight" type="Sprite2D" parent="props"]
+position = Vector2(660, 418)
+texture = ExtResource("39_0jjka")
+centered = false
+offset = Vector2(-32, -64)
+
+[node name="flower_planter_red3" type="Sprite2D" parent="props"]
+position = Vector2(300, 420)
+texture = ExtResource("23_5el1k")
+centered = false
+offset = Vector2(-16, -30)
+
+[node name="campfire" type="Sprite2D" parent="props"]
+position = Vector2(150, 430)
+texture = ExtResource("40_o3o0h")
+centered = false
+offset = Vector2(-16, -31)
+
+[node name="grain_sacks" type="Sprite2D" parent="props"]
+position = Vector2(185, 432)
+texture = ExtResource("41_62mvh")
+centered = false
+offset = Vector2(-16, -30)
+
+[node name="chopped_log_pile" type="Sprite2D" parent="props"]
+position = Vector2(90, 440)
+texture = ExtResource("42_g11e2")
+centered = false
+offset = Vector2(-32, -52)
+
+[node name="tent" type="Sprite2D" parent="props"]
+position = Vector2(40, 440)
+texture = ExtResource("43_8aiiw")
+centered = false
+offset = Vector2(-16, -32)
