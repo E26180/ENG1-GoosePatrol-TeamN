@@ -76,12 +76,32 @@ class PlayerTest {
     void canWalkOutOfSomethingThatMovedOntoIt() {
         // a goose pushed onto the player must not trap them
         Rectangle goose = new Rectangle(95f, 95f, 30f, 30f);
-        Player player = new Player(100f, 100f, WORLD, goose::overlaps);
+        Player player = new Player(100f, 100f, WORLD, NOTHING, goose::overlaps);
         player.update(1f, -1f, 0f);
         assertTrue(player.getBounds().x < 100f, "walked out");
         assertFalse(goose.overlaps(player.getBounds()));
         player.update(1f, 1f, 0f);
         assertTrue(player.getBounds().x + Player.WIDTH <= goose.x, "and cannot walk back in");
+    }
+
+    @Test
+    void walkingOutOfAGooseNeverGoesThroughAWall() {
+        // the case found in review: overlapping a goose must not switch the walls off
+        Rectangle goose = new Rectangle(95f, 95f, 30f, 30f);
+        Rectangle wall = new Rectangle(121f, 0f, 40f, 1000f);
+        Player player = new Player(100f, 100f, WORLD, wall::overlaps, goose::overlaps);
+        player.update(1f, 1f, 0f);
+        assertTrue(player.getBounds().x + Player.WIDTH <= wall.x, "stopped by the wall");
+        player.update(2f, 1f, 0.2f);
+        assertTrue(player.getBounds().x + Player.WIDTH <= wall.x, "still not through after a long walk");
+    }
+
+    @Test
+    void geeseBlockLikeWallsWhenNotOverlapping() {
+        Rectangle goose = new Rectangle(200f, 0f, 30f, 1000f);
+        Player player = new Player(100f, 100f, WORLD, NOTHING, goose::overlaps);
+        player.update(1f, 1f, 0f);
+        assertTrue(player.getBounds().x + Player.WIDTH <= goose.x);
     }
 
     @Test

@@ -5,7 +5,7 @@
 <title>Plan1</title>
 <style>
   @page { size: A4; margin: 1.4cm 1.5cm; }
-  @page land { size: A4 landscape; margin: 1cm 1.1cm; }
+  @page land { size: A4 landscape; margin: 1cm; }
   body { font-family: Arial, Helvetica, sans-serif; font-size: 11pt; line-height: 1.27; color: #111; margin: 0; }
   h1 { font-size: 15pt; margin: 0 0 4pt; }
   h2 { font-size: 12.5pt; margin: 8pt 0 3pt; page-break-after: avoid; }
@@ -14,9 +14,10 @@
   li { margin-bottom: 2pt; }
   table { border-collapse: collapse; width: 100%; font-size: 10pt; line-height: 1.17; margin: 3pt 0 6pt; }
   tr { page-break-inside: avoid; }
-  th, td { border: 1px solid #999; padding: 2pt 4pt; vertical-align: top; text-align: left; }
+  th, td { border: 1px solid #999; padding: 2pt 4pt; vertical-align: top; text-align: left; overflow-wrap: anywhere; }
   th { background: #e8e8e8; }
-  code { font-family: "Courier New", monospace; font-size: 9.5pt; }
+  code { font-family: "Courier New", monospace; font-size: inherit; }
+  a { color: #1a4f8b; }
   .cover { height: 25.5cm; display: flex; flex-direction: column; justify-content: center; text-align: center; page-break-after: always; }
   .cover h1 { font-size: 24pt; margin-bottom: 8pt; }
   .cover p { font-size: 13pt; margin: 3pt 0; }
@@ -69,7 +70,7 @@
   <tr><td>Microsoft Word on the university Microsoft 365</td><td>Writing document drafts together (e.g. the risk register)</td><td>All members have university accounts; several people can edit the same draft.</td></tr>
   <tr><td>IntelliJ IDEA, JDK 17, Gradle, gdx-liftoff</td><td>Writing, building and running the game; generated the starting project</td><td>Required stack (Java 17, Gradle, libGDX); IntelliJ has good Gradle support; gdx-liftoff gave a working project on day 2.</td></tr>
   <tr><td>Tiled</td><td>Drawing the campus map</td><td>libGDX loads Tiled maps directly, including the collision layer.</td></tr>
-  <tr><td>JUnit 5</td><td>Unit tests and simulated whole games</td><td>Runs with Gradle on every build; catches regressions while several people change the code.</td></tr>
+  <tr><td>JUnit 5</td><td>Unit tests and simulated whole games</td><td>Runs with Gradle locally and in the website workflow before every deploy, so a failing test stops a broken build reaching the website.</td></tr>
   <tr><td>Python scripts, Chrome</td><td>Diagrams, sprites and sound effects as code; printing the PDFs</td><td>Every version is a text file in Git, so diagrams can be rebuilt and compared between versions.</td></tr>
 </table>
 
@@ -85,21 +86,43 @@
 <div class="land">
 <h1>Plan1 &ndash; Part c: the plan and how it evolved</h1>
 <figure>
-  <img src="../../plan/plan-v3.svg" alt="Gantt chart of the plan">
-  <figcaption>Figure 1. The plan as of 9 November: planned bars (blue), the re-planned remaining work (orange) and the actual work taken from the repository (green, from the first commit to the merge on <code>main</code>). Critical tasks are bold and red. Every version of the plan is on the website.</figcaption>
+  <img src="../../plan/plan-week6.svg" alt="Gantt chart of the plan">
+  <figcaption>Figure 1. The plan in week 6: plan v2 (blue), the re-plan of the remaining work (orange) and the actual work from the repository (green, first commit to merge on <code>main</code>). Critical tasks are red and bold. A snapshot for every week is at <a href="https://e26180.github.io/ENG1-GoosePatrol-TeamN/plan.html">https://e26180.github.io/ENG1-GoosePatrol-TeamN/plan.html</a>.</figcaption>
 </figure>
-<p><b>Key tasks, order and critical path.</b> Set-up (T1) came first, then the requirements (T3), because the architecture (T5) and every package depend on them. The game screen (T8) and the geese (T11) depend on the interfaces in T5 and on each other, and integration and testing (T12), the final documents (T13), the review (T14) and submission (T15) need the finished game. This chain T1 &rarr; T3 &rarr; T5 &rarr; T8 &rarr; T11 &rarr; T12 &rarr; T13 &rarr; T14 &rarr; T15 is the critical path: a delay on any of these moves the end date. The items (T9), hidden events (T10), map (T7), risk register (T4) and website (T6) had float, so they were the tasks to delay if needed.</p>
 </div>
+
+<h2>c1. Key tasks, dates, priorities and dependencies</h2>
+<table>
+  <colgroup><col style="width:30%"><col style="width:17%"><col style="width:22%"><col style="width:9%"><col style="width:22%"></colgroup>
+  <thead><tr><th>Task</th><th>Planned (v2)</th><th>Actual or re-planned</th><th>Priority</th><th>Depends on</th></tr></thead>
+  <tr><td>T1 Set-up, skeleton, tools</td><td>5&ndash;11 Oct</td><td>5&ndash;7 Oct</td><td>Must, CP</td><td>&ndash;</td></tr>
+  <tr><td>T2 Client meeting</td><td>14 Oct</td><td>14 Oct</td><td>Must</td><td>T1</td></tr>
+  <tr><td>T3 Requirements (Req1)</td><td>12&ndash;18 Oct</td><td>12&ndash;27 Oct</td><td>Must, CP</td><td>T2</td></tr>
+  <tr><td>T4 Risk register (Risk1)</td><td>12&ndash;18 Oct</td><td>12&ndash;28 Oct; 9&ndash;10 Nov</td><td>Must</td><td>T1</td></tr>
+  <tr><td>T5 Architecture (Arch1)</td><td>12&ndash;18 Oct, 2&ndash;8 Nov</td><td>28 Oct; 9&ndash;12 Nov</td><td>Must, CP</td><td>T3</td></tr>
+  <tr><td>T6 Website, url1.txt</td><td>12 Oct&ndash;13 Nov</td><td>18 Oct&ndash;15 Nov</td><td>Must</td><td>T1</td></tr>
+  <tr><td>T7 Map and collisions</td><td>12&ndash;25 Oct</td><td>30 Oct</td><td>Must</td><td>T1</td></tr>
+  <tr><td>T8 Game screen, player, timer</td><td>19&ndash;25 Oct</td><td>9 Nov</td><td>Must, CP</td><td>T5, T7</td></tr>
+  <tr><td>T9 Items and inventory</td><td>26 Oct&ndash;1 Nov</td><td>26&ndash;28 Oct</td><td>Must</td><td>T5</td></tr>
+  <tr><td>T10 Hidden events</td><td>26 Oct&ndash;1 Nov</td><td>26&ndash;27 Oct; 9 Nov</td><td>Must</td><td>T5</td></tr>
+  <tr><td>T11 Geese and waves</td><td>26 Oct&ndash;1 Nov</td><td>9 Nov</td><td>Must, CP</td><td>T5, T8, T9</td></tr>
+  <tr><td>T12 Integration and testing</td><td>2&ndash;8 Nov</td><td>9&ndash;13 Nov</td><td>Must, CP</td><td>T8&ndash;T11</td></tr>
+  <tr><td>T13 Documents (Impl1, Plan1)</td><td>2&ndash;8 Nov</td><td>9&ndash;14 Nov</td><td>Must, CP</td><td>T12 must finish first</td></tr>
+  <tr><td>T14 Final review</td><td>9&ndash;13 Nov</td><td>13&ndash;14 Nov</td><td>Must, CP</td><td>T12, T13</td></tr>
+  <tr><td>T15 Submit</td><td>15 Nov</td><td>15 Nov</td><td>Must, CP</td><td>T14</td></tr>
+</table>
+<p>CP marks the critical path T1 &rarr; T3 &rarr; T5 &rarr; T8 &rarr; T11 &rarr; T12 &rarr; T13 &rarr; T14 &rarr; T15: a delay on any of these moves the end date. The documents (T13) are drafted alongside testing but can only be finished after it, because they report its results. T4, T6, T7, T9 and T10 had float.</p>
 
 <h2>c2. How the plan evolved</h2>
 <table>
-  <colgroup><col style="width:14%"><col style="width:43%"><col style="width:43%"></colgroup>
+  <colgroup><col style="width:15%"><col style="width:45%"><col style="width:40%"></colgroup>
   <thead><tr><th>Version</th><th>What changed</th><th>Why</th></tr></thead>
-  <tr><td>v1, 7 Oct (kick-off)</td><td>Weekly milestones: set-up in week 1; requirements, first diagrams and risk register in week 2; map, movement and timer in week 3; items, geese and events in week 4; feature freeze on 8 Nov; final review in week 6.</td><td>First plan, made before we knew the client&rsquo;s needs; one issue per role for week 1.</td></tr>
-  <tr><td>v2, 12 Oct (week 2)</td><td>Week 2 split into issues for sub-teams; the client meeting (14 Oct) added; the requirements task started after week 1 instead of at the kick-off.</td><td>Sub-teams give each document more than one author, and the requirements could not be finished before the client meeting.</td></tr>
-  <tr><td>v3, 9 Nov (re-plan)</td><td>Requirements took until 27 Oct and the architecture until 28 Oct; the items were early, but the map arrived on 30 Oct and the game screen and geese not until 9 Nov, after the planned feature freeze. The remaining work was re-planned: integration and testing 10&ndash;13 Nov (including Windows and Linux and real players), documents by 10 Nov, final review 11&ndash;14 Nov, submission a day early on 15 Nov.</td><td>The critical path slipped by about a week (risks R2, R6 and R9 happened). The re-plan keeps a day of slack before the deadline and puts the tasks that check the marks (page limits, links, the JAR on a clean machine) last, when nothing else changes.</td></tr>
+  <tr><td>v1, 7 Oct (week 1)</td><td>Weekly milestones: set-up; requirements, first diagrams and risk register in week 2; build in weeks 3&ndash;4; feature freeze 8 Nov; final review in week 6.</td><td>First plan, before we knew the client&rsquo;s needs.</td></tr>
+  <tr><td>v2, 12 Oct (week 2)</td><td>Week 2 split into issues for sub-teams; the client meeting added; requirements start after week 1.</td><td>Sub-teams give each document more than one author; the requirements needed the client meeting first.</td></tr>
+  <tr><td>Weeks 3&ndash;5</td><td>No change to the plan. The requirements and architecture ran 9&ndash;10 days late; the items were early; the map, game screen and geese did not arrive.</td><td>Progress was not checked against the board after week 2 (risks R2, R9).</td></tr>
+  <tr><td>v3, 9 Nov (week 6)</td><td>The late tasks were taken over and finished; testing 10&ndash;13 Nov (Windows, Linux, real players); documents finished after testing; final review 13&ndash;14 Nov; submission a day early on 15 Nov.</td><td>The critical path slipped by about a week (R2, R6, R9). The re-plan keeps a day of slack before the deadline.</td></tr>
 </table>
-<p>The website keeps every version of the plan (<code>plan/plan-v1.svg</code> to <code>plan-v3.svg</code>), drawn by a script from the kick-off notes, the GitHub issues and the repository history, so the versions can be compared.</p>
+<p>The six weekly snapshots on the website were drawn on 9&ndash;10 November from the kick-off notes, the GitHub issues and the repository history, because we did not save a chart every week; weeks 3&ndash;5 are marked as reconstructed.</p>
 
 </body>
 </html>

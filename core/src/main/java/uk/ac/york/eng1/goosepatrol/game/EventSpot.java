@@ -11,6 +11,7 @@ import uk.ac.york.eng1.goosepatrol.hidden_event.IHiddenEvent;
 public class EventSpot {
 
     private final IHiddenEvent event;
+    private final String propPath;
     private final Runnable effect;
     private boolean triggered = false;
 
@@ -21,8 +22,30 @@ public class EventSpot {
      * @param effect what happens to the player or the geese when it triggers
      */
     public EventSpot(IHiddenEvent event, Runnable effect) {
+        this(event, null, effect);
+    }
+
+    /**
+     * Creates the spot with something to see on the map, so the event is hidden but not
+     * invisible: the player sees an odd object but not what it does.
+     *
+     * @param event    the hidden event (position and radius)
+     * @param propPath the image drawn at the event, in the assets folder, or null for none
+     * @param effect   what happens to the player or the geese when it triggers
+     */
+    public EventSpot(IHiddenEvent event, String propPath, Runnable effect) {
         this.event = event;
+        this.propPath = propPath;
         this.effect = effect;
+    }
+
+    /**
+     * Returns the image drawn at the event.
+     *
+     * @return the path in the assets folder, or null for none
+     */
+    public String getPropPath() {
+        return propPath;
     }
 
     /**

@@ -1,10 +1,10 @@
 package uk.ac.york.eng1.goosepatrol.hidden_event;
 
-import java.time.Instant;
-
 /**
  * Hindering hidden event (FR_EVENT_EFFECT): when triggered, the geese move faster for
- * 10 seconds. The goose package reads {@link #checkActive()} to know when to speed up.
+ * 10 seconds. The game applies the speed-up through its effect, {@code GooseManager.speedUp},
+ * which counts game time and so stops during a pause; {@link #checkActive()} reports the
+ * same 10 seconds by the clock, for other uses.
  */
 public class HEGooseSpeed implements IHiddenEvent{
 
@@ -13,7 +13,11 @@ public class HEGooseSpeed implements IHiddenEvent{
     private final float activationRadius = 50;
     private final float flagRadius = 100;
 
-    private float activationTime = 0f;
+    /** How long the speed-up lasts, in milliseconds. */
+    private static final long ACTIVE_MILLIS = 10_000L;
+
+    /** Clock time when the speed-up ends, in milliseconds. */
+    private long activeUntil = 0L;
     private boolean isActivated = false;
 
     /**
@@ -46,23 +50,18 @@ public class HEGooseSpeed implements IHiddenEvent{
 
     @Override
     public void showFlag() {
-        //TODO: Setup the flag to show an event is nearby.  Dont show which event or exactly where
+        // Nothing to do here: WorldRenderer draws the "?" hint while isPlayerInFlagRange is true.
     }
+
     @Override
     public void trigger() {
-        //TODO: Goose speed multiplier
-        this.activationTime = Instant.now().getEpochSecond() + 10;
+        this.activeUntil = System.currentTimeMillis() + ACTIVE_MILLIS;
         this.isActivated = true;
     }
 
     @Override
     public boolean checkActive() {
-        if (Instant.now().getEpochSecond() > this.activationTime) {
-            //TODO: Goose speed multiplier
-            return false;
-        } else {
-            return true;
-        }
+        return System.currentTimeMillis() < this.activeUntil;
     }
 
     @Override

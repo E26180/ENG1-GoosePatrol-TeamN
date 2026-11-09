@@ -163,4 +163,34 @@ class ItemTest {
         bread.addUses(10);
         assertEquals(BreadItem.START_USES + 10, bread.getUsesLeft());
     }
+
+    @Test
+    void breadFeedsAtMostTenGeeseAtOnce() {
+        FakeGeese world = new FakeGeese();
+        for (int i = 0; i < 13; i++) {
+            world.add(100f, 100f);
+        }
+        new BreadItem(world).use(100f, 100f);
+        long fed = world.geese.stream().filter(g -> g.hunger > 0f).count();
+        assertEquals(BreadItem.MAX_GEESE, fed, "QR_AVOID_EXTREME: at most 10 geese per throw");
+    }
+
+    @Test
+    void everyItemNamesAnIconThatExists() {
+        FakeGeese world = new FakeGeese();
+        Item[] items = {new OatsItem(world), new BreadItem(world), new EnergyDrinkItem((m, s) -> { })};
+        for (Item item : items) {
+            assertTrue(new java.io.File("../assets/" + item.getIconPath()).isFile(), item.getName() + " icon");
+        }
+    }
+
+    @Test
+    void foodItemsShowARingAndTheDrinkShowsAMessage() {
+        FakeGeese world = new FakeGeese();
+        assertTrue(new OatsItem(world).isFood());
+        assertEquals(BreadItem.RADIUS_PIXELS, new BreadItem(world).getSplashRadius());
+        Item drink = new EnergyDrinkItem((m, s) -> { });
+        assertFalse(drink.isFood());
+        assertTrue(drink.getUseMessage().contains("faster"));
+    }
 }

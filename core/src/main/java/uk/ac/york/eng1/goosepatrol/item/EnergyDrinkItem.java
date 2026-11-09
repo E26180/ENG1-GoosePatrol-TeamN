@@ -44,6 +44,16 @@ public class EnergyDrinkItem extends Item {
     }
 
     @Override
+    public String getIconPath() {
+        return "textures/items/energy-drink.png";
+    }
+
+    @Override
+    public String getUseMessage() {
+        return "Energy drink: " + Math.round((SPEED_MULTIPLIER - 1f) * 100) + "% faster for " + (int) BOOST_SECONDS + " s";
+    }
+
+    @Override
     protected boolean applyEffect(float x, float y) {
         target.applySpeedBoost(SPEED_MULTIPLIER, BOOST_SECONDS);
         return true;

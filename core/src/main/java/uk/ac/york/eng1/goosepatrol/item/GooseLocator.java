@@ -23,7 +23,7 @@ public interface GooseLocator {
      * @param x      world x of the centre
      * @param y      world y of the centre
      * @param radius distance from the centre, in pixels
-     * @return the geese in range (empty if none)
+     * @return the geese in range, nearest first (empty if none)
      */
     List<? extends Feedable> geeseNear(float x, float y, float radius);
 }

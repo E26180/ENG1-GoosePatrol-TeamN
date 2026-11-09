@@ -24,4 +24,11 @@ class EventSpotTest {
         assertEquals(1, runs[0]);
         assertTrue(spot.isTriggered());
     }
+
+    @Test
+    void carriesThePropToDraw() {
+        EventSpot spot = new EventSpot(new HEItems(0f, 0f), "textures/events/backpack.png", () -> { });
+        assertEquals("textures/events/backpack.png", spot.getPropPath());
+        assertTrue(new java.io.File("../assets/" + spot.getPropPath()).isFile());
+    }
 }

@@ -60,11 +60,12 @@ public class CollisionManager {
         return false;
     }
     /**
-     * Returns the stored collision areas.
+     * Returns a copy of the stored collision areas.
      *
      * @return the rectangles read from the map
      */
     public Array<Rectangle>getCollisionAreas(){
-        return collisionAreas;
+        // a copy, so callers cannot change the map's walls
+        return new Array<>(collisionAreas);
     }
 }

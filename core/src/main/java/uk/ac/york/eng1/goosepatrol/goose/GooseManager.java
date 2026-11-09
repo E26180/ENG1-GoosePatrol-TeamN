@@ -320,7 +320,7 @@ public class GooseManager implements GooseLocator, WaveStatus, CollisionChecker 
      * @param x      world x of the centre
      * @param y      world y of the centre
      * @param radius distance from the centre
-     * @return the hungry geese in range (empty if none)
+     * @return the hungry geese in range, nearest first (empty if none)
      */
     @Override
     public List<Goose> geeseNear(float x, float y, float radius) {
@@ -330,6 +330,8 @@ public class GooseManager implements GooseLocator, WaveStatus, CollisionChecker 
                 near.add(goose);
             }
         }
+        near.sort((a, b) -> Double.compare(Math.hypot(a.getCenterX() - x, a.getCenterY() - y),
+            Math.hypot(b.getCenterX() - x, b.getCenterY() - y)));
         return near;
     }
 

@@ -30,7 +30,11 @@ public class Player implements SpeedBoostTarget {
     /** The playable area; the player can never leave it. */
     private final Rectangle world;
 
-    private final CollisionChecker obstacles;
+    /** Walls and buildings: never walked through. */
+    private final CollisionChecker walls;
+
+    /** Things that move, such as hungry geese: they block the player, but if one moves onto the player they can walk out. */
+    private final CollisionChecker movers;
 
     /** Current speed multiplier (1 when not boosted). */
     private float speedMultiplier = 1f;
@@ -50,12 +54,27 @@ public class Player implements SpeedBoostTarget {
      * @param x         world x of the bottom-left corner
      * @param y         world y of the bottom-left corner
      * @param world     the playable area
-     * @param obstacles what the player cannot walk through
+     * @param walls     what the player cannot walk through, such as buildings
      */
-    public Player(float x, float y, Rectangle world, CollisionChecker obstacles) {
+    public Player(float x, float y, Rectangle world, CollisionChecker walls) {
+        this(x, y, world, walls, bounds -> false);
+    }
+
+    /**
+     * Creates the player with moving obstacles as well as walls.
+     *
+     * @param x      world x of the bottom-left corner
+     * @param y      world y of the bottom-left corner
+     * @param world  the playable area
+     * @param walls  what the player can never walk through, such as buildings
+     * @param movers moving obstacles, such as hungry geese: they block the player too, but if
+     *               one moves onto the player, the player can walk out of it (never through a wall)
+     */
+    public Player(float x, float y, Rectangle world, CollisionChecker walls, CollisionChecker movers) {
         this.bounds = new Rectangle(x, y, WIDTH, HEIGHT);
         this.world = new Rectangle(world);
-        this.obstacles = obstacles;
+        this.walls = walls;
+        this.movers = movers;
     }
 
     /**
@@ -124,18 +143,21 @@ public class Player implements SpeedBoostTarget {
         }
     }
 
-    /** Tries one step along one axis, and undoes it if the new place is blocked. */
+    /**
+     * Tries one step along one axis, and undoes it if the new place is blocked. A wall always
+     * blocks. A moving obstacle blocks too, unless the player was already overlapping one
+     * (a goose pushed onto them), so they can walk out of it.
+     */
     private void moveAxis(float dx, float dy) {
         if (dx == 0f && dy == 0f) {
             return;
         }
         float oldX = bounds.x;
         float oldY = bounds.y;
-        // If something moved onto the player (a goose pushed by another), let them walk out of it.
-        boolean wasBlocked = obstacles.collidesWith(bounds);
+        boolean wasInMover = movers.collidesWith(bounds);
         bounds.x = clamp(bounds.x + dx, world.x, world.x + world.width - bounds.width);
         bounds.y = clamp(bounds.y + dy, world.y, world.y + world.height - bounds.height);
-        if (!wasBlocked && obstacles.collidesWith(bounds)) {
+        if (walls.collidesWith(bounds) || (!wasInMover && movers.collidesWith(bounds))) {
             bounds.x = oldX;
             bounds.y = oldY;
         }

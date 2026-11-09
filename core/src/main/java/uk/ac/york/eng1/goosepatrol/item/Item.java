@@ -126,6 +126,43 @@ public abstract class Item {
     }
 
     /**
+     * Returns where the item's icon is in the assets folder, so the inventory bar can draw
+     * any item without knowing its class (QR_EXTENSIBLE).
+     *
+     * @return the icon path, or null if the item has no icon
+     */
+    public String getIconPath() {
+        return null;
+    }
+
+    /**
+     * Returns the radius of the ring drawn where the item was used, to show what it reached.
+     *
+     * @return the radius in world units, or 0 for no ring
+     */
+    public float getSplashRadius() {
+        return 0f;
+    }
+
+    /**
+     * Tells whether the item is food, so the screen plays the eating sound.
+     *
+     * @return true for food items
+     */
+    public boolean isFood() {
+        return false;
+    }
+
+    /**
+     * Returns a short message to show when the item is used, if the effect is not visible on its own.
+     *
+     * @return the message, or null for none
+     */
+    public String getUseMessage() {
+        return null;
+    }
+
+    /**
      * Returns the seconds left until the item is ready again.
      *
      * @return remaining cooldown in seconds
