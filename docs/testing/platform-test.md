@@ -8,6 +8,7 @@ the JAR on the website is rebuilt whenever `main` changes.
 |---|---|---|---|
 | 1 | 9 Nov 2026 | `f4b96d50…a7` (17,446,020 bytes), before the message fix | macOS, Ubuntu (VM), Windows 11 (VM) |
 | 2 | 9 Nov 2026 | `86a86daf…ed` (17,446,163 bytes), after the message fix (PR #51) | macOS only |
+| 3 | 9 Nov 2026 | The game as on `main` after PR #51 (the same code as test 2) | A real Windows PC |
 
 Full hashes: test 1 `f4b96d5013d54a43a2b080f51beae3c1335730e9b377c6b4c7fe6e44212310a7`,
 test 2 `86a86dafe61143992b2545aa7830aadf42005a53e97837fcce8116d2a82a88ed`.
@@ -57,6 +58,15 @@ After the fix, at the smallest window size (test 2, paused so the message could 
 
 ![Duck message at the normal size](images/message-after-duck.png)
 
+## Test 3: a real Windows PC
+
+A team member played the game on their own Windows PC on the evening of 9 Nov and reported that it
+worked well. Unlike tests 1 and 2, no log, screenshot, Windows or Java version was recorded, and it is
+not recorded whether a whole 5-minute game was played. This answers the main open question from
+test 1: the game opens and runs on a real Windows PC, so the virtual machine's failure was a limit of
+that machine. To record next time: `java -version`, the Windows version, the JAR's SHA-256, and a
+screenshot of the result screen.
+
 ## Problems found and what we did
 
 1. **Messages ran over the status panel** (test 1, macOS and Linux). The yellow message box was centred,
@@ -71,8 +81,8 @@ After the fix, at the smallest window size (test 2, paused so the message could 
    at least 4 seconds; a message that arrives meanwhile is shown after it (`Messages`, `MessagesTest`).
    Checked by unit tests; not yet checked in a played game.
 3. **No window in the Windows virtual machine.** libGDX needs OpenGL, and this virtual machine's driver
-   reported that it did not support it. Most likely a limit of the test machine rather than of the
-   game, but Windows is **not yet verified**. Next step: a full game on a real Windows PC (R18).
+   reported that it did not support it. A team member then played the game on a real Windows PC
+   (test 3), so this was a limit of the virtual machine, not of the game.
 4. **Double-click did nothing with a portable Java**, which does not link `.jar` files to itself. The
    website now says to try double-clicking and, if that does not work, to run `java -jar` in a terminal.
 5. **The Linux window had no title bar** in the virtual machine, so resizing could not be tried. The
@@ -81,8 +91,8 @@ After the fix, at the smallest window size (test 2, paused so the message could 
 
 ## Not covered yet
 
-- A real Windows PC (x64), a real Linux PC and an Intel Mac.
-- Linux and Windows with the newest JAR.
+- A recorded full game on Windows (test 3 has no log), a real Linux PC and an Intel Mac.
+- The final build on all three systems.
 - Hearing the sounds.
 - Frame rate: no slowdowns were seen, but none were measured.
 - First-time players: see [playtest.md](playtest.md).
