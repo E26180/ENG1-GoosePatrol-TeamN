@@ -12,6 +12,7 @@ on:
       - "website/**"
       - "docs/assessment1/**"
       - "docs/architecture/**"
+      - "docs/plan/**"
       - "core/src/main/**"
       - "lwjgl3/**"
       - "assets/**"
@@ -44,10 +45,11 @@ jobs:
         run: ./gradlew --no-daemon lwjgl3:jar
       - name: Put the website and the deliverables together
         run: |
-          mkdir -p _site/docs _site/architecture
+          mkdir -p _site/docs _site/architecture _site/plan
           cp -r website/. _site/
           cp docs/assessment1/*.pdf _site/docs/ 2>/dev/null || true
           cp docs/architecture/*.pdf docs/architecture/*.svg _site/architecture/
+          cp docs/plan/*.svg _site/plan/
           cp lwjgl3/build/libs/GoosePatrol-1.0.0.jar _site/
       - uses: actions/upload-pages-artifact@v3
         with:
