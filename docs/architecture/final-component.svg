@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="880" viewBox="0 0 1200 880">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="open" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#222" stroke-width="1.3"/></marker>
+<marker id="tri" viewBox="0 0 12 12" refX="12" refY="6" markerWidth="13" markerHeight="13" orient="auto-start-reverse"><path d="M0,0 L12,6 L0,12 z" fill="#fff" stroke="#222" stroke-width="1.2"/></marker>
+<marker id="diamond" viewBox="0 0 16 10" refX="0" refY="5" markerWidth="16" markerHeight="10" orient="auto-start-reverse"><path d="M0,5 L8,0 L16,5 L8,10 z" fill="#fff" stroke="#222" stroke-width="1.2"/></marker>
+</defs>
+<rect width="1200" height="880" fill="#fff"/>
+<text x="600.0" y="26" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">Final component diagram (v3): one component per package, joined by interfaces</text>
+<rect x="40" y="50" width="230" height="117" fill="#ffffff" stroke="#222" stroke-width="1.3"/>
+<text x="155.0" y="71" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#222">«component»</text>
+<text x="155.0" y="88" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">Desktop launcher</text>
+<line x1="40" y1="100" x2="270" y2="100" stroke="#222"/>
+<text x="48" y="120" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">lwjgl3: Lwjgl3Launcher</text>
+<text x="48" y="137" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">core: Main</text>
+<text x="48" y="154" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">QR_PLATFORM</text>
+<rect x="930" y="50" width="230" height="100" fill="#ffffff" stroke="#222" stroke-width="1.3"/>
+<text x="1045.0" y="71" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#222">«external library»</text>
+<text x="1045.0" y="88" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">libGDX 1.14.2</text>
+<line x1="930" y1="100" x2="1160" y2="100" stroke="#222"/>
+<text x="938" y="120" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">rendering, input,</text>
+<text x="938" y="137" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">tile maps (TmxMapLoader)</text>
+<rect x="340" y="50" width="520" height="134" fill="#fff1dc" stroke="#222" stroke-width="1.3"/>
+<text x="600.0" y="71" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#222">«component»</text>
+<text x="600.0" y="88" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">Game Screen</text>
+<line x1="340" y1="100" x2="860" y2="100" stroke="#222"/>
+<text x="348" y="120" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">screen: GameScreen, Hud</text>
+<text x="348" y="137" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">reads the keys and mouse, draws the map, player and HUD,</text>
+<text x="348" y="154" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">start, pause, win and lose screens</text>
+<text x="348" y="171" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">FR_START_PAUSED, FR_PAUSE_KEY, QR_ACCESS_CUES</text>
+<rect x="40" y="290" width="330" height="117" fill="#e9f4e9" stroke="#222" stroke-width="1.3"/>
+<text x="205.0" y="311" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#222">«component»</text>
+<text x="205.0" y="328" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">Game Rules</text>
+<line x1="40" y1="340" x2="370" y2="340" stroke="#222"/>
+<text x="48" y="360" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">game: GameSession, GameTimer, GameState</text>
+<text x="48" y="377" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">5-minute timer, pause, win or loss</text>
+<text x="48" y="394" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">FR_TIMER, FR_JUDGEMENT, FR_COUNTERS</text>
+<rect x="435" y="290" width="330" height="117" fill="#e4eefb" stroke="#222" stroke-width="1.3"/>
+<text x="600.0" y="311" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#222">«component»</text>
+<text x="600.0" y="328" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">Player</text>
+<line x1="435" y1="340" x2="765" y2="340" stroke="#222"/>
+<text x="443" y="360" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">player: Player</text>
+<text x="443" y="377" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">WASD movement, speed boost</text>
+<text x="443" y="394" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">FR_AVATAR, FR_CONTROLS, QR_OUT_OF_BOUNDS</text>
+<rect x="830" y="290" width="330" height="117" fill="#fbe9e9" stroke="#222" stroke-width="1.3"/>
+<text x="995.0" y="311" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#222">«component»</text>
+<text x="995.0" y="328" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">Campus Map</text>
+<line x1="830" y1="340" x2="1160" y2="340" stroke="#222"/>
+<text x="838" y="360" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">map: MapManager, CollisionManager</text>
+<text x="838" y="377" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">map from Tiled, walls and buildings</text>
+<text x="838" y="394" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">FR_CAMPUS_MAP, QR_COLLISION</text>
+<rect x="40" y="560" width="330" height="117" fill="#fbf6d8" stroke="#222" stroke-width="1.3"/>
+<text x="205.0" y="581" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#222">«component»</text>
+<text x="205.0" y="598" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">Hidden Events</text>
+<line x1="40" y1="610" x2="370" y2="610" stroke="#222"/>
+<text x="48" y="630" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">hidden_event: IHiddenEvent, HEItems,</text>
+<text x="48" y="647" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">HEGooseSpeed; game: EventSpot</text>
+<text x="48" y="664" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">FR_EVENTS, FR_EVENT_EFFECT</text>
+<rect x="435" y="560" width="330" height="117" fill="#f1e9f9" stroke="#222" stroke-width="1.3"/>
+<text x="600.0" y="581" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#222">«component»</text>
+<text x="600.0" y="598" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">Inventory and Items</text>
+<line x1="435" y1="610" x2="765" y2="610" stroke="#222"/>
+<text x="443" y="630" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">item: Inventory, Item, OatsItem,</text>
+<text x="443" y="647" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">BreadItem, EnergyDrinkItem, keys 1-9</text>
+<text x="443" y="664" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">FR_START_INVENTORY, FR_SINGLE/MULTI_TARGET</text>
+<rect x="830" y="560" width="330" height="117" fill="#f2f2f2" stroke="#777" stroke-width="1.3" stroke-dasharray="6 4"/>
+<text x="995.0" y="581" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«component»</text>
+<text x="995.0" y="598" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#777">Geese</text>
+<line x1="830" y1="610" x2="1160" y2="610" stroke="#777" stroke-dasharray="6 4"/>
+<text x="838" y="630" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">goose: GooseManager, Goose</text>
+<text x="838" y="647" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">waves, hunger, alert before attack</text>
+<text x="838" y="664" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">FR_ENEMY, FR_WAVES, QR_ALERT</text>
+<rect x="435" y="710" width="200" height="100" fill="#f2f2f2" stroke="#777" stroke-width="1.3" stroke-dasharray="6 4"/>
+<text x="535.0" y="731" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«component»</text>
+<text x="535.0" y="748" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#777">Score</text>
+<line x1="435" y1="760" x2="635" y2="760" stroke="#777" stroke-dasharray="6 4"/>
+<text x="443" y="780" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">Assessment 2</text>
+<text x="443" y="797" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">FR_SCORE</text>
+<rect x="655" y="710" width="200" height="100" fill="#f2f2f2" stroke="#777" stroke-width="1.3" stroke-dasharray="6 4"/>
+<text x="755.0" y="731" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«component»</text>
+<text x="755.0" y="748" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#777">Collectibles</text>
+<line x1="655" y1="760" x2="855" y2="760" stroke="#777" stroke-dasharray="6 4"/>
+<text x="663" y="780" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">Assessment 2</text>
+<text x="663" y="797" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">FR_PICKUP_ITEMS</text>
+<path d="M270,90 L340,90" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="278" y="82" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">starts</text>
+<path d="M860,90 L930,90" fill="none" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<text x="868" y="82" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">uses</text>
+<path d="M340,172 L205,172 L205,290" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="213" y="270" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">play, togglePause, update</text>
+<path d="M600,184 L600,290" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="608" y="270" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">update(delta, dirX, dirY)</text>
+<path d="M820,184 L820,240 L995,240 L995,290" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="1003" y="270" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">render</text>
+<path d="M340,180 L22,180 L22,620 L40,620" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="28" y="545" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">update(position)</text>
+<path d="M400,184 L400,530 L520,530 L520,560" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="408" y="522" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">select, useSelected</text>
+<path d="M830,345 L798,345" fill="none" stroke="#222" stroke-width="1.3"/>
+<path d="M765,345 L789,345" fill="none" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<circle cx="798" cy="345" r="9" fill="#fff" stroke="#222" stroke-width="1.4"/>
+<text x="798" y="330" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" font-style="italic" text-anchor="middle" fill="#222">CollisionChecker</text>
+<path d="M690,407 L690,500" fill="none" stroke="#222" stroke-width="1.3"/>
+<path d="M690,560 L690,509" fill="none" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<circle cx="690" cy="500" r="9" fill="#fff" stroke="#222" stroke-width="1.4"/>
+<text x="700" y="495" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" font-style="italic" text-anchor="start" fill="#222">SpeedBoostTarget</text>
+<path d="M830,620 L798,620" fill="none" stroke="#222" stroke-width="1.3"/>
+<path d="M765,620 L789,620" fill="none" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<circle cx="798" cy="620" r="9" fill="#fff" stroke="#222" stroke-width="1.4"/>
+<text x="798" y="605" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" font-style="italic" text-anchor="middle" fill="#222">GooseLocator, Feedable</text>
+<path d="M1100,560 L1100,500" fill="none" stroke="#222" stroke-width="1.3"/>
+<path d="M370,330 L395,330 L395,470 L1100,470 L1100,491" fill="none" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#open)"/>
+<circle cx="1100" cy="500" r="9" fill="#fff" stroke="#222" stroke-width="1.4"/>
+<text x="1110" y="495" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" font-style="italic" text-anchor="start" fill="#222">WaveStatus</text>
+<text x="1090" y="462" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="end" fill="#777">(NoGeese until merged)</text>
+<path d="M370,650 L435,650" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="374" y="642" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">adds items</text>
+<path d="M150,560 L150,407" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="158" y="470" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">eventTriggered</text>
+<path d="M205,677 L205,840 L1100,840 L1100,677" fill="none" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="900" y="832" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">speed-up (HEGooseSpeed)</text>
+<text x="40" y="874" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">Dashed grey: in progress or Assessment 2. Ball and dashed arrow: the interface one component offers and another needs.</text>
+</svg>
