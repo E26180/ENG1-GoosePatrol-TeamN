@@ -16,8 +16,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import uk.ac.york.eng1.goosepatrol.HEGooseSpeed;
-import uk.ac.york.eng1.goosepatrol.HEItems;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 import uk.ac.york.eng1.goosepatrol.Main;
 import uk.ac.york.eng1.goosepatrol.MapManager;
 import uk.ac.york.eng1.goosepatrol.game.EventSpot;

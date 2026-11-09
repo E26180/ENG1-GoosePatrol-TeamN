@@ -1,4 +1,4 @@
-package uk.ac.york.eng1.goosepatrol;
+package uk.ac.york.eng1.goosepatrol.hidden_event;
 
 /**
  * Baseline interface for a hidden event

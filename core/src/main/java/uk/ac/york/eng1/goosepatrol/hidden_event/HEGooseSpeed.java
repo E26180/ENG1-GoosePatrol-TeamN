@@ -1,15 +1,18 @@
-package uk.ac.york.eng1.goosepatrol;
+package uk.ac.york.eng1.goosepatrol.hidden_event;
 
-public class HEItems implements IHiddenEvent{
+import java.time.Instant;
 
-    private float posX;
-    private float posY;
+public class HEGooseSpeed implements IHiddenEvent{
+
+    private final float posX;
+    private final float posY;
     private final float activationRadius = 50;
     private final float flagRadius = 100;
 
+    private float activationTime = 0f;
     private boolean isActivated = false;
 
-    public HEItems(float posX, float posY) {
+    public HEGooseSpeed(float posX, float posY) {
         this.posX = posX;
         this.posY = posY;
     }
@@ -34,18 +37,23 @@ public class HEItems implements IHiddenEvent{
 
     @Override
     public void showFlag() {
-        //TODO: Setup the flag to show an event is nearby.  Dont show what event or exactly where
+        //TODO: Setup the flag to show an event is nearby.  Dont show which event or exactly where
     }
     @Override
     public void trigger() {
-        //TODO: Increase energy drink count by 3
-        //TODO: Increase bread count by 10
+        //TODO: Goose speed multiplier
+        this.activationTime = Instant.now().getEpochSecond() + 10;
         this.isActivated = true;
     }
 
     @Override
     public boolean checkActive() {
-        return false;
+        if (Instant.now().getEpochSecond() > this.activationTime) {
+            //TODO: Goose speed multiplier
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
