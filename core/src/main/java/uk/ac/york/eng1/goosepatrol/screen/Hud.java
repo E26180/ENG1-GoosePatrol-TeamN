@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import uk.ac.york.eng1.goosepatrol.game.GameSession;
 import uk.ac.york.eng1.goosepatrol.game.GameState;
+import uk.ac.york.eng1.goosepatrol.game.Messages;
 import uk.ac.york.eng1.goosepatrol.game.WaveStatus;
 import uk.ac.york.eng1.goosepatrol.item.Inventory;
 import uk.ac.york.eng1.goosepatrol.item.Item;
@@ -41,9 +42,6 @@ public class Hud implements Disposable {
     /** Gap around panels, in pixels. */
     private static final float PAD = 10f;
 
-    /** How long a message stays on screen, in seconds. */
-    private static final float MESSAGE_SECONDS = 4f;
-
     private static final Color PANEL = new Color(0f, 0f, 0f, 0.6f);
     private static final Color SELECTED = new Color(1f, 0.82f, 0.25f, 1f);
     private static final Color TEXT_DIM = new Color(0.8f, 0.8f, 0.8f, 1f);
@@ -59,8 +57,8 @@ public class Hud implements Disposable {
     /** Item icons, loaded the first time an item with that icon is shown. */
     private final Map<String, Texture> icons = new HashMap<>();
 
-    private String message = "";
-    private float messageLeft = 0f;
+    /** The message at the top of the screen. */
+    private final Messages messages = new Messages();
 
     /** Creates the HUD and loads its fonts and icons. */
     public Hud() {
@@ -78,8 +76,17 @@ public class Hud implements Disposable {
      * @param text the message
      */
     public void showMessage(String text) {
-        message = text;
-        messageLeft = MESSAGE_SECONDS;
+        messages.show(text);
+    }
+
+    /**
+     * Shows a hidden-event message; it stays long enough to be read before another message can
+     * replace it.
+     *
+     * @param text the message
+     */
+    public void showEventMessage(String text) {
+        messages.showImportant(text);
     }
 
     /**
@@ -107,7 +114,7 @@ public class Hud implements Disposable {
     public void render(float delta, GameSession session, WaveStatus waves, Inventory inventory, Player player,
                        float geeseFasterFor, boolean muted, String tip) {
         if (session.isPlaying()) {
-            messageLeft = Math.max(0f, messageLeft - delta);
+            messages.update(delta);
         }
         viewport.apply();
         float w = viewport.getWorldWidth();
@@ -121,8 +128,8 @@ public class Hud implements Disposable {
         if (tip != null && session.isPlaying()) {
             drawTip(tip, w);
         }
-        if (messageLeft > 0f) {
-            drawMessage(w, h);
+        if (messages.isShowing()) {
+            drawMessage(messages.getText(), w, h);
         }
         if (!session.isPlaying()) {
             drawOverlay(session, waves, inventory, w, h);
@@ -260,8 +267,12 @@ public class Hud implements Disposable {
     /**
      * Shows the current message at the top, to the right of the status panel so it never
      * covers the timer; a long message wraps onto a second line.
+     *
+     * @param message the text to show
+     * @param w       screen width
+     * @param h       screen height
      */
-    private void drawMessage(float w, float h) {
+    private void drawMessage(String message, float w, float h) {
         float left = PAD + STATUS_WIDTH + PAD;
         float maxText = Math.max(100f, w - left - PAD - 30f);
         layout.setText(font, message, Color.YELLOW, maxText, Align.left, true);

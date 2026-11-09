@@ -2,9 +2,9 @@ package uk.ac.york.eng1.goosepatrol.hidden_event;
 
 /**
  * Hindering hidden event (FR_EVENT_EFFECT): when triggered, the geese move faster for
- * 10 seconds. The game applies the speed-up through its effect, {@code GooseManager.speedUp},
- * which counts game time and so stops during a pause; {@link #checkActive()} reports the
- * same 10 seconds by the clock, for other uses.
+ * 10 seconds. The game applies the speed-up through its effect, {@code GooseManager.speedUp};
+ * {@link #checkActive()} reports the same 10 seconds. Both count game time, so a pause
+ * stops them.
  */
 public class HEGooseSpeed implements IHiddenEvent{
 
@@ -13,11 +13,11 @@ public class HEGooseSpeed implements IHiddenEvent{
     private final float activationRadius = 50;
     private final float flagRadius = 100;
 
-    /** How long the speed-up lasts, in milliseconds. */
-    private static final long ACTIVE_MILLIS = 10_000L;
+    /** How long the speed-up lasts, in seconds of game time. */
+    public static final float ACTIVE_SECONDS = 10f;
 
-    /** Clock time when the speed-up ends, in milliseconds. */
-    private long activeUntil = 0L;
+    /** Game time left of the speed-up, in seconds. */
+    private float secondsLeft = 0f;
     private boolean isActivated = false;
 
     /**
@@ -55,13 +55,18 @@ public class HEGooseSpeed implements IHiddenEvent{
 
     @Override
     public void trigger() {
-        this.activeUntil = System.currentTimeMillis() + ACTIVE_MILLIS;
+        this.secondsLeft = ACTIVE_SECONDS;
         this.isActivated = true;
     }
 
     @Override
     public boolean checkActive() {
-        return System.currentTimeMillis() < this.activeUntil;
+        return this.secondsLeft > 0f;
+    }
+
+    @Override
+    public void elapse(float seconds) {
+        this.secondsLeft = Math.max(0f, this.secondsLeft - seconds);
     }
 
     @Override

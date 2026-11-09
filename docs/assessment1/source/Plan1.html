@@ -27,7 +27,7 @@
   .land img { width: 100%; }
   figure { margin: 2pt 0 4pt; }
   figcaption { font-size: 10pt; color: #333; }
-  .refs { font-size: 10pt; }
+  .refs { font-size: 11pt; }
 </style>
 </head>
 <body>
@@ -76,7 +76,7 @@
 
 <h1 class="break">Plan1 &ndash; Part b: team organisation</h1>
 <p><b>Roles.</b> At the kick-off meeting (7 October) we split the work into eight roles, each owning a deliverable or a part of the game: team lead and project manager (plan, website, issues and reviews), requirements, architecture, risk and quality, and four developers, one for each package of the game (core engine and user interface, map and movement, items and inventory, geese and hidden events). The kick-off plan set a rule that every member contributes to deliverables worth at least 15 of the 90 marks, so no one is left with a small share, and gave the two roles below that a supporting deliverable.</p>
-<p><b>Sub-teams for the documents.</b> In week 2 each document got a small sub-team rather than one author: requirements (Alex, Ahmet, Aybike and one more), architecture (Angelina, Leo, Sean), risk (Leo, who started the register, with three others), planning (Sean with three others) and the website (Ahmet, Alex). Each risk in Risk1 also has one named owner, spread across all eight members.</p>
+<p><b>Sub-teams for the documents.</b> In week 2 each document got a small sub-team rather than one author: requirements (Ahmet, Alex, Aybike, Kev), architecture (Angelina, Leo, Sean, later with Ghalia), risk (Leo, who started the register, with Angelina, Aybike, Kev), planning (Sean with Angelina, Aybike, Leo) and the website (Ahmet, Alex); GitHub issues #11&ndash;#16. Each risk in Risk1 also has one named owner, spread across all eight members.</p>
 <p><b>Developers own packages.</b> Each developer owns one package and gives the diagrams and CRC cards for it to Arch1, so the architecture matches the code. Because packages only meet through interfaces, a package can be built and tested before the others exist: the items were finished on 26&ndash;28 October, before any goose code.</p>
 <p><b>Communication and decisions.</b> Discord for daily messages and questions; team meetings for decisions; meeting notes and the client meeting summary are kept in the repository (<code>docs/meetings</code>); pull requests for every change, so the reason for a change is written down.</p>
 <p><b>Why this organisation.</b> It follows the shape of the assessment, so each deliverable has a clear owner and nothing is forgotten. Owners per package match the component architecture, so people rarely edit the same files. Sub-teams mean a document does not depend on one person. A single coordinator keeps the board and the plan up to date for eight people.</p>
@@ -97,9 +97,9 @@
   <thead><tr><th>Task</th><th>Planned (v2)</th><th>Actual or re-planned</th><th>Priority</th><th>Depends on</th></tr></thead>
   <tr><td>T1 Set-up, skeleton, tools</td><td>5&ndash;11 Oct</td><td>5&ndash;7 Oct</td><td>Must, CP</td><td>&ndash;</td></tr>
   <tr><td>T2 Client meeting</td><td>14 Oct</td><td>14 Oct</td><td>Must</td><td>T1</td></tr>
-  <tr><td>T3 Requirements (Req1)</td><td>12&ndash;18 Oct</td><td>12&ndash;27 Oct</td><td>Must, CP</td><td>T2</td></tr>
+  <tr><td>T3 Requirements (Req1)</td><td>12&ndash;18 Oct</td><td>12&ndash;27 Oct</td><td>Must, CP</td><td>T2 (FF)</td></tr>
   <tr><td>T4 Risk register (Risk1)</td><td>12&ndash;18 Oct</td><td>12&ndash;28 Oct; 9&ndash;10 Nov</td><td>Must</td><td>T1</td></tr>
-  <tr><td>T5 Architecture (Arch1)</td><td>12&ndash;18 Oct, 2&ndash;8 Nov</td><td>28 Oct; 9&ndash;12 Nov</td><td>Must, CP</td><td>T3</td></tr>
+  <tr><td>T5 Architecture (Arch1)</td><td>12&ndash;18 Oct, 2&ndash;8 Nov</td><td>28 Oct; 9&ndash;12 Nov</td><td>Must, CP</td><td>T3 (FF)</td></tr>
   <tr><td>T6 Website, url1.txt</td><td>12 Oct&ndash;13 Nov</td><td>18 Oct&ndash;15 Nov</td><td>Must</td><td>T1</td></tr>
   <tr><td>T7 Map and collisions</td><td>12&ndash;25 Oct</td><td>30 Oct</td><td>Must</td><td>T1</td></tr>
   <tr><td>T8 Game screen, player, timer</td><td>19&ndash;25 Oct</td><td>9 Nov</td><td>Must, CP</td><td>T5, T7</td></tr>
@@ -107,11 +107,11 @@
   <tr><td>T10 Hidden events</td><td>26 Oct&ndash;1 Nov</td><td>26&ndash;27 Oct; 9 Nov</td><td>Must</td><td>T5</td></tr>
   <tr><td>T11 Geese and waves</td><td>26 Oct&ndash;1 Nov</td><td>9 Nov</td><td>Must, CP</td><td>T5, T8, T9</td></tr>
   <tr><td>T12 Integration and testing</td><td>2&ndash;8 Nov</td><td>9&ndash;13 Nov</td><td>Must, CP</td><td>T8&ndash;T11</td></tr>
-  <tr><td>T13 Documents (Impl1, Plan1)</td><td>2&ndash;8 Nov</td><td>9&ndash;14 Nov</td><td>Must, CP</td><td>T12 must finish first</td></tr>
+  <tr><td>T13 Documents (Impl1, Plan1)</td><td>2&ndash;8 Nov</td><td>9&ndash;14 Nov</td><td>Must, CP</td><td>T12 (FF)</td></tr>
   <tr><td>T14 Final review</td><td>9&ndash;13 Nov</td><td>13&ndash;14 Nov</td><td>Must, CP</td><td>T12, T13</td></tr>
   <tr><td>T15 Submit</td><td>15 Nov</td><td>15 Nov</td><td>Must, CP</td><td>T14</td></tr>
 </table>
-<p>CP marks the critical path T1 &rarr; T3 &rarr; T5 &rarr; T8 &rarr; T11 &rarr; T12 &rarr; T13 &rarr; T14 &rarr; T15: a delay on any of these moves the end date. The documents (T13) are drafted alongside testing but can only be finished after it, because they report its results. T4, T6, T7, T9 and T10 had float.</p>
+<p>A task starts when the tasks it depends on finish, except FF: it may start as a draft but cannot finish before them. T8&ndash;T11 need only the design part of T5 (12&ndash;18 Oct); its second part draws the final code. CP marks the critical path T1 &rarr; T3 &rarr; T5 &rarr; T8 &rarr; T11 &rarr; T12 &rarr; T13 &rarr; T14 &rarr; T15: in plan v2 these follow each other week by week to the deadline, so they have no float. T4, T6, T7, T9 and T10 had one to three weeks of float.</p>
 
 <h2>c2. How the plan evolved</h2>
 <table>
@@ -122,7 +122,7 @@
   <tr><td>Weeks 3&ndash;5</td><td>No change to the plan. The requirements and architecture ran 9&ndash;10 days late; the items were early; the map, game screen and geese did not arrive.</td><td>Progress was not checked against the board after week 2 (risks R2, R9).</td></tr>
   <tr><td>v3, 9 Nov (week 6)</td><td>The late tasks were taken over and finished; testing 10&ndash;13 Nov (Windows, Linux, real players); documents finished after testing; final review 13&ndash;14 Nov; submission a day early on 15 Nov.</td><td>The critical path slipped by about a week (R2, R6, R9). The re-plan keeps a day of slack before the deadline.</td></tr>
 </table>
-<p>The six weekly snapshots on the website were drawn on 9&ndash;10 November from the kick-off notes, the GitHub issues and the repository history, because we did not save a chart every week; weeks 3&ndash;5 are marked as reconstructed.</p>
+<p>The six weekly snapshots on the website were drawn on 9&ndash;10 Nov from the kick-off notes, GitHub issues and repository history, as we did not save a chart every week; weeks 3&ndash;5 are marked as reconstructed.</p>
 
 </body>
 </html>
