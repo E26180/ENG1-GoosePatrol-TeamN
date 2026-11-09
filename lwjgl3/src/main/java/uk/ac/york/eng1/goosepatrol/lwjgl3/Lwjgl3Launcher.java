@@ -6,6 +6,11 @@ import uk.ac.york.eng1.goosepatrol.Main;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
+    /**
+     * Starts the game in a desktop window.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
         createApplication();

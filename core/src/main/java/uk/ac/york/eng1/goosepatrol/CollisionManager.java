@@ -8,9 +8,17 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
 
+/**
+ * Holds the solid areas of the map (buildings and obstacles), read from the map's
+ * "Collision" object layer, and tells whether a rectangle overlaps any of them (QR_COLLISION).
+ */
 public class CollisionManager {
     private final Array<Rectangle> collisionAreas = new Array<>();
-    //Constructor that receives the loaded Tiled map.
+    /**
+     * Reads the collision rectangles from the loaded Tiled map.
+     *
+     * @param map the loaded map
+     */
     public CollisionManager(TiledMap map){
         //Searches the map's layers and retrieves the related layer.
         MapLayer layer = map.getLayers().get("Collision");
@@ -32,7 +40,12 @@ public class CollisionManager {
         }
         System.out.println("Collision areas loaded:" + collisionAreas.size);
     }
-    //Receives the player's bounding rectangle and check if it intersects with any collision rectangle
+    /**
+     * Checks whether a rectangle, normally the player's bounds, overlaps any solid area.
+     *
+     * @param playerBounds the rectangle to check, in world units
+     * @return true if it overlaps a collision area
+     */
     public boolean collidesWith(Rectangle playerBounds){
         //Check every rectangle in the array one by one.
         for(Rectangle area:collisionAreas){
@@ -46,7 +59,11 @@ public class CollisionManager {
         //if there is no overlap, returns false
         return false;
     }
-    //Provides access to the stored collision.
+    /**
+     * Returns the stored collision areas.
+     *
+     * @return the rectangles read from the map
+     */
     public Array<Rectangle>getCollisionAreas(){
         return collisionAreas;
     }

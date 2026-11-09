@@ -7,7 +7,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-//The purpose of ManagerMap is handling the loading, rendering and camera management of the map.
+/**
+ * Loads the campus map made in Tiled (FR_CAMPUS_MAP), draws it around the camera,
+ * and owns the {@link CollisionManager} that knows where the walls are.
+ */
 public class MapManager {
     //map stores the map data, tiles, layers and objects loaded from the TMX file.
     private TiledMap map;
@@ -25,6 +28,7 @@ public class MapManager {
     private final float drawMargin;
 
 
+    /** Loads the map file, creates the renderer and camera, and reads the collision layer. */
     public MapManager(){
         //Uses libGDX for loading TMX file and covert it to a TiledMap object.
         map = new TmxMapLoader().load("maps/Campus-Goose Patrol.tmx");
@@ -56,7 +60,7 @@ public class MapManager {
         }
         return largest;
     }
-//Updates the camera, assigns it to the map renderer and renders the map onto the screen.
+    /** Updates the camera, assigns it to the map renderer and renders the map onto the screen. */
     public void render(){
         camera.update();
         float viewWidth = camera.viewportWidth * camera.zoom;
@@ -68,7 +72,11 @@ public class MapManager {
             viewHeight + 2f * drawMargin);
         mapRenderer.render();
     }
-    //Returns the camera objects so other classes are able to access it.
+    /**
+     * Returns the camera, so other classes can move it and draw with it.
+     *
+     * @return the map camera
+     */
     public OrthographicCamera getCamera(){
         return camera;
     }
@@ -88,11 +96,15 @@ public class MapManager {
     public float getMapHeight(){
         return map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
     }
-    //Returns the CollisionManager so other classes can access it.
+    /**
+     * Returns the collision areas of the map.
+     *
+     * @return the collision manager
+     */
     public CollisionManager getCollisionManager(){
         return collisionManager;
     }
-    //Releases the resources when they are no longer needed.
+    /** Releases the resources when they are no longer needed. */
     public void dispose(){
         mapRenderer.dispose();
         map.dispose();
