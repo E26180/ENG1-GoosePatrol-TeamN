@@ -63,13 +63,13 @@
 <text x="443" y="630" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">item: Inventory, Item, OatsItem,</text>
 <text x="443" y="647" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">BreadItem, EnergyDrinkItem, keys 1-9</text>
 <text x="443" y="664" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">FR_START_INVENTORY, FR_SINGLE/MULTI_TARGET</text>
-<rect x="830" y="560" width="330" height="117" fill="#f2f2f2" stroke="#777" stroke-width="1.3" stroke-dasharray="6 4"/>
-<text x="995.0" y="581" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«component»</text>
-<text x="995.0" y="598" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#777">Geese</text>
-<line x1="830" y1="610" x2="1160" y2="610" stroke="#777" stroke-dasharray="6 4"/>
-<text x="838" y="630" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">goose: GooseManager, Goose</text>
-<text x="838" y="647" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">waves, hunger, alert before attack</text>
-<text x="838" y="664" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">FR_ENEMY, FR_WAVES, QR_ALERT</text>
+<rect x="830" y="560" width="330" height="117" fill="#e3f1f0" stroke="#222" stroke-width="1.3"/>
+<text x="995.0" y="581" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#222">«component»</text>
+<text x="995.0" y="598" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">Geese</text>
+<line x1="830" y1="610" x2="1160" y2="610" stroke="#222"/>
+<text x="838" y="630" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">goose: GooseManager, Goose, GooseType, Wave</text>
+<text x="838" y="647" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">waves, hunger bars, warning before a snatch</text>
+<text x="838" y="664" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">FR_ENEMY, FR_WAVES, QR_ALERT</text>
 <rect x="435" y="710" width="200" height="100" fill="#f2f2f2" stroke="#777" stroke-width="1.3" stroke-dasharray="6 4"/>
 <text x="535.0" y="731" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«component»</text>
 <text x="535.0" y="748" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#777">Score</text>
@@ -99,7 +99,7 @@
 <path d="M830,345 L798,345" fill="none" stroke="#222" stroke-width="1.3"/>
 <path d="M765,345 L789,345" fill="none" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#open)"/>
 <circle cx="798" cy="345" r="9" fill="#fff" stroke="#222" stroke-width="1.4"/>
-<text x="798" y="330" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" font-style="italic" text-anchor="middle" fill="#222">CollisionChecker</text>
+<text x="798" y="330" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" font-style="italic" text-anchor="middle" fill="#222">CollisionChecker (map, geese)</text>
 <path d="M690,407 L690,500" fill="none" stroke="#222" stroke-width="1.3"/>
 <path d="M690,560 L690,509" fill="none" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#open)"/>
 <circle cx="690" cy="500" r="9" fill="#fff" stroke="#222" stroke-width="1.4"/>
@@ -112,12 +112,12 @@
 <path d="M370,330 L395,330 L395,470 L1100,470 L1100,491" fill="none" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#open)"/>
 <circle cx="1100" cy="500" r="9" fill="#fff" stroke="#222" stroke-width="1.4"/>
 <text x="1110" y="495" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" font-style="italic" text-anchor="start" fill="#222">WaveStatus</text>
-<text x="1090" y="462" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="end" fill="#777">(NoGeese until merged)</text>
+<path d="M808,560 L808,425 L798,425 L798,354" fill="none" stroke="#222" stroke-width="1.3"/>
 <path d="M370,650 L435,650" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
 <text x="374" y="642" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">adds items</text>
 <path d="M150,560 L150,407" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
 <text x="158" y="470" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">eventTriggered</text>
-<path d="M205,677 L205,840 L1100,840 L1100,677" fill="none" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
-<text x="900" y="832" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">speed-up (HEGooseSpeed)</text>
-<text x="40" y="874" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">Dashed grey: in progress or Assessment 2. Ball and dashed arrow: the interface one component offers and another needs.</text>
+<path d="M205,677 L205,840 L1100,840 L1100,677" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<text x="880" y="832" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">speedUp(1.3, 10 s)  (HEGooseSpeed)</text>
+<text x="40" y="874" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">Dashed grey: Assessment 2. Ball and dashed arrow: the interface one component offers and another needs.</text>
 </svg>

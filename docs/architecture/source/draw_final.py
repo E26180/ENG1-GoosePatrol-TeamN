@@ -19,7 +19,8 @@ PKG = {
     "item": "#f1e9f9",
     "map": "#fbe9e9",
     "event": "#fbf6d8",
-    "goose": "#f2f2f2",
+    "goose": "#e3f1f0",
+    "a2": "#f2f2f2",
 }
 
 
@@ -67,20 +68,23 @@ def package(x1, y1, x2, y2, name, planned=False):
 # ---------------------------------------------------------------- class diagram
 
 def class_diagram():
-    W, H = 1580, 1250
+    W, H = 1940, 1250
     main = PBox(40, 60, 210, "Main", "root", "libGDX Game",
                 ops=["+ create(): void"])
     screen = PBox(320, 60, 440, "GameScreen", "screen", "libGDX Screen",
-                  attrs=["- session: GameSession", "- player: Player", "- inventory: Inventory",
-                         "- geese: NoGeese", "- events: List<EventSpot>",
-                         "- mapManager: MapManager", "- hud: Hud"],
+                  attrs=["- session: GameSession", "- player: Player", "- geese: GooseManager",
+                         "- inventory: Inventory", "- events: List<EventSpot>",
+                         "- mapManager: MapManager", "- hud, renderer, sfx"],
                   ops=["+ render(delta: float): void", "- handleInput(): boolean",
                        "- update(delta: float): void", "- draw(delta: float): void",
-                       "- placeEvents(world: Rectangle): void"])
+                       "- blocksPlayer(bounds): boolean"])
     hud = PBox(800, 60, 410, "Hud", "screen",
-               attrs=["- font, bigFont: BitmapFont", "- message: String"],
-               ops=["+ render(delta, session, waves, inventory, player)",
-                    "+ showMessage(text: String): void", "+ resize(width: int, height: int)"])
+               attrs=["- font, goalFont: BitmapFont", "- message: String"],
+               ops=["+ render(delta, session, waves, inventory, ...)",
+                    "+ showMessage(text: String): void"])
+    renderer = PBox(800, 212, 255, "WorldRenderer", "screen",
+                    ops=["+ render(camera, player, geese, ...)", "+ addSplash(x, y, radius)"])
+    sfx = PBox(1070, 212, 140, "Sfx", "screen", ops=["+ play(cue: Cue)", "+ toggleMute()"])
 
     session = PBox(40, 410, 300, "GameSession", "game",
                    attrs=["- state: GameState", "- eventsTriggered: int"],
@@ -92,10 +96,10 @@ def class_diagram():
                       "+ isFinished(): boolean", "+ format(): String"])
     state = PBox(40, 640, 230, "GameState", "game", "enumeration",
                  attrs=["READY, PLAYING, PAUSED,", "WON, LOST"], ops=["+ isOver(): boolean"])
-    waves = PBox(300, 640, 250, "WaveStatus", "game", "interface",
-                 ops=["+ update(delta, playerX, playerY)", "+ geeseLeft(): int", "+ wavesLeft(): int",
+    waves = PBox(300, 640, 270, "WaveStatus", "game", "interface",
+                 ops=["+ update(delta, playerX, playerY)", "+ geeseLeft(), wavesLeft(): int",
+                      "+ currentWave(), totalWaves(): int", "+ secondsToNextWave(): float",
                       "+ allWavesCleared(): boolean"])
-    nogeese = PBox(580, 640, 150, "NoGeese", "game", ops=["stand-in with", "no geese"])
     spot = PBox(40, 820, 300, "EventSpot", "game",
                 attrs=["- event: IHiddenEvent", "- effect: Runnable", "- triggered: boolean"],
                 ops=["+ update(playerPos: float[]): boolean"])
@@ -121,10 +125,22 @@ def class_diagram():
     heitems = PBox(1270, 580, 130, "HEItems", "event")
     hespeed = PBox(1420, 580, 130, "HEGooseSpeed", "event")
 
-    gmgr = PBox(1270, 680, 280, "GooseManager", "goose", "planned", planned=True,
-                ops=["spawns the waves, moves the geese", "towards the player"])
-    goose = PBox(1270, 820, 280, "Goose", "goose", "planned", planned=True,
-                 ops=["hunger, speed, alert before attack"])
+    gmgr = PBox(1620, 60, 285, "GooseManager", "goose",
+                attrs=["- geese: List<Goose>", "- waves: List<Wave>", "- speedMultiplier: float"],
+                ops=["+ update(delta, playerX, playerY)", "+ gooseAt(x, y): Feedable",
+                     "+ geeseNear(x, y, radius): List", "+ collidesWith(bounds): boolean",
+                     "+ speedUp(multiplier, seconds)", "+ allWavesCleared(): boolean"])
+    goose = PBox(1620, 340, 285, "Goose", "goose",
+                 attrs=["- state: State", "- fill: float", "- type: GooseType"],
+                 ops=["+ feed(amount: float): void", "+ update(delta, x, y, speed): boolean",
+                      "+ isHungry(), isAlerting(): boolean"])
+    gtype = PBox(1620, 560, 140, "GooseType", "goose", "enumeration",
+                 attrs=["NORMAL, HEAD"], ops=["+ getAppetite()"])
+    wave = PBox(1775, 560, 130, "Wave", "goose", "record",
+                attrs=["+ geese: int", "+ headGeese: int"])
+    glisten = PBox(1620, 720, 285, "GooseListener", "goose", "interface",
+                   ops=["+ waveStarted(number, total)", "+ gooseAlert(goose)", "+ playerSnatched(goose)",
+                        "+ gooseFull(goose), waveCleared(n)"])
 
     inv_in = PBox(40, 1010, 200, "InventoryInput", "item", ops=["+ update(): void"])
     inv = PBox(280, 1010, 290, "Inventory", "item",
@@ -142,18 +158,18 @@ def class_diagram():
     boost = PBox(1390, 1030, 170, "SpeedBoostTarget", "item", "interface",
                  ops=["+ applySpeedBoost(...)"])
 
-    boxes = [main, screen, hud, session, timer, state, waves, nogeese, spot, player, checker,
-             mapm, coll, hidden, heitems, hespeed, gmgr, goose, inv_in, inv, item, oats, bread, drink,
-             locator, feedable, boost]
+    boxes = [main, screen, hud, renderer, sfx, session, timer, state, waves, spot, player, checker,
+             mapm, coll, hidden, heitems, hespeed, gmgr, goose, gtype, wave, glisten,
+             inv_in, inv, item, oats, bread, drink, locator, feedable, boost]
 
     out = header(W, H)
-    out.append(text(W / 2, 26, "Final class diagram (v3): main classes of every package", 17, "bold", anchor="middle"))
+    out.append(text(W / 2, 22, "Final class diagram (v3): main classes of every package", 17, "bold", anchor="middle"))
     out.append(package(300, 40, 1225, 350, "screen"))
     out.append(package(25, 390, 750, 970, "game"))
     out.append(package(785, 390, 1215, 770, "player"))
     out.append(package(1255, 40, 1565, 350, "map"))
     out.append(package(1255, 390, 1565, 630, "hidden_event"))
-    out.append(package(1255, 650, 1565, 905, "goose (in progress)", planned=True))
+    out.append(package(1605, 40, 1920, 870, "goose"))
     out.append(package(25, 990, 1575, 1235, "item"))
 
     def arrow(points, marker="arrow", dashed=False, start=None, text_=None, at=None, anchor="start"):
@@ -161,53 +177,55 @@ def class_diagram():
         if text_:
             out.append(label(at[0], at[1], text_, anchor))
 
-    # Main creates the screen
+    # Main creates the screen; the screen uses the HUD and the world renderer
     arrow([(main.x + main.w, 90), (screen.x, 90)], text_="creates", at=(260, 82))
-    # GameScreen -> Hud
     arrow([(screen.x + screen.w, 110), (hud.x, 110)], text_="draws with", at=(768, 102))
-    # GameScreen -> GameSession, Player, EventSpot, MapManager, Inventory, NoGeese
+    arrow([(screen.x + screen.w, 255), (renderer.x, 255)])
+    # GameScreen -> GameSession, Player, MapManager, EventSpot, Inventory, GooseManager
     arrow([(380, screen.bottom), (380, 375), (190, 375), (190, session.y)])
     out.append(label(198, 400, "rules"))
     arrow([(700, screen.bottom), (700, 370), (1000, 370), (1000, player.y)])
     out.append(label(1008, 400, "moves"))
-    arrow([(screen.x + screen.w, 250), (1222, 250), (1222, 110), (mapm.x, 110)])
-    out.append(label(1215, 242, "renders", "end"))
+    arrow([(screen.x + screen.w, 320), (1240, 320), (1240, 110), (mapm.x, 110)])
+    out.append(label(1215, 312, "renders", "end"))
     arrow([(340, 380), (20, 380), (20, 870), (spot.x, 870)])
     out.append(label(24, 862, "0..*"))
-    arrow([(500, screen.bottom), (500, 360), (760, 360), (760, 670), (nogeese.x + nogeese.w, 670)])
-    out.append(label(768, 600, "geese"))
     arrow([(330, screen.bottom), (330, 385), (12, 385), (12, 1000), (360, 1000), (360, inv.y)])
     out.append(label(368, 1004, "inventory"))
+    arrow([(600, screen.y), (600, 34), (1760, 34), (1760, gmgr.y)])
+    out.append(label(1450, 30, "geese"))
     # GameSession -> GameTimer, GameState, WaveStatus
     arrow([(session.x + session.w, 450), (timer.x, 450)])
     out.append(label(345, 442, "timer"))
     arrow([(150, session.bottom), (150, state.y)])
-    arrow([(320, session.bottom), (320, 600), (400, 600), (400, waves.y)])
-    out.append(label(408, 630, "win?"))
-    # NoGeese implements WaveStatus and GooseLocator
-    arrow([(nogeese.x, 700), (waves.x + waves.w, 700)], "tri", dashed=True)
-    arrow([(655, nogeese.bottom), (655, 980), (960, 980), (960, locator.y)], "tri", dashed=True)
+    arrow([(320, session.bottom), (320, 610), (420, 610), (420, waves.y)])
+    out.append(label(428, 632, "win?"))
     # EventSpot -> IHiddenEvent
     arrow([(spot.x + spot.w, 880), (775, 880), (775, 790), (1248, 790), (1248, 460), (hidden.x, 460)])
     out.append(label(350, 873, "triggers once"))
-    # HEItems, HEGooseSpeed implement IHiddenEvent
     arrow([(heitems.cx, heitems.y), (heitems.cx, hidden.bottom)], "tri", dashed=True)
     arrow([(hespeed.cx, hespeed.y), (hespeed.cx, hidden.bottom)], "tri", dashed=True)
-    # Player -> CollisionChecker; CollisionManager::collidesWith fits it
+    # Player -> CollisionChecker; the map and the geese both fit it
     arrow([(900, player.bottom), (900, checker.y)])
-    arrow([(coll.x, 300), (1235, 300), (1235, 700), (checker.x + checker.w, 700)], "open", dashed=True)
+    arrow([(coll.x, 300), (1233, 300), (1233, 700), (checker.x + checker.w, 700)], "open", dashed=True)
     out.append(label(1205, 692, "collidesWith fits", "end"))
+    arrow([(gmgr.x, 230), (1592, 230), (1592, 728), (checker.x + checker.w, 728)], "tri", dashed=True)
     # MapManager owns CollisionManager
     out.append(path([(1410, mapm.bottom + 16), (1410, coll.y)], marker_start="diamond"))
     # Player implements SpeedBoostTarget
-    arrow([(1150, player.bottom - 30), (1190, player.bottom - 30), (1190, 990), (1475, 990), (1475, boost.y)],
+    arrow([(1150, player.bottom - 30), (1190, player.bottom - 30), (1190, 983), (1475, 983), (1475, boost.y)],
           "tri", dashed=True)
-    # planned goose classes
-    out.append(path([(1410, gmgr.bottom + 16), (1410, goose.y)], marker_start="diamond"))
-    out.append(label(1418, goose.y - 8, "0..*"))
-    arrow([(1500, goose.bottom), (1500, 985), (1290, 985), (1290, feedable.y)], "tri", dashed=True)
-    arrow([(gmgr.x, 740), (1140, 740), (1140, 1000), (1100, 1000), (1100, locator.y)], "tri", dashed=True)
-    arrow([(gmgr.x, 760), (1160, 760), (1160, 778), (760, 778), (760, 720), (waves.x + waves.w, 720)], "tri", dashed=True)
+    # goose package
+    arrow([(gmgr.x, 270), (1580, 270), (1580, 805), (440, 805), (440, waves.bottom)], "tri", dashed=True)
+    arrow([(gmgr.x + gmgr.w, 150), (1930, 150), (1930, 975), (1100, 975), (1100, locator.y)], "tri", dashed=True)
+    arrow([(goose.x + goose.w, 400), (1922, 400), (1922, 1000), (1290, 1000), (1290, feedable.y)], "tri", dashed=True)
+    out.append(path([(1700, gmgr.bottom + 16), (1700, goose.y)], marker_start="diamond"))
+    out.append(label(1708, goose.y - 8, "0..*"))
+    arrow([(1690, goose.bottom), (1690, gtype.y)])
+    arrow([(1840, gmgr.bottom), (1840, 320), (1880, 320), (1880, wave.y)])
+    out.append(label(1846, 312, "waves"))
+    arrow([(1905 - 10, gmgr.bottom), (1895, 315), (1912, 315), (1912, 700), (1860, 700), (1860, glisten.y)])
+    out.append(label(1866, 714, "tells"))
     # item package
     arrow([(inv_in.x + inv_in.w, 1050), (inv.x, 1050)], text_="select", at=(246, 1042))
     arrow([(inv.x + inv.w + 16, 1050), (item.x, 1050)], start="diamond")
@@ -233,12 +251,11 @@ def class_diagram():
     out.append(label(kx + 58, ky + 64, "implements"))
     out.append(path([(kx + 10, ky + 82), (kx + 50, ky + 82)], "tri"))
     out.append(label(kx + 58, ky + 86, "extends"))
-    out.append(path([(kx + 10, ky + 104), (kx + 50, ky + 104)], marker_start="diamond"))
+    out.append(path([(kx + 26, ky + 104), (kx + 50, ky + 104)], marker_start="diamond"))
     out.append(label(kx + 58, ky + 108, "holds (aggregation)"))
-    out.append(f'<rect x="{kx + 10}" y="{ky + 118}" width="40" height="16" fill="#f2f2f2" stroke="{GREY}" stroke-dasharray="6 4"/>')
-    out.append(label(kx + 58, ky + 131, "planned, not merged yet", fill=GREY))
-    out.append(label(kx + 10, ky + 160, "# protected, italic = abstract", fill=GREY))
-    out.append(label(kx + 10, ky + 176, "colour = package", fill=GREY))
+    out.append(label(kx + 10, ky + 134, "# protected, italic = abstract", fill=GREY))
+    out.append(label(kx + 10, ky + 152, "colour = package", fill=GREY))
+    out.append(label(kx + 10, ky + 170, "GameScreen.Feedback is the GooseListener", fill=GREY))
     out.append("</svg>")
     return "\n".join(out)
 
@@ -281,9 +298,9 @@ def component_diagram():
     items = comp(435, 560, 330, "Inventory and Items", "item",
                  ["item: Inventory, Item, OatsItem,", "BreadItem, EnergyDrinkItem, keys 1-9"], "FR_START_INVENTORY, FR_SINGLE/MULTI_TARGET")
     geese = comp(830, 560, 330, "Geese", "goose",
-                 ["goose: GooseManager, Goose", "waves, hunger, alert before attack"], "FR_ENEMY, FR_WAVES, QR_ALERT", planned=True)
-    score = comp(435, 710, 200, "Score", "goose", ["Assessment 2"], "FR_SCORE", planned=True)
-    pick = comp(655, 710, 200, "Collectibles", "goose", ["Assessment 2"], "FR_PICKUP_ITEMS", planned=True)
+                 ["goose: GooseManager, Goose, GooseType, Wave", "waves, hunger bars, warning before a snatch"], "FR_ENEMY, FR_WAVES, QR_ALERT")
+    score = comp(435, 710, 200, "Score", "a2", ["Assessment 2"], "FR_SCORE", planned=True)
+    pick = comp(655, 710, 200, "Collectibles", "a2", ["Assessment 2"], "FR_PICKUP_ITEMS", planned=True)
 
     def arrow(points, s=None, at=None, anchor="start", marker="arrow", dashed=False):
         out.append(path(points, marker, dashed=dashed))
@@ -299,17 +316,18 @@ def component_diagram():
     arrow([(400, screen.bottom), (400, 530), (520, 530), (520, items.y)], "select, useSelected", (408, 522))
 
     # interfaces between components
-    lollipop(out, 798, 345, "CollisionChecker", [(mapc.x, 345)], [(player.x + player.w, 345), (789, 345)], 798, 330, "middle")
+    lollipop(out, 798, 345, "CollisionChecker (map, geese)", [(mapc.x, 345)], [(player.x + player.w, 345), (789, 345)], 798, 330, "middle")
     lollipop(out, 690, 500, "SpeedBoostTarget", [(690, player.bottom)], [(690, items.y), (690, 509)], 700, 495)
     lollipop(out, 798, 620, "GooseLocator, Feedable", [(geese.x, 620)], [(items.x + items.w, 620), (789, 620)], 798, 605, "middle")
     lollipop(out, 1100, 500, "WaveStatus", [(1100, geese.y)], [(rules.x + rules.w, 330), (395, 330), (395, 470), (1100, 470), (1100, 491)], 1110, 495)
-    out.append(label(1090, 462, "(NoGeese until merged)", "end", fill=GREY))
+    # the geese offer CollisionChecker too: hungry geese block the player (UR_BOUNDS)
+    out.append(path([(808, geese.y), (808, 425), (798, 425), (798, 354)]))
 
     arrow([(events.x + events.w, 650), (items.x, 650)], "adds items", (374, 642))
     arrow([(150, events.y), (150, rules.bottom)], "eventTriggered", (158, 470))
-    arrow([(205, events.bottom), (205, 840), (1100, 840), (1100, geese.bottom)], "speed-up (HEGooseSpeed)", (900, 832), dashed=True)
+    arrow([(205, events.bottom), (205, 840), (1100, 840), (1100, geese.bottom)], "speedUp(1.3, 10 s)  (HEGooseSpeed)", (880, 832))
 
-    out.append(text(40, H - 6, "Dashed grey: in progress or Assessment 2. Ball and dashed arrow: the interface one component offers and another needs.", 12, fill=GREY))
+    out.append(text(40, H - 6, "Dashed grey: Assessment 2. Ball and dashed arrow: the interface one component offers and another needs.", 12, fill=GREY))
     out.append("</svg>")
     return "\n".join(out)
 
@@ -393,14 +411,14 @@ def activity_diagram():
 # ------------------------------------------------------------- sequence diagram
 
 def sequence_diagram():
-    W, H = 1560, 1010
+    W, H = 1560, 1070
     out = header(W, H)
     out.append(text(W / 2, 26, "Sequence diagram (v3): one frame while the game is playing", 17, "bold", anchor="middle"))
     names = [("libGDX", "root"), ("GameScreen", "screen"), ("player: Player", "player"), ("map", "map"),
              ("Inventory", "item"), ("spot: EventSpot", "game"), ("event: IHiddenEvent", "event"),
-             ("GameSession", "game"), ("GameTimer", "game"), ("geese: WaveStatus", "game"), ("Hud", "screen")]
+             ("GameSession", "game"), ("GameTimer", "game"), ("geese: GooseManager", "goose"), ("Hud", "screen")]
     xs = [60 + i * 144 for i in range(len(names))]
-    top, bottom = 50, 990
+    top, bottom = 50, 1050
     for (n, pkg), x in zip(names, xs):
         w = 132
         out.append(f'<rect x="{x - w / 2}" y="{top}" width="{w}" height="36" fill="{PKG[pkg]}" stroke="{INK}" stroke-width="1.3"/>')
@@ -431,7 +449,7 @@ def sequence_diagram():
     def step(y, s):
         out.append(text(xs[1] + 14, y, s, 12, "bold", fill=GREY))
 
-    act(1, 112, 970)
+    act(1, 112, 1030)
     msg(0, 1, 120, "render(delta)")
     step(150, "1. input (handleInput)")
     frame(xs[1] - 40, 160, xs[4] + 100, 222, "opt", "[left click on the map]")
@@ -448,40 +466,43 @@ def sequence_diagram():
 
     msg(1, 4, 400, "update(delta)  cooldowns")
     act(4, 394, 412)
-    msg(1, 9, 432, "update(delta, playerX, playerY)  geese walk")
-    act(9, 426, 444)
+    msg(1, 9, 432, "update(delta, playerX, playerY)  geese walk, warn, snatch")
+    act(9, 426, 504)
+    frame(xs[2] - 30, 450, xs[9] + 100, 510, "opt", "[a goose's warning ended and the player is still close]")
+    msg(9, 2, 494, "applySpeedBoost(0.6, 2)  startled: 40% slower for 2 s")
+    act(2, 488, 504)
 
-    step(476, "3. hidden events")
-    frame(xs[1] - 40, 486, xs[7] + 110, 690, "loop", "[for each EventSpot]")
-    msg(1, 5, 520, "update(player.getPosition())")
-    act(5, 512, 650)
-    msg(5, 6, 546, "isPlayerInActiveRange(pos)")
-    act(6, 540, 560)
-    frame(xs[5] - 30, 572, xs[7] + 100, 656, "opt", "[in range and not yet triggered]")
-    msg(5, 6, 604, "trigger()")
-    act(6, 598, 614)
-    self_msg(5, 616, "effect.run()  e.g. +10 Bread")
-    msg(5, 1, 648, "true", ret=True)
-    msg(1, 7, 676, "eventTriggered()")
-    act(7, 670, 684)
+    step(536, "3. hidden events")
+    frame(xs[1] - 40, 546, xs[7] + 110, 750, "loop", "[for each EventSpot]")
+    msg(1, 5, 580, "update(player.getPosition())")
+    act(5, 572, 710)
+    msg(5, 6, 606, "isPlayerInActiveRange(pos)")
+    act(6, 600, 620)
+    frame(xs[5] - 30, 632, xs[7] + 100, 716, "opt", "[in range and not yet triggered]")
+    msg(5, 6, 664, "trigger()")
+    act(6, 658, 674)
+    self_msg(5, 676, "effect.run()  e.g. +10 Bread")
+    msg(5, 1, 708, "true", ret=True)
+    msg(1, 7, 736, "eventTriggered()")
+    act(7, 730, 744)
 
-    step(712, "4. rules")
-    msg(1, 7, 734, "update(delta)")
-    act(7, 726, 870)
-    msg(7, 8, 758, "update(delta)")
-    act(8, 752, 770)
-    msg(7, 9, 790, "allWavesCleared()")
-    act(9, 784, 802)
-    frame(xs[7] - 30, 812, xs[9] + 110, 866, "alt", "[cleared]  state = WON")
-    out.append(f'<line x1="{xs[7] - 30}" y1="842" x2="{xs[9] + 110}" y2="842" stroke="{INK}" stroke-dasharray="8 4"/>')
-    out.append(text(xs[7] + 14, 858, "[timer.isFinished()]  state = LOST", 12))
+    step(772, "4. rules")
+    msg(1, 7, 794, "update(delta)")
+    act(7, 786, 930)
+    msg(7, 8, 818, "update(delta)")
+    act(8, 812, 830)
+    msg(7, 9, 850, "allWavesCleared()")
+    act(9, 844, 862)
+    frame(xs[7] - 30, 872, xs[9] + 110, 926, "alt", "[cleared]  state = WON")
+    out.append(f'<line x1="{xs[7] - 30}" y1="902" x2="{xs[9] + 110}" y2="902" stroke="{INK}" stroke-dasharray="8 4"/>')
+    out.append(text(xs[7] + 14, 918, "[timer.isFinished()]  state = LOST", 12))
 
-    step(898, "5. draw")
-    msg(1, 3, 918, "render()  map around the camera")
-    act(3, 912, 928)
-    msg(1, 10, 950, "render(delta, session, geese, inventory, player)")
-    act(10, 944, 962)
-    out.append(text(40, H - 4, "\"map\" is MapManager for drawing and CollisionManager for collisions; the Player only knows it as a CollisionChecker.", 12, fill=GREY))
+    step(958, "5. draw")
+    msg(1, 3, 978, "render()  map around the camera, then WorldRenderer and Hud")
+    act(3, 972, 988)
+    msg(1, 10, 1010, "render(delta, session, geese, inventory, player, ...)")
+    act(10, 1004, 1022)
+    out.append(text(40, H - 4, "\"map\" is MapManager for drawing; for collisions the Player only knows a CollisionChecker, which asks the map and then the hungry geese.", 12, fill=GREY))
     out.append("</svg>")
     return "\n".join(out)
 
