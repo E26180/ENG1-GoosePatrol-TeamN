@@ -33,6 +33,9 @@ ENG1-GoosePatrol-TeamN/
 ├── core/              Game code shared by all platforms
 │   └── src/main/java/uk/ac/york/eng1/goosepatrol/
 │       ├── item/      Items, inventory and the interfaces they use (Feedable, GooseLocator, SpeedBoostTarget)
+│       ├── game/      Game rules without graphics: timer, game state, hidden-event spots, WaveStatus for the geese
+│       ├── player/    The player: movement, collision with the map, speed boost
+│       ├── screen/    GameScreen (puts everything together, reads input) and the HUD
 │       └── ...        One sub-package per area: goose, map, player, event, ui (add yours here)
 ├── lwjgl3/            Desktop launcher (LWJGL3 backend)
 ├── assets/            Game assets; every file is listed in assets/CREDITS.md with its licence
@@ -44,7 +47,7 @@ ENG1-GoosePatrol-TeamN/
 │   ├── architecture/  Diagram versions for Arch1 and the scripts that draw them
 │   ├── meetings/      Meeting notes
 │   └── templates/     Empty tables for the Req1, Risk1 and Plan1 documents
-├── tools/             Small scripts, for example the one that draws the item icons
+├── tools/             Small scripts, for example the ones that draw the item icons and the player sprite
 └── website/           Team website; the PDFs in docs/ are added when it is published
 ```
 

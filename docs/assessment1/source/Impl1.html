@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Impl1</title>
+<style>
+  @page { size: A4; margin: 1.2cm 1.4cm; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 11pt; line-height: 1.25; color: #111; margin: 0; }
+  h1 { font-size: 16pt; margin: 0 0 4pt; }
+  h2 { font-size: 12pt; margin: 8pt 0 3pt; page-break-after: avoid; }
+  p { margin: 0 0 5pt; }
+  table { border-collapse: collapse; width: 100%; font-size: 10pt; line-height: 1.15; margin: 3pt 0 5pt; table-layout: fixed; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid #999; padding: 2pt 4pt; vertical-align: top; text-align: left; }
+  th { background: #e8e8e8; }
+  code { font-family: "Courier New", monospace; font-size: 9.5pt; }
+  .cover { height: 25cm; display: flex; flex-direction: column; justify-content: center; text-align: center; page-break-after: always; }
+  .cover h1 { font-size: 24pt; margin-bottom: 8pt; }
+  .cover p { font-size: 13pt; margin: 3pt 0; }
+  .cover .team { margin-top: 30pt; font-size: 12pt; }
+  .state-done { white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>ENG1 &ndash; Assessment 1: Greenfield Development</h1>
+  <p>Implementation (Impl1)</p>
+  <p>Team 2 &ndash; Goose Patrol</p>
+  <p>University of York</p>
+  <div class="team">
+    <p><b>Team members</b></p>
+    <p>Ghalia Al-Raeissi &middot; Ahmet Baykoz &middot; Alex Dyer &middot; Angelina Kan</p>
+    <p>Aybike Pembecicek &middot; Leo Plaskett &middot; Sean Tavener &middot; Kevin Yu</p>
+  </div>
+</div>
+
+<h1>Implementation &ndash; Part b</h1>
+<p>The code is in the team repository and the playable JAR is on the team website. The code is documented with Javadoc (QR_DOCUMENTATION), and the logic that does not need a window (items, inventory, player movement, timer, game rules, hidden-event triggering) is covered by JUnit tests (<code>./gradlew test</code>).</p>
+
+<h2>1. Third-party libraries, tools and assets</h2>
+<table>
+  <colgroup><col style="width:30%"><col style="width:11%"><col style="width:24%"><col style="width:35%"></colgroup>
+  <thead><tr><th>Name</th><th>Version</th><th>Used for</th><th>Licence</th></tr></thead>
+  <tr><td>libGDX (<code>gdx</code>, <code>gdx-backend-lwjgl3</code>, <code>gdx-platform</code>)</td><td>1.14.2</td><td>Game framework, tile maps</td><td>Apache 2.0</td></tr>
+  <tr><td>LWJGL 3 (through the libGDX backend)</td><td>3.4.3</td><td>Window and OpenGL on all three OSs</td><td>BSD 3-Clause</td></tr>
+  <tr><td>JUnit Jupiter / Platform (tests only)</td><td>5.11.4 / 1.11.4</td><td>Unit tests</td><td>Eclipse Public License 2.0</td></tr>
+  <tr><td>Gradle; gdx-liftoff (not shipped)</td><td>9.3.0; &ndash;</td><td>Build; project template</td><td>Apache 2.0</td></tr>
+  <tr><td>Tiled map editor (not shipped)</td><td>1.12.2</td><td>Drawing the campus map (<code>.tmx</code>)</td><td>GPL 2.0 (tool only; our maps are ours)</td></tr>
+  <tr><td>Liberation Sans font (in libGDX)</td><td>&ndash;</td><td>HUD and menu text</td><td>SIL Open Font License 1.1</td></tr>
+  <tr><td>Cozy World Kit 32 (free), VibeForge</td><td>&ndash;</td><td>Grass, path and water tiles, props</td><td>Free use and changes; no redistribution as a pack, so only used tiles are kept. Author states it is AI-made (PixelLab).</td></tr>
+  <tr><td>Mini Nature Tileset (free)</td><td>&ndash;</td><td>Nature tiles</td><td>Free use, no credit required</td></tr>
+  <tr><td>50+ City Essential Assets Pack, Ranitaya Studios</td><td>&ndash;</td><td>Buildings and street props</td><td>Free to use (author, itch.io page)</td></tr>
+  <tr><td>Player sprite, item icons, campus map</td><td>&ndash;</td><td>Student, item icons, map layout</td><td>Made by the team</td></tr>
+</table>
+<p>Every asset is listed with its source in <code>assets/CREDITS.md</code> (QR_LICENSING). No licence asks for a credit inside the game; the packs are credited on the website anyway.</p>
+
+<h2>2. Features of the requirements not (fully) implemented</h2>
+<p>IDs are from Req1. Requirements due in Assessment 1 (A1 = Yes) that are not complete come first, then those planned for Assessment 2.</p>
+<table>
+  <colgroup><col style="width:27%"><col style="width:6%"><col style="width:14%"><col style="width:53%"></colgroup>
+  <thead><tr><th>Requirement</th><th>A1</th><th>State</th><th>Why, and what is left</th></tr></thead>
+  <tr><td>FR_ENEMY, FR_WAVES, FR_WAVE_COMPLETE, UR_GROUP</td><td>Yes</td><td>Not complete</td><td>The goose package is still in progress. A stand-in (<code>NoGeese</code>) sits behind <code>GooseLocator</code> and <code>WaveStatus</code>, so geese plug in without changing the screen, items or rules.</td></tr>
+  <tr><td>FR_SINGLE_TARGET, FR_MULTI_TARGET</td><td>Yes</td><td>Items done, tested</td><td>Oats and Bread work through <code>Feedable</code>; they act in play once geese exist.</td></tr>
+  <tr><td>FR_JUDGEMENT (win)</td><td>Yes</td><td>Partly</td><td>Win/loss screens and rules done and tested; without geese the game can only be lost on time.</td></tr>
+  <tr><td>FR_EVENT_EFFECT (hinder)</td><td>Yes</td><td>Partly</td><td>The helping event (more Bread, Energy Drinks) works. The hindering one triggers and is counted; it speeds geese up once they read <code>HEGooseSpeed.checkActive()</code>.</td></tr>
+  <tr><td>QR_ALERT, QR_COLLISION (geese)</td><td>Yes</td><td>Not complete</td><td>Need the geese. Collision with buildings and the map border is done.</td></tr>
+    <tr><td>FR_PICKUP_ITEMS, FR_SCORE, FR_LEVELS, FR_GOOSE_VAR, FR_BOSS, FR_TOKENS, FR_MUSIC, FR_EVENT_HINT, FR_POCKET_MAP</td><td>No</td><td>Not implemented</td><td>Planned for Assessment 2. A new item is one new <code>Item</code> subclass and a new event one new <code>IHiddenEvent</code> class (QR_EXTENSIBLE).</td></tr>
+  <tr><td>FR_REPLAY</td><td>No</td><td class="state-done">Done early</td><td>Pressing R after a win or loss starts a new game.</td></tr>
+</table>
+
+</body>
+</html>

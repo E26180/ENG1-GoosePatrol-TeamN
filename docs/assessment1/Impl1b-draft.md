@@ -1,6 +1,7 @@
 # Impl1 part b: draft
 
-Draft for the one-page part of `Impl1.pdf` (Ahmet and Alex). Update it whenever a library, an asset or a feature changes, then copy it into the final PDF.
+Working notes for part b of `Impl1.pdf` (Ahmet and Alex).
+The submitted version is [`source/Impl1.html`](source/Impl1.html), printed to `Impl1.pdf`; change that file when a library, an asset or a feature changes, and see the README for the print command.
 
 ## 1. Third-party libraries, tools and assets
 
