@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import uk.ac.york.eng1.goosepatrol.HEItems;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 
 /** Tests for {@link EventSpot} with the real item hidden event (FR_EVENTS). */
 class EventSpotTest {

@@ -1,6 +1,6 @@
 package uk.ac.york.eng1.goosepatrol.game;
 
-import uk.ac.york.eng1.goosepatrol.IHiddenEvent;
+import uk.ac.york.eng1.goosepatrol.hidden_event.IHiddenEvent;
 
 /**
  * Places one hidden event in the game and runs its effect the first time the
