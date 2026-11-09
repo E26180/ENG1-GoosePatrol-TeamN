@@ -10,7 +10,7 @@ Interim versions of the diagrams for Arch1 (the report has to show how the archi
 | `items-subsystem.pdf` | Items and Inventory subsystem: class diagram, sequence diagram, CRC cards, design reasons, evolution and traceability |
 | `items-class.svg`, `items-sequence.svg` | The two item diagrams as images |
 | `Arch1-outline.md` | Skeleton of the Arch1 report: what each section needs and what is already done |
-| `Arch1-draft.pdf` | The Arch1 report (v3, final design), printed from `source/Arch1.html`; the goose package is shown as planned until it is merged |
+| `../assessment1/Arch1.pdf` | The Arch1 report (v3, final design), printed from `source/Arch1.html` |
 | `final-component.svg`, `final-class.svg`, `final-activity.svg`, `final-sequence.svg` | The v3 diagrams used in Arch1, matching the code on main |
 | `source/` | The diagrams as code, so any version can be rebuilt and compared |
 
@@ -36,8 +36,8 @@ The final (v3) diagrams and the Arch1 report:
 ```bash
 cd docs/architecture
 python3 source/draw_final.py .  # writes the four final-*.svg files (uses draw_items.py)
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer --print-to-pdf=Arch1-draft.pdf "file://$PWD/source/Arch1.html"
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer --print-to-pdf="$PWD/../assessment1/Arch1.pdf" "file://$PWD/source/Arch1.html"
 ```
 
 When the design changes, keep the old PDF (v2-draft.pdf, v3-draft.pdf, ...) and change the script for the next version.
-Still to do: replace the planned goose classes in `draw_final.py` with the real ones when the goose package is merged, update the traceability table in `Arch1.html`, then copy the PDF to `docs/assessment1/Arch1.pdf`.
+When the code changes, update `draw_final.py` and `Arch1.html` and print the PDF again; the page limit is 6 pages plus the cover.

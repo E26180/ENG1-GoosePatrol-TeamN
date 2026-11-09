@@ -1,6 +1,6 @@
 # Arch1 outline
 
-**Status:** the report is written in `source/Arch1.html` and printed to `Arch1-draft.pdf` (cover plus 6 pages). Only the goose package is still drawn as planned.
+**Status:** done. The report is written in `source/Arch1.html` and printed to `docs/assessment1/Arch1.pdf` (cover plus 6 pages).
 
 A skeleton for `Arch1.pdf` (22 marks, at most 6 pages, cover page not counted).
 Check every heading against the Assessment 1 brief before writing; the brief wins if anything here differs.
