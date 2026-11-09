@@ -36,7 +36,7 @@
 </div>
 
 <h1>Implementation &ndash; Part b</h1>
-<p>The code is in the team repository and the playable JAR is on the team website. The code is documented with Javadoc (QR_DOCUMENTATION), and the logic that does not need a window (items, inventory, player movement, geese and waves, timer, game rules, hidden events, and whole simulated games) is covered by JUnit tests (<code>./gradlew test</code>).</p>
+<p>The code is in the team repository and the playable JAR is on the team website. The code is documented with Javadoc (QR_DOCUMENTATION), and the logic that does not need a window (items, inventory, player movement, geese and waves, timer, game rules, hidden events, tutorial tips, and whole simulated games) is covered by JUnit tests (<code>./gradlew test</code>).</p>
 
 <h2>1. Third-party libraries, tools and assets</h2>
 <table>
@@ -62,7 +62,7 @@
   <thead><tr><th>Requirement</th><th>A1</th><th>State</th><th>Why, and what is left</th></tr></thead>
   <tr><td>QR_NEWBIE, QR_WINNABLE</td><td>Yes</td><td>Partly</td><td>Balanced so the food always covers every goose, and checked by simulated games that win with time to spare without any hidden event (<code>WinnableGameTest</code>). Testing with real first-time players is still to do.</td></tr>
   <tr><td>QR_PLATFORM</td><td>Yes</td><td>Partly</td><td>One JAR for all three systems, built by the website workflow; run and played on macOS. Still to be started on Windows and Linux.</td></tr>
-  <tr><td>FR_GOOSE_VAR, FR_BOSS, FR_EVENT_HINT, FR_MUSIC, FR_REPLAY</td><td>No</td><td>Started early</td><td>A slower head goose with twice the appetite comes in the last wave; each event is a &ldquo;?&rdquo; box that bobs when the player is near; sound effects but no music; R starts a new game.</td></tr>
+  <tr><td>FR_GOOSE_VAR, FR_BOSS, FR_EVENT_HINT, FR_MUSIC, FR_REPLAY</td><td>No</td><td>Started early</td><td>A slower head goose with twice the appetite comes in the last wave; each event is a visible prop (a lost backpack, a tall duck by a bucket) that shows a &ldquo;?&rdquo; when the player is near; sound effects but no music; R starts a new game.</td></tr>
   <tr><td>FR_PICKUP_ITEMS, FR_SCORE, FR_LEVELS, FR_TOKENS, FR_POCKET_MAP</td><td>No</td><td>Not implemented</td><td>Planned for Assessment 2. A new item is one new <code>Item</code> subclass, a new event one new <code>IHiddenEvent</code> class, and a score can use the timer and the counters (QR_EXTENSIBLE).</td></tr>
 </table>
 

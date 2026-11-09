@@ -8,6 +8,7 @@ Add a row in the same pull request that adds the asset.
 | `textures/items/oats.png`, `bread.png`, `energy-drink.png` | Item icons, 32x32 pixel art | Made by the team (drawn with `tools/draw_item_sprites.py`) | Our own work, no third-party content | No |
 | `textures/player/student.png` | Player sprite sheet, two 32x32 walking frames | Made by the team (drawn with `tools/draw_player_sprite.py`) | Our own work, no third-party content | No |
 | `textures/geese/goose.png` | Goose sprite sheet: two walking frames, wings up, honking | Made by the team (drawn with `tools/draw_goose_sprite.py`) | Our own work, no third-party content | No |
+| `textures/events/backpack.png`, `duck.png` | Hidden-event props: a lost backpack, a tall duck by a bucket | Made by the team (drawn with `tools/draw_event_sprites.py`) | Our own work, no third-party content | No |
 | `audio/honk.wav`, `eat.wav`, `event.wav`, `wave.wav`, `win.wav`, `lose.wav` | Sound effects | Made by the team (synthesised with `tools/make_sounds.py`) | Our own work, no third-party content | No |
 | *(inside the libGDX jar)* `lsans-15.fnt/.png` | Default HUD font, used through `new BitmapFont()` | Ships with libGDX 1.14.2 | Liberation Sans, SIL Open Font License 1.1 | No |
 | `maps/Campus-Goose Patrol.tmx`, `maps/*.tsx` | Campus map and its tilesets, made in Tiled | Made by the team (Aybike) | Our own work; uses the tile packs below | No |

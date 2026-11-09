@@ -60,6 +60,8 @@ maps/cozy_world_kit_32_free/tiled/tilesets/props_64.tsx
 maps/cozy_world_kit_32_free/tiled/tilesets/water_64.tsx
 maps/stone1.tsx
 textures/.gitkeep
+textures/events/backpack.png
+textures/events/duck.png
 textures/geese/goose.png
 textures/items/bread.png
 textures/items/energy-drink.png

@@ -100,9 +100,10 @@ public class Hud implements Disposable {
      * @param player    the player (for the speed boost or startle)
      * @param geeseFasterFor seconds left of the hidden event that speeds the geese up (0 if none)
      * @param muted     whether the sound is off
+     * @param tip       a tutorial tip to show above the inventory, or null for none
      */
     public void render(float delta, GameSession session, WaveStatus waves, Inventory inventory, Player player,
-                       float geeseFasterFor, boolean muted) {
+                       float geeseFasterFor, boolean muted, String tip) {
         if (session.isPlaying()) {
             messageLeft = Math.max(0f, messageLeft - delta);
         }
@@ -115,6 +116,9 @@ public class Hud implements Disposable {
 
         drawStatusPanel(session, waves, inventory, player, geeseFasterFor, muted, h);
         drawInventoryBar(inventory, w);
+        if (tip != null && session.isPlaying()) {
+            drawTip(tip, w);
+        }
         if (messageLeft > 0f) {
             drawMessage(w, h);
         }
@@ -236,6 +240,21 @@ public class Hud implements Disposable {
         batch.end();
     }
 
+    /** A tutorial tip in a light box above the inventory bar, marked "TIP" (UR_NO_EXPERIENCE). */
+    private void drawTip(String tip, float w) {
+        String text = "TIP  " + tip + "   (T: hide tips)";
+        layout.setText(font, text);
+        float boxW = layout.width + 30f;
+        float boxH = layout.height + 20f;
+        float x = (w - boxW) / 2f;
+        float y = PAD + 22f + SLOT + 40f;
+        fillRect(x, y, boxW, boxH, new Color(1f, 1f, 1f, 0.88f));
+        batch.begin();
+        font.setColor(Color.BLACK);
+        font.draw(batch, text, x + 15f, y + boxH - 10f);
+        batch.end();
+    }
+
     private void drawMessage(float w, float h) {
         layout.setText(font, message);
         float boxW = layout.width + 30f;
@@ -261,12 +280,12 @@ public class Hud implements Disposable {
                 title = "GOOSE PATROL";
                 colour = Color.WHITE;
                 lines = new String[] {
-                    "Hungry geese are coming to campus. Feed every goose in " + waves.totalWaves() + " waves before the 5 minutes run out!",
+                    "Hungry geese are coming to Campus East. Feed every goose in " + waves.totalWaves() + " waves before the 5 minutes run out!",
                     "1 Bag of Oats: click on a goose.    2 Bread: throw it near a group of geese.",
                     "A full goose flies away happily. A goose that flashes red and honks wants your snack - step away!",
-                    "Walk into the ? boxes around campus to see what they do.",
+                    "Odd things are hidden around campus: walk up to them to see what they do.",
                     "",
-                    "WASD or arrow keys: walk     1-9: choose an item     Left click: use it     P or Esc: pause     M: sound",
+                    "WASD or arrows: walk    1-9: choose an item    Left click: use it    P or Esc: pause    M: sound    T: tips",
                     "",
                     "Press SPACE to start",
                 };
@@ -280,7 +299,7 @@ public class Hud implements Disposable {
                 title = "YOU WIN!";
                 colour = Color.LIME;
                 lines = new String[] {
-                    "Every goose is full and happy, with " + session.getTimer().format() + " to spare.",
+                    "Every goose is full and happy, and Campus East is calm again, with " + session.getTimer().format() + " to spare.",
                     "Items used: " + inventory.getItemsUsed() + "    Events triggered: " + session.getEventsTriggered(),
                     "",
                     "Press R to play again",
@@ -290,7 +309,7 @@ public class Hud implements Disposable {
                 title = "TIME'S UP - YOU LOSE";
                 colour = Color.SALMON;
                 lines = new String[] {
-                    waves.geeseLeft() + (waves.geeseLeft() == 1 ? " goose was" : " geese were") + " still hungry. Better luck next time!",
+                    waves.geeseLeft() + (waves.geeseLeft() == 1 ? " goose was" : " geese were") + " still hungry and the geese rule Campus East. Better luck next time!",
                     "Items used: " + inventory.getItemsUsed() + "    Events triggered: " + session.getEventsTriggered(),
                     "",
                     "Press R to play again",
