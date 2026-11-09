@@ -58,7 +58,7 @@ public class GameScreen extends ScreenAdapter {
     public static final float EVENT_GOOSE_SPEED = 1.3f;
 
     /** How long the goose speed event lasts. */
-    public static final float EVENT_GOOSE_SECONDS = 10f;
+    public static final float EVENT_GOOSE_SECONDS = HEGooseSpeed.ACTIVE_SECONDS;
 
     private final Main game;
     private final MapManager mapManager;
@@ -160,7 +160,7 @@ public class GameScreen extends ScreenAdapter {
         events.add(new EventSpot(new HEItems(helpSpot[0], helpSpot[1]), "textures/events/backpack.png", () -> {
             bread.addUses(EVENT_EXTRA_BREAD);
             inventory.addItem(new EnergyDrinkItem(player));
-            hud.showMessage("Hidden event: a lost backpack full of picnic food! +" + EVENT_EXTRA_BREAD
+            hud.showEventMessage("Hidden event: a lost backpack full of picnic food! +" + EVENT_EXTRA_BREAD
                 + " bread and " + EnergyDrinkItem.DEFAULT_USES + " energy drinks (key 3)");
             sfx.play(Sfx.Cue.EVENT);
         }));
@@ -169,7 +169,7 @@ public class GameScreen extends ScreenAdapter {
         float[] hinderSpot = Player.findFreeSpot(world, map, world.width * 0.79f, world.height * 0.32f);
         events.add(new EventSpot(new HEGooseSpeed(hinderSpot[0], hinderSpot[1]), "textures/events/duck.png", () -> {
             geese.speedUp(EVENT_GOOSE_SPEED, EVENT_GOOSE_SECONDS);
-            hud.showMessage("Hidden event: a tall duck (Long Boi's cousin?) tips over a bucket of chips! Geese "
+            hud.showEventMessage("Hidden event: a tall duck (Long Boi's cousin?) tips over a bucket of chips! Geese "
                 + Math.round((EVENT_GOOSE_SPEED - 1f) * 100) + "% faster for " + (int) EVENT_GOOSE_SECONDS + " s");
             sfx.play(Sfx.Cue.EVENT);
         }));
@@ -265,7 +265,7 @@ public class GameScreen extends ScreenAdapter {
         inventory.update(delta);
         geese.update(delta, player.getCenterX(), player.getCenterY());
         for (EventSpot spot : events) {
-            if (spot.update(player.getPosition())) {
+            if (spot.update(player.getPosition(), delta)) {
                 session.eventTriggered();
             } else if (!spot.isTriggered() && spot.getEvent().isPlayerInFlagRange(player.getPosition())) {
                 tutorial.trigger(Tutorial.Tip.EVENT);

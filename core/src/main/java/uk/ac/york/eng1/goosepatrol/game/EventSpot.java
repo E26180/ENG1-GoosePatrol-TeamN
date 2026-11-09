@@ -49,6 +49,19 @@ public class EventSpot {
     }
 
     /**
+     * Counts game time for the event's timed effect, then triggers the event if the player has
+     * just walked into its range.
+     *
+     * @param playerPosition {x, y} of the player's centre
+     * @param delta          game time since the last frame, in seconds
+     * @return true if the event triggered this frame
+     */
+    public boolean update(float[] playerPosition, float delta) {
+        event.elapse(delta);
+        return update(playerPosition);
+    }
+
+    /**
      * Triggers the event if the player has just walked into its range.
      * Each event triggers only once per game.
      *

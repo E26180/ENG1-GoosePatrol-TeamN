@@ -239,7 +239,7 @@ def activity():
     node(X, 92, 420, 62, ["new game", "load map, place player and events,", "Oats + Bread, state = READY"], "screen")
     node(X, 172, 300, 44, ["handleInput()", "keys and mouse"], "screen")
     diamond(X, 240, 150, 56, ["state?"])
-    node(590, 240, 250, 62, ["READY or PAUSED", "SPACE, P or Esc plays;", "nothing moves"], "game")
+    node(590, 240, 250, 62, ["READY: SPACE plays", "PAUSED: SPACE, P or Esc", "nothing moves"], "game")
     node(590, 330, 250, 44, ["WON or LOST", "result screen; R: new game"], "game")
     node(X, 330, 420, 44, ["use the selected item", "keys 1-9 choose, a click uses"], "item")
     node(X, 394, 420, 44, ["Player.update", "small steps; walls and geese block"], "player")

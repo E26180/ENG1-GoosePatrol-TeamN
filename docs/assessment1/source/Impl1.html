@@ -36,32 +36,31 @@
 </div>
 
 <h1>Implementation &ndash; Part b</h1>
-<p>The code is in the team repository and the playable JAR is on the team website. Every public class and method is documented with Javadoc (QR_DOCUMENTATION), and the logic that does not need a window is covered by 106 JUnit tests, which the website build runs before it publishes the JAR.</p>
+<p>The code is in the team repository and the playable JAR is on the team website. Every public class and method is documented with Javadoc (QR_DOCUMENTATION), and the logic that does not need a window is covered by 118 JUnit tests, which the website build runs before it publishes the JAR.</p>
 
 <h2>1. Third-party libraries and assets, and their licences</h2>
 <table>
   <colgroup><col style="width:33%"><col style="width:27%"><col style="width:40%"></colgroup>
   <thead><tr><th>Name and version</th><th>Used for</th><th>Licence</th></tr></thead>
-  <tr><td>libGDX 1.14.2 (gdx, backend, platform, jnigen-loader 2.5.2)</td><td>Game framework, tile maps</td><td>Apache 2.0</td></tr>
-  <tr><td>LWJGL 3.4.3</td><td>Window, OpenGL, audio</td><td>BSD 3-Clause</td></tr>
+  <tr><td>libGDX 1.14.2 (gdx, backend, platform, jnigen-loader 2.5.2); its Liberation Sans font</td><td>Game framework, tile maps; all text</td><td>Apache 2.0; font: SIL OFL 1.1</td></tr>
+  <tr><td>LWJGL 3.4.3 and its native GLFW, OpenAL Soft, stb, jemalloc</td><td>Window, OpenGL, audio</td><td>BSD 3-Clause; natives: zlib, LGPL 2.0, MIT, BSD 2-Clause</td></tr>
   <tr><td>JLayer 1.0.1-gdx, JOrbis 0.0.17 (added by the libGDX backend)</td><td>MP3 and Ogg decoding (our sounds are WAV)</td><td>LGPL 2.0 or later</td></tr>
-  <tr><td>Liberation Sans font (in libGDX); StartupHelper (gdx-liftoff template)</td><td>All text; macOS start-up</td><td>SIL OFL 1.1; Apache 2.0</td></tr>
-  <tr><td>JUnit 5.11.4; Gradle 9.3.0; Tiled 1.12.2 (not in the JAR)</td><td>Tests; build; drawing the map</td><td>EPL 2.0; Apache 2.0; GPL 2.0 (tool only)</td></tr>
+  <tr><td>StartupHelper (gdx-liftoff template); JUnit 5.11.4, Gradle 9.3.0, Tiled 1.12.2 (not in the JAR)</td><td>macOS start-up; tests, build, drawing the map</td><td>Apache 2.0; EPL 2.0, Apache 2.0, GPL 2.0 (tool only)</td></tr>
   <tr><td>Cozy World Kit 32, VibeForge</td><td>Grass, paths, water, props</td><td>Free use and changes; no redistribution as a standalone pack. Art made with AI tools, as its author states</td></tr>
   <tr><td>Mini Nature Tileset; Ranitaya&rsquo;s City Essential Assets</td><td>Nature tiles; buildings and street props</td><td>Free, no credit needed; royalty-free, may be modified (store page)</td></tr>
-  <tr><td>Player, goose, item and event sprites; sound effects; the map layout</td><td>Characters, icons, sounds, campus</td><td>Our own work (scripts in <code>tools/</code>)</td></tr>
+  <tr><td>All sprites, sound effects, map layout</td><td>Characters, icons, sounds, campus</td><td>Our own work (scripts in <code>tools/</code>)</td></tr>
 </table>
-<p><b>Suitability.</b> Every licence allows use in a free university game and allows us to change the art. The permissive licences (Apache, BSD, EPL, OFL) ask that their notices go with the game: <code>THIRD-PARTY-NOTICES.txt</code> inside the JAR does this, and <code>assets/CREDITS.md</code> lists every asset file (QR_LICENSING). The two LGPL libraries are used unchanged, and the game can be rebuilt from our repository against another version of them, as the LGPL requires. Tiled&rsquo;s GPL covers only the editor, not the maps made with it. The one condition that limits us is Cozy World&rsquo;s ban on sharing its tiles as a pack, so the repository and JAR keep only the tiles the map uses, inside the game. No licence asks for a credit in the game; the packs are credited on the website.</p>
+<p><b>Suitability.</b> Every licence allows use in a free university game and changes to the art. The permissive licences (Apache, BSD, zlib, MIT, OFL) ask that the copyright notice and licence text go with the game: the JAR holds <code>THIRD-PARTY-NOTICES.txt</code> and the full texts in <code>licenses/</code>; <code>assets/CREDITS.md</code> lists every asset file (QR_LICENSING). The LGPL parts (JLayer, JOrbis and LWJGL&rsquo;s OpenAL Soft) are unchanged and replaceable, as the LGPL requires; the notices file says how. Tiled&rsquo;s GPL covers only the editor, not its maps. Only Cozy World limits us: its tiles may not be shared as a pack, so we keep just the tiles the map uses, inside the game. No licence needs an in-game credit.</p>
 
 <h2>2. Features of the requirements not (fully) implemented</h2>
-<p>IDs are from Req1. Every A1 requirement is implemented in the code; the first two rows are where the acceptance evidence that Req1 asks for is not complete yet. The rest are Assessment 2 requirements.</p>
+<p>IDs are from Req1. Every A1 requirement has code behind it (traced in Arch1); the first three rows are where its acceptance criterion is not yet fully met or shown. The rest are for Assessment 2.</p>
 <table>
-  <colgroup><col style="width:25%"><col style="width:6%"><col style="width:15%"><col style="width:54%"></colgroup>
+  <colgroup><col style="width:29%"><col style="width:5%"><col style="width:14%"><col style="width:52%"></colgroup>
   <thead><tr><th>Requirement</th><th>A1</th><th>State</th><th>Why, and what is left</th></tr></thead>
-  <tr><td>QR_NEWBIE, QR_WINNABLE</td><td>Yes</td><td>Not yet verified</td><td>The food covers every goose, and simulated games win with time to spare without any hidden event (<code>WinnableGameTest</code>; open map, perfect clicks). Tests with first-time players (<code>docs/testing/playtest.md</code>) are still to do.</td></tr>
-  <tr><td>QR_PLATFORM, QR_STABLE</td><td>Yes</td><td>Partly verified</td><td>One JAR for all systems. Platform test of the website JAR (9 Nov): a full game on macOS and on Ubuntu Linux (a win at 0:06) with no exception; it found an event message covering the timer, now fixed. A Windows 11 virtual machine had no OpenGL driver, so no window opened; Windows on a real PC still to try (<code>docs/testing/platform-test.md</code>).</td></tr>
-  <tr><td>FR_GOOSE_VAR, FR_BOSS, FR_EVENT_HINT, FR_MUSIC, FR_REPLAY</td><td>No</td><td>Started early</td><td>A slower head goose with twice the appetite; events are visible props that show a &ldquo;?&rdquo; nearby; sound effects but no music; R starts a new game.</td></tr>
-  <tr><td>FR_PICKUP_ITEMS, FR_SCORE, FR_LEVELS, FR_TOKENS, FR_POCKET_MAP</td><td>No</td><td>Not implemented</td><td>For Assessment 2. A new item is one <code>Item</code> subclass and a new event one <code>IHiddenEvent</code> class plus an <code>EventSpot</code> (QR_EXTENSIBLE).</td></tr>
+  <tr><td>QR_NEWBIE, QR_WINNABLE</td><td>Yes</td><td>Not yet verified</td><td>Simulated games win with time to spare (<code>WinnableGameTest</code>: open map, perfect clicks). Tests with first-time players (<code>docs/testing/playtest.md</code>) are still to do.</td></tr>
+  <tr><td>QR_PLATFORM, QR_STABLE</td><td>Yes</td><td>Partly verified</td><td>One JAR for all systems. Tests of the website JAR (9 Nov, <code>docs/testing/platform-test.md</code>): full games on macOS and Ubuntu with no exception; a message covering the timer was found, fixed and re-checked on macOS. A Windows 11 virtual machine could not open a window (WGL: driver did not appear to support OpenGL); a real Windows PC is still to try.</td></tr>
+  <tr><td>QR_EXTENSIBLE</td><td>Yes</td><td>Mostly met</td><td>A new item or event is one new <code>Item</code> or <code>IHiddenEvent</code> class; inventory, HUD and drawing are unchanged, but one line in <code>GameScreen</code> adds it.</td></tr>
+  <tr><td>The Assessment 2 features</td><td>No</td><td>Some started</td><td>Started: FR_GOOSE_VAR, FR_BOSS (a slow head goose, twice the appetite), FR_EVENT_HINT (&ldquo;?&rdquo; by event props), FR_REPLAY (R); FR_MUSIC has sound effects only. Not started: FR_PICKUP_ITEMS, FR_SCORE, FR_LEVELS, FR_TOKENS, FR_POCKET_MAP.</td></tr>
 </table>
 
 </body>

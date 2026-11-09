@@ -49,6 +49,15 @@ public interface IHiddenEvent {
      */
     boolean checkActive();
 
+    /**
+     * Counts game time for a timed effect. The game calls it only while it is being played,
+     * so a pause stops the effect too. Events without a timed effect do nothing.
+     *
+     * @param seconds game time since the last call
+     */
+    default void elapse(float seconds) {
+    }
+
     //Get methods for config data
 
     /**

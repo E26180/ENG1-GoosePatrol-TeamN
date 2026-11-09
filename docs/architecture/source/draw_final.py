@@ -365,7 +365,7 @@ def activity_diagram():
                                               "place 2 hidden events, inventory = Oats + Bread, state = READY"], PKG["screen"])
     node(X, 196, 380, 44, "handleInput()", ["read the keys and the mouse"], PKG["screen"])
     diamond(X, 270, 200, 64, ["state?"])
-    node(830, 270, 320, 78, "READY or PAUSED", ["SPACE (or P, Esc): play()", "timer starts or resumes;", "the world does not move"], PKG["game"])
+    node(830, 270, 320, 78, "READY or PAUSED", ["READY: SPACE plays; PAUSED: SPACE,", "P or Esc plays (togglePause);", "the world does not move"], PKG["game"])
     node(830, 380, 320, 62, "WON or LOST", ["result screen with counters;", "R: start a new GameScreen"], PKG["game"])
     node(X - 30, 360, 500, 50, "keys 1-9: Inventory.select(n)", ["left click: Inventory.useSelected(x, y)  (see the item sequence)"], PKG["item"])
     node(X, 432, 560, 50, "Player.update(delta, dirX, dirY)", ["move one axis at a time; undo a step that hits a wall or the edge"], PKG["player"])

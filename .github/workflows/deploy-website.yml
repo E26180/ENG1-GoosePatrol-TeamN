@@ -13,6 +13,8 @@ on:
       - "docs/assessment1/**"
       - "docs/architecture/**"
       - "docs/plan/**"
+      - "docs/testing/**"
+      - "tools/md_page.py"
       - "core/**"
       - "build.gradle"
       - "settings.gradle"
@@ -56,6 +58,11 @@ jobs:
           cp docs/architecture/*.pdf docs/architecture/*.svg _site/architecture/
           cp docs/plan/*.svg _site/plan/
           cp lwjgl3/build/libs/GoosePatrol-1.0.0.jar _site/
+          mkdir -p _site/testing
+          cp -r docs/testing/images _site/testing/
+          for note in docs/testing/*.md; do
+            python3 tools/md_page.py "$note" "_site/testing/$(basename "$note" .md).html"
+          done
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
