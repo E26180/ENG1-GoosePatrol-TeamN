@@ -19,6 +19,7 @@ import uk.ac.york.eng1.goosepatrol.game.EventSpot;
 import uk.ac.york.eng1.goosepatrol.game.GameSession;
 import uk.ac.york.eng1.goosepatrol.game.GameState;
 import uk.ac.york.eng1.goosepatrol.game.GameTimer;
+import uk.ac.york.eng1.goosepatrol.game.Tutorial;
 import uk.ac.york.eng1.goosepatrol.goose.Goose;
 import uk.ac.york.eng1.goosepatrol.goose.GooseListener;
 import uk.ac.york.eng1.goosepatrol.goose.GooseManager;
@@ -67,6 +68,7 @@ public class GameScreen extends ScreenAdapter {
     private final Hud hud = new Hud();
     private final WorldRenderer renderer = new WorldRenderer();
     private final Sfx sfx = new Sfx();
+    private final Tutorial tutorial = new Tutorial();
 
     private final Player player;
     private final GooseManager geese;
@@ -119,13 +121,20 @@ public class GameScreen extends ScreenAdapter {
     private class Feedback implements GooseListener {
         @Override
         public void waveStarted(int number, int total) {
-            hud.showMessage("Wave " + number + " of " + total + ": here come the hungry geese!");
+            hud.showMessage("Wave " + number + " of " + total + ": hungry geese are waddling in from the lake!");
             sfx.play(Sfx.Cue.WAVE);
+            tutorial.trigger(Tutorial.Tip.FEED);
         }
 
         @Override
         public void gooseAlert(Goose goose) {
             sfx.play(Sfx.Cue.HONK);
+            tutorial.trigger(Tutorial.Tip.DODGE);
+        }
+
+        @Override
+        public void gooseFull(Goose goose) {
+            tutorial.trigger(Tutorial.Tip.BREAD);
         }
 
         @Override
@@ -138,7 +147,7 @@ public class GameScreen extends ScreenAdapter {
         public void waveCleared(int number) {
             if (number < geese.totalWaves()) {
                 oats.addUses(OATS_PER_CLEARED_WAVE);
-                hud.showMessage("Wave " + number + " fed! A friendly student gives you "
+                hud.showMessage("Wave " + number + " fed! A friendly student at the Piazza gives you "
                     + OATS_PER_CLEARED_WAVE + " more oats");
             }
         }
@@ -153,15 +162,16 @@ public class GameScreen extends ScreenAdapter {
         events.add(new EventSpot(new HEItems(helpSpot[0], helpSpot[1]), () -> {
             bread.addUses(EVENT_EXTRA_BREAD);
             inventory.addItem(new EnergyDrinkItem(player));
-            hud.showMessage("Hidden event: a picnic basket! +" + EVENT_EXTRA_BREAD
+            hud.showMessage("Hidden event: a lost backpack full of picnic food! +" + EVENT_EXTRA_BREAD
                 + " bread and " + EnergyDrinkItem.DEFAULT_USES + " energy drinks (key 3)");
             sfx.play(Sfx.Cue.EVENT);
         }));
 
-        float[] hinderSpot = Player.findFreeSpot(world, map, world.width * 0.75f, world.height * 0.3f);
+        // on the grass by Campus East Lake, clear of the trees
+        float[] hinderSpot = Player.findFreeSpot(world, map, world.width * 0.79f, world.height * 0.32f);
         events.add(new EventSpot(new HEGooseSpeed(hinderSpot[0], hinderSpot[1]), () -> {
             geese.speedUp(EVENT_GOOSE_SPEED, EVENT_GOOSE_SECONDS);
-            hud.showMessage("Hidden event: a bag of chips spilled! The geese are "
+            hud.showMessage("Hidden event: a tall duck (Long Boi's cousin?) tips over a bucket of chips! Geese "
                 + Math.round((EVENT_GOOSE_SPEED - 1f) * 100) + "% faster for " + (int) EVENT_GOOSE_SECONDS + " s");
             sfx.play(Sfx.Cue.EVENT);
         }));
@@ -186,12 +196,17 @@ public class GameScreen extends ScreenAdapter {
      */
     private boolean handleInput() {
         GameState state = session.getState();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+            tutorial.toggle();
+            hud.showMessage(tutorial.isEnabled() ? "Tips on" : "Tips off (T to turn them on)");
+        }
         if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
             sfx.toggleMute();
             hud.showMessage(sfx.isMuted() ? "Sound off (M to turn it on)" : "Sound on");
         }
         if ((state == GameState.READY || state == GameState.PAUSED) && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             session.play();
+            tutorial.trigger(Tutorial.Tip.WALK);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.P) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             session.togglePause();
         } else if (state.isOver() && Gdx.input.isKeyJustPressed(Input.Keys.R)) {
@@ -219,6 +234,7 @@ public class GameScreen extends ScreenAdapter {
             } else if (item instanceof OatsItem) {
                 renderer.addSplash(x, y, 14f);
                 sfx.play(Sfx.Cue.EAT);
+                tutorial.trigger(Tutorial.Tip.FED);
             } else if (item instanceof EnergyDrinkItem) {
                 hud.showMessage("Energy drink: " + Math.round((EnergyDrinkItem.SPEED_MULTIPLIER - 1f) * 100)
                     + "% faster for " + (int) EnergyDrinkItem.BOOST_SECONDS + " s");
@@ -253,8 +269,11 @@ public class GameScreen extends ScreenAdapter {
         for (EventSpot spot : events) {
             if (spot.update(player.getPosition())) {
                 session.eventTriggered();
+            } else if (!spot.isTriggered() && spot.getEvent().isPlayerInFlagRange(player.getPosition())) {
+                tutorial.trigger(Tutorial.Tip.EVENT);
             }
         }
+        tutorial.update(delta);
         renderer.update(delta);
         session.update(delta);
     }
@@ -278,8 +297,10 @@ public class GameScreen extends ScreenAdapter {
         followPlayer();
         viewport.apply();
         mapManager.render();
-        renderer.render(camera, player, walkTime, geese.getGeese(), events);
-        hud.render(delta, session, geese, inventory, player, geese.getSpeedUpLeft(), sfx.isMuted());
+        renderer.render(camera, player, walkTime, geese.getGeese(), events, Landmark.CAMPUS_EAST);
+        Tutorial.Tip tip = tutorial.current();
+        hud.render(delta, session, geese, inventory, player, geese.getSpeedUpLeft(), sfx.isMuted(),
+            tip == null ? null : tip.getText());
     }
 
     /** Centres the camera on the player without showing anything outside the map. */

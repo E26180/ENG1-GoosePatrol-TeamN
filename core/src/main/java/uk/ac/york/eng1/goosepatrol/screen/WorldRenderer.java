@@ -19,13 +19,15 @@ import com.badlogic.gdx.utils.Disposable;
 
 import uk.ac.york.eng1.goosepatrol.game.EventSpot;
 import uk.ac.york.eng1.goosepatrol.goose.Goose;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
 import uk.ac.york.eng1.goosepatrol.hidden_event.IHiddenEvent;
 import uk.ac.york.eng1.goosepatrol.player.Player;
 
 /**
- * Draws everything that sits on the map, in world units: the hidden-event boxes, the player,
+ * Draws everything that sits on the map, in world units: the hidden-event props, the player,
  * the geese with their hunger bars, the "HONK!" warning (QR_ALERT), "Yum!" after a feed,
- * where food landed, and arrows at the edge of the screen towards geese out of sight.
+ * where food landed, signs with the names of campus places, and arrows at the edge of the
+ * screen towards geese out of sight.
  * Every cue uses a shape or text as well as colour (QR_ACCESS_CUES).
  */
 public class WorldRenderer implements Disposable {
@@ -39,7 +41,7 @@ public class WorldRenderer implements Disposable {
     private static final Color OUTLINE = new Color(0.1f, 0.1f, 0.1f, 1f);
     private static final Color BAR_EMPTY = new Color(0.25f, 0.25f, 0.25f, 0.9f);
     private static final Color BAR_FULL = new Color(0.98f, 0.78f, 0.2f, 1f);
-    private static final Color BOX = new Color(0.62f, 0.42f, 0.22f, 1f);
+    private static final Color SIGN = new Color(0.16f, 0.25f, 0.2f, 0.85f);
     private static final Color ARROW = new Color(1f, 0.62f, 0.15f, 1f);
 
     private final SpriteBatch batch = new SpriteBatch();
@@ -48,6 +50,8 @@ public class WorldRenderer implements Disposable {
     private final GlyphLayout layout = new GlyphLayout();
     private final Texture playerSheet = new Texture("textures/player/student.png");
     private final Texture gooseSheet = new Texture("textures/geese/goose.png");
+    private final Texture backpack = new Texture("textures/events/backpack.png");
+    private final Texture duck = new Texture("textures/events/duck.png");
     private final TextureRegion[] playerFrames;
     private final TextureRegion[] gooseFrames;
     private final List<float[]> splashes = new ArrayList<>();
@@ -97,43 +101,73 @@ public class WorldRenderer implements Disposable {
      * @param walkTime how long the player has been walking, for the animation
      * @param geese    the geese on the map
      * @param events   the hidden events
+     * @param places   the named campus places to label
      */
-    public void render(OrthographicCamera camera, Player player, float walkTime, List<Goose> geese, List<EventSpot> events) {
+    public void render(OrthographicCamera camera, Player player, float walkTime, List<Goose> geese,
+                       List<EventSpot> events, List<Landmark> places) {
         shapes.setProjectionMatrix(camera.combined);
         batch.setProjectionMatrix(camera.combined);
 
-        drawEventBoxes(player, events);
+        drawLandmarks(places);
+        drawEventProps(player, events);
         drawSplashes();
         drawSprites(player, walkTime, geese);
         drawGooseInfo(geese);
+        drawEventHints(player, events);
         drawOffScreenArrows(camera, geese);
     }
 
-    /** A wooden box with a "?" for every event not found yet; it bobs when the player is near. */
-    private void drawEventBoxes(Player player, List<EventSpot> events) {
+    /** A dark sign with white text over each named campus place. */
+    private void drawLandmarks(List<Landmark> places) {
+        beginShapes(ShapeRenderer.ShapeType.Filled);
+        for (Landmark place : places) {
+            layout.setText(font, place.name());
+            float w = layout.width + 12f;
+            shapes.setColor(SIGN);
+            shapes.rect(place.x() - w / 2f, place.y(), w, 15f);
+        }
+        shapes.end();
+        batch.begin();
+        for (Landmark place : places) {
+            drawCentred(place.name(), place.x(), place.y() + 12f, Color.WHITE, 1f);
+        }
+        batch.end();
+    }
+
+    /**
+     * Something odd to look at for every hidden event, so events are hidden but not invisible:
+     * a lost backpack, or a tall duck staring at a bucket. The prop stays after it is found.
+     */
+    private void drawEventProps(Player player, List<EventSpot> events) {
+        batch.begin();
+        for (EventSpot spot : events) {
+            float[] pos = spot.getEvent().getPos();
+            Texture prop = spot.getEvent() instanceof HEGooseSpeed ? duck : backpack;
+            batch.setColor(1f, 1f, 1f, spot.isTriggered() ? 0.55f : 1f);
+            batch.draw(prop, pos[0] - 16f, pos[1] - 12f, 32f, 32f);
+        }
+        batch.setColor(Color.WHITE);
+        batch.end();
+    }
+
+    /** A bobbing "?" bubble over an event the player is near but has not found yet (FR_EVENT_HINT). */
+    private void drawEventHints(Player player, List<EventSpot> events) {
         beginShapes(ShapeRenderer.ShapeType.Filled);
         for (EventSpot spot : events) {
-            if (spot.isTriggered()) {
-                continue;
+            if (!spot.isTriggered() && spot.getEvent().isPlayerInFlagRange(player.getPosition())) {
+                float[] p = boxPosition(spot, player);
+                bubble(p[0], p[1] + 24f, 18f, 18f, Color.WHITE);
             }
-            float[] p = boxPosition(spot, player);
-            shapes.setColor(OUTLINE);
-            shapes.rect(p[0] - 15f, p[1] - 13f, 30f, 26f);
-            shapes.setColor(BOX);
-            shapes.rect(p[0] - 14f, p[1] - 12f, 28f, 24f);
-            shapes.setColor(OUTLINE);
-            shapes.rect(p[0] - 14f, p[1] - 1f, 28f, 2f);
         }
         shapes.end();
         batch.begin();
         for (EventSpot spot : events) {
-            if (spot.isTriggered()) {
-                continue;
+            if (!spot.isTriggered() && spot.getEvent().isPlayerInFlagRange(player.getPosition())) {
+                float[] p = boxPosition(spot, player);
+                font.getData().setScale(1f);
+                drawCentred("?", p[0], p[1] + 39f, Color.BLACK, 1f);
+                font.getData().setScale(0.7f);
             }
-            float[] p = boxPosition(spot, player);
-            font.getData().setScale(1.1f);
-            drawCentred("?", p[0], p[1] + 8f, Color.WHITE, 1f);
-            font.getData().setScale(0.7f);
         }
         batch.end();
     }
@@ -335,5 +369,7 @@ public class WorldRenderer implements Disposable {
         font.dispose();
         playerSheet.dispose();
         gooseSheet.dispose();
+        backpack.dispose();
+        duck.dispose();
     }
 }
