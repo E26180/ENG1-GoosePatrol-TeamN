@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Arch1</title>
+<style>
+  @page { size: A4; margin: 1.3cm 1.4cm; }
+  @page land { size: A4 landscape; margin: 1cm; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 11pt; line-height: 1.25; color: #111; margin: 0; }
+  h1 { font-size: 15pt; margin: 0 0 4pt; }
+  h2 { font-size: 12.5pt; margin: 9pt 0 3pt; page-break-after: avoid; }
+  h3 { font-size: 11pt; margin: 6pt 0 2pt; page-break-after: avoid; }
+  p { margin: 0 0 5pt; }
+  ul { margin: 0 0 5pt; padding-left: 15pt; }
+  li { margin-bottom: 2pt; }
+  table { border-collapse: collapse; width: 100%; font-size: 10pt; line-height: 1.15; margin: 3pt 0 6pt; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid #999; padding: 2pt 4pt; vertical-align: top; text-align: left; }
+  th { background: #e8e8e8; }
+  code { font-family: "Courier New", monospace; font-size: 9.5pt; }
+  figure { margin: 4pt 0 6pt; text-align: center; page-break-inside: avoid; }
+  figure img { width: 100%; }
+  figcaption { font-size: 10pt; color: #333; margin-top: 2pt; text-align: left; }
+  .land { page: land; page-break-before: always; page-break-after: always; }
+  .land img { width: 100%; max-height: 19.6cm; object-fit: contain; }
+  .land figure { margin: 0; }
+  .break { page-break-before: always; }
+  .cover { height: 25.5cm; display: flex; flex-direction: column; justify-content: center; text-align: center; page-break-after: always; }
+  .cover h1 { font-size: 24pt; margin-bottom: 8pt; }
+  .cover p { font-size: 13pt; margin: 3pt 0; }
+  .cover .team { margin-top: 30pt; font-size: 12pt; }
+  .crc td:first-child { font-weight: bold; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>ENG1 &ndash; Assessment 1: Greenfield Development</h1>
+  <p>Architecture (Arch1)</p>
+  <p>Team 2 &ndash; Goose Patrol</p>
+  <p>University of York</p>
+  <div class="team">
+    <p><b>Team members</b></p>
+    <p>Ghalia Al-Raeissi &middot; Ahmet Baykoz &middot; Alex Dyer &middot; Angelina Kan</p>
+    <p>Aybike Pembecicek &middot; Leo Plaskett &middot; Sean Tavener &middot; Kevin Yu</p>
+  </div>
+</div>
+
+<h1>Architecture &ndash; Part a: the architecture</h1>
+
+<h2>a1. Languages and tools</h2>
+<p>All diagrams use UML 2: a component diagram for the abstract structure, a class diagram for the concrete structure, an activity diagram for the abstract behaviour and sequence diagrams for the concrete behaviour. We draw them as code: small Python scripts (<code>docs/architecture/source/</code>) write each diagram as SVG, and the report is printed from HTML with Chrome. We chose this over a drawing tool because every version is a text file in Git next to the code, so a change to the design shows up in the same diffs and pull requests as the code, and any earlier version (v1, v2, the item subsystem) can be rebuilt. The interim versions are on the team website.</p>
+
+<h2>a2. Structural view (abstract): components</h2>
+<p>The game is split into one component per Java package. The Game Screen is the only component that knows all the others; every other link goes through a small interface (a ball in Figure 1), so each package can be written and unit tested by one developer before the others exist.</p>
+<figure>
+  <img src="../final-component.svg" alt="Component diagram">
+  <figcaption>Figure 1. Final component diagram. Requirement IDs are from Req1. The Geese component offers three interfaces: <code>GooseLocator</code>/<code>Feedable</code> to the items, <code>WaveStatus</code> to the rules and <code>CollisionChecker</code> to the player.</figcaption>
+</figure>
+
+<div class="land">
+  <h2 style="margin-top:0">a3. Structural view (concrete): classes</h2>
+  <figure>
+    <img src="../final-class.svg" alt="Class diagram">
+    <figcaption>Figure 2. Final class diagram of the main classes, one colour per package. The full item package (all fields and constants) is in the item subsystem document on the website.</figcaption>
+  </figure>
+</div>
+
+<h2>a4. Behavioural view (abstract): one frame</h2>
+<p>libGDX calls <code>GameScreen.render(delta)</code> about 60 times a second. Figure 3 shows what one call does. Everything that changes over time is driven by <code>delta</code> rather than the clock, so a paused game simply skips the update steps and the timer, cooldowns and speed boost all stop together (FR_PAUSE_KEY).</p>
+<figure style="width:62%; margin-left:auto; margin-right:auto">
+  <img src="../final-activity.svg" alt="Activity diagram">
+  <figcaption>Figure 3. Activity diagram of one frame, from the start screen (FR_START_PAUSED) to the win or loss screen (FR_JUDGEMENT).</figcaption>
+</figure>
+
+<h2>a5. Responsibilities (CRC cards)</h2>
+<table class="crc">
+  <colgroup><col style="width:17%"><col style="width:55%"><col style="width:28%"></colgroup>
+  <thead><tr><th>Class</th><th>Responsibilities</th><th>Collaborators</th></tr></thead>
+  <tr><td>GameScreen</td><td>Creates one game; reads the keys and mouse; calls the other parts once per frame in a fixed order; draws the map and player</td><td>GameSession, Player, Inventory, EventSpot, MapManager, Hud</td></tr>
+  <tr><td>GameSession</td><td>Knows the state (ready, playing, paused, won, lost); starts and pauses the timer; decides the result; counts events</td><td>GameTimer, WaveStatus</td></tr>
+  <tr><td>GameTimer</td><td>Counts the 5 minutes down only while running; formats the time for the HUD</td><td>&ndash;</td></tr>
+  <tr><td>Player</td><td>Moves in small steps, stops at walls and the map edge; applies and ends speed boosts; finds a free start spot</td><td>CollisionChecker</td></tr>
+  <tr><td>Inventory / Item</td><td>Holds up to nine items; selects one; uses it where the player clicked; enforces uses and cooldowns; counts items used</td><td>GooseLocator, Feedable, SpeedBoostTarget</td></tr>
+  <tr><td>EventSpot</td><td>Triggers its hidden event once when the player walks into range, then runs the event&rsquo;s effect</td><td>IHiddenEvent</td></tr>
+  <tr><td>MapManager / CollisionManager</td><td>Loads and draws the Tiled campus map; reads the collision rectangles; answers &ldquo;is this space blocked?&rdquo;</td><td>libGDX TmxMapLoader</td></tr>
+  <tr><td>Hud</td><td>Draws the time, goals, counters, inventory bar, messages and the start, pause and result screens, always with text as well as colour</td><td>GameSession, Inventory, Player, WaveStatus</td></tr>
+  <tr><td>GooseManager</td><td>Sends the waves; moves and separates the geese; finds geese for the items; blocks the player; startles the player when a snatch lands; reports when every wave is fed</td><td>Goose, Wave, GooseListener, SpeedBoostTarget</td></tr>
+  <tr><td>Goose</td><td>Walks to the player, flapping over obstacles; warns, then snatches; fills its hunger bar and flies away when full</td><td>GooseType, CollisionChecker</td></tr>
+</table>
+
+<h2>a6. Behavioural view (concrete): key scenarios</h2>
+<figure>
+  <img src="../final-sequence.svg" alt="Sequence diagram of one frame">
+  <figcaption>Figure 4. Sequence diagram of one frame while playing: input, movement with collision checks, hidden events, the rules, then drawing.</figcaption>
+</figure>
+<figure style="width:62%; margin-left:auto; margin-right:auto">
+  <img src="../items-sequence.svg" alt="Sequence diagram of using Bread">
+  <figcaption>Figure 5. Sequence diagram of using an item: the player feeds a group of geese with Bread (FR_MULTI_TARGET). A click that finds no goose costs nothing and is not counted.</figcaption>
+</figure>
+
+<h1 class="break">Architecture &ndash; Part b: justification</h1>
+
+<h2>b1. Why this architecture</h2>
+<ul>
+  <li><b>Components follow the requirement groups.</b> Each component in Figure 1 owns one group of requirements from Req1 (for example Game Rules owns FR_TIMER and FR_JUDGEMENT, Player owns FR_AVATAR and QR_OUT_OF_BOUNDS), so a requirement has one obvious place in the code and one owner in the team.</li>
+  <li><b>Interfaces between packages (dependency inversion).</b> Items only know <code>GooseLocator</code>, <code>Feedable</code> and <code>SpeedBoostTarget</code>; the player only knows <code>CollisionChecker</code>; the rules only know <code>WaveStatus</code>. This let several developers work in parallel: the items were finished and tested before any goose existed, and the game screen was built and played with a stand-in for the geese, which the real goose package replaced by changing one line.</li>
+  <li><b>Rules without graphics.</b> <code>GameSession</code>, <code>GameTimer</code>, <code>Player</code>, <code>EventSpot</code>, the geese and the items contain no drawing or input code; <code>GameScreen</code>, <code>WorldRenderer</code>, <code>Hud</code> and <code>Sfx</code> do that. So the rules can be unit tested without a window (93 JUnit tests), including whole simulated games, which supports QR_STABLE and UR_MAINTENANCE.</li>
+  <li><b>Geese report events through a listener (observer).</b> <code>GooseManager</code> tells a <code>GooseListener</code> when a wave starts, a goose warns, a snatch lands or a wave is fed; the screen turns these into sounds and messages. The goose package therefore knows nothing about audio or the HUD.</li>
+  <li><b>One game loop driven by <code>delta</code>.</b> Using libGDX&rsquo;s <code>render(delta)</code> with a fixed order of steps (Figure 3) makes pause trivial and correct, and it means behaviour does not depend on the frame rate. Movement is split into steps of at most 4 px so a slow frame cannot carry the player through a thin wall (QR_COLLISION).</li>
+  <li><b>Effects are given to events, not hard-coded in them.</b> <code>EventSpot</code> pairs an <code>IHiddenEvent</code> (where it is, when it triggers) with an effect, so event classes do not need references to the inventory or the geese.</li>
+  <li><b>Accessibility in the HUD.</b> Every cue uses at least two of colour, text and sound (for example a goose about to snatch flashes red, shows &ldquo;HONK!&rdquo; and honks; the selected item has a yellow frame and its name above it), which meets QR_ACCESS_CUES and UR_ACCESS.</li>
+</ul>
+
+<h2>b2. Traceability: requirements to design and tests</h2>
+<table>
+  <colgroup><col style="width:28%"><col style="width:36%"><col style="width:36%"></colgroup>
+  <thead><tr><th>Requirement (Req1)</th><th>Component and classes</th><th>Tests</th></tr></thead>
+  <tr><td>FR_AVATAR, FR_CONTROLS</td><td>Player: <code>Player</code>; Game Screen; <code>InventoryInput</code></td><td><code>PlayerTest</code> (walksAtBaseSpeed, diagonalIsNotFaster); <code>numberKeysMapToSlotNumbers</code></td></tr>
+  <tr><td>QR_COLLISION, QR_OUT_OF_BOUNDS</td><td>Player and Campus Map: <code>Player</code>, <code>CollisionManager</code></td><td><code>PlayerTest</code> (stopsAtAWallEvenAfterASlowFrame, cannotLeaveTheMap)</td></tr>
+  <tr><td>FR_START_PAUSED, FR_PAUSE_KEY</td><td>Game Rules: <code>GameSession</code>, <code>GameTimer</code></td><td><code>GameSessionTest</code> (startsOnTheStartScreen&hellip;, pauseStopsTheTimer&hellip;)</td></tr>
+  <tr><td>FR_TIMER, FR_JUDGEMENT, UR_RESULT</td><td>Game Rules: <code>GameTimer</code>, <code>GameSession</code>; Hud</td><td><code>GameTimerTest</code>; <code>GameSessionTest</code> (losesWhen&hellip;, winsEarlyWhen&hellip;)</td></tr>
+  <tr><td>FR_COUNTERS</td><td><code>Inventory.getItemsUsed()</code>, <code>GameSession.getEventsTriggered()</code>; Hud</td><td><code>usingTheSelectedItemSpendsOneUseAndCountsIt</code>, <code>countsEvents</code></td></tr>
+  <tr><td>FR_START_INVENTORY, FR_SINGLE_TARGET, FR_MULTI_TARGET</td><td>Inventory and Items: <code>OatsItem</code>, <code>BreadItem</code></td><td><code>oatsFillHalfOfTheClickedGoosesHunger</code>, <code>breadFeedsEveryGooseInTheRadius&hellip;</code></td></tr>
+  <tr><td>FR_EVENTS, FR_EVENT_EFFECT</td><td>Hidden Events: <code>EventSpot</code>, <code>HEItems</code>, <code>HEGooseSpeed</code></td><td><code>EventSpotTest</code>; <code>aHiddenEventCanGiveTenMoreBread</code></td></tr>
+  <tr><td>FR_ENEMY, FR_WAVES, FR_WAVE_COMPLETE, QR_PROGRESSION</td><td>Geese: <code>Goose</code>, <code>GooseManager</code>, <code>Wave</code></td><td><code>GooseTest</code>; <code>GooseManagerTest</code> (feedingAWaveStartsTheNext&hellip;, nextWaveComesAfterTheCountdown&hellip;)</td></tr>
+  <tr><td>QR_ALERT, UR_NONVIOLENT</td><td><code>Goose</code> warning state; <code>WorldRenderer</code>, <code>Sfx</code></td><td><code>snatchLandsOnlyAfterTheFullWarning</code>, <code>aSnatchStartlesThePlayerWithAWarningFirst</code></td></tr>
+  <tr><td>QR_WINNABLE, QR_NEWBIE, QR_AVOID_EXTREME</td><td>Constants in the items and <code>GooseManager</code> (startle 40%, bread 60 px)</td><td><code>WinnableGameTest</code>; <code>startingFoodIsEnough&hellip;</code>; <code>boostIsFasterButNotExtreme</code></td></tr>
+</table>
+
+<h2>b3. How the architecture evolved</h2>
+<table>
+  <colgroup><col style="width:14%"><col style="width:86%"></colgroup>
+  <thead><tr><th>Version</th><th>What changed and why</th></tr></thead>
+  <tr><td>v1 (team draft)</td><td>First component and activity diagrams, drawn from the product brief.</td></tr>
+  <tr><td>v2</td><td>Checked against Req1: player health removed (the game has no violence, UR_NONVIOLENT); pause and a start screen added (UR_PAUSE); a Counter System added (FR_COUNTERS); notification events replaced by hidden events found by walking (FR_EVENTS); collectibles and score moved to Assessment 2.</td></tr>
+  <tr><td>Item subsystem</td><td>The first package to be built. The items were made to depend on <code>Feedable</code>, <code>GooseLocator</code> and <code>SpeedBoostTarget</code> rather than on goose and player classes, and <code>use()</code> was changed to spend nothing when a click hits no goose. This set the pattern used by the rest of the design.</td></tr>
+  <tr><td>v3 (final)</td><td>Matched to the code. The Game Manager was split into <code>GameSession</code> (rules, testable) and <code>GameScreen</code> (input and drawing), because rules mixed with drawing could not be unit tested. The separate Counter System was dropped: the counts live where the actions happen (<code>Inventory</code>, <code>GameSession</code>), which removed a component that only forwarded calls. <code>WaveStatus</code> and <code>CollisionChecker</code> were added so the rules and the player do not depend on the geese or the map classes. Event effects moved into <code>EventSpot</code>, and timed effects count down with <code>delta</code> so they stop during a pause. Player Control became <code>GameScreen.handleInput()</code> plus <code>InventoryInput</code>. The geese were built last against these interfaces. Simulated whole games (<code>WinnableGameTest</code>) then showed that a player could run out of food, so the bread area grew from 30 to 60 px and the oats from 10 to 15 uses.</td></tr>
+</table>
+
+<h2>b4. Designed for Assessment 2</h2>
+<p>New items (UR_MAP_ITEMS) are one new <code>Item</code> subclass with no change to <code>Inventory</code>; new hidden events are one new <code>IHiddenEvent</code> class plus an <code>EventSpot</code>; goose types with different stats (FR_GOOSE_VAR, FR_BOSS) only change the goose package; and a score (FR_SCORE) can be computed from <code>GameSession</code>, <code>GameTimer</code> and <code>Inventory.getItemsUsed()</code>. This is QR_EXTENSIBLE.</p>
+
+</body>
+</html>

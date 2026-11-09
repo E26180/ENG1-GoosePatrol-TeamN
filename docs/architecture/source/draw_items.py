@@ -107,7 +107,7 @@ def class_diagram():
                     ops=["+ InventoryInput(inventory: Inventory)",
                          "+ slotForKey(keycode: int): int {static}",
                          "+ update(): void"])
-    screen = Box(480, 40, 330, "GameScreen", "core, planned", kind="other",
+    screen = Box(480, 40, 330, "GameScreen", "screen", kind="other",
                  ops=["calls update(delta) every frame",
                       "draws slotText(1..9) and getItemsUsed()",
                       "on click: useSelected(mouseX, mouseY)"])
@@ -139,9 +139,9 @@ def class_diagram():
                     "+ getUsesLeft(): int",
                     "+ getMaxUses(): int",
                     "+ getCooldownLeft(): float"])
-    hidden = Box(40, 660, 300, "HEItems", "event, Alex", kind="other",
-                 ops=["trigger(): addItem(new EnergyDrinkItem(...))",
-                      "and addUses(10) on the Bread"])
+    hidden = Box(40, 660, 300, "HEItems", "hidden_event", kind="other",
+                 ops=["its EventSpot effect: addItem(new",
+                      "EnergyDrinkItem(...)), addUses(10) on Bread"])
     oats = Box(380, 700, 260, "OatsItem",
                attrs=["+ HUNGER_FILLED = 0.5f", "+ START_USES = 10", "- geese: GooseLocator"],
                ops=["# applyEffect(x, y): boolean"])
@@ -162,7 +162,7 @@ def class_diagram():
                 ops=["+ applySpeedBoost(", "    multiplier, seconds)"])
     goose_mgr = Box(420, 1100, 300, "GooseManager", "enemy, planned", kind="other")
     goose = Box(790, 1100, 160, "Goose", "enemy, planned", kind="other")
-    player = Box(990, 1100, 170, "Player", "player, planned", kind="other")
+    player = Box(990, 1100, 170, "Player", "player", kind="other")
 
     boxes = [inv_input, screen, inventory, item, hidden, oats, bread, drink,
              locator, feedable, boost, goose_mgr, goose, player]
@@ -207,7 +207,7 @@ def class_diagram():
     out.append(text(lx + 12, ly + 24, "Key", 13, "bold"))
     rows = [(FILL_MINE, INK, "", "class in the item package"),
             (FILL_IFACE, INK, "", "interface in the item package"),
-            (FILL_OTHER, GREY, ' stroke-dasharray="6 4"', "other package (name may change)")]
+            (FILL_OTHER, GREY, ' stroke-dasharray="6 4"', "other package")]
     for i, (f, s, d, t) in enumerate(rows):
         y = ly + 40 + i * 28
         out.append(f'<rect x="{lx + 12}" y="{y}" width="34" height="18" fill="{f}" stroke="{s}"{d}/>')
@@ -232,7 +232,7 @@ def class_diagram():
 
 def sequence_diagram():
     W, H = 1200, 960
-    names = [("Player", "user"), ("GameScreen", "core"), ("InventoryInput", ""), ("Inventory", ""),
+    names = [("Player", "user"), ("GameScreen", "screen"), ("InventoryInput", ""), ("Inventory", ""),
              ("bread: BreadItem", ""), ("GooseLocator", "enemy"), ("goose: Feedable", "enemy")]
     xs = [80, 250, 420, 590, 770, 950, 1110]
     top, bottom = 60, 930
@@ -250,7 +250,7 @@ def sequence_diagram():
             out.append(text(x, top + 62, n, 13, "bold", anchor="middle"))
             life_top = top + 70
         else:
-            other = pkg in ("core", "enemy")
+            other = pkg in ("screen", "enemy")
             dash = ' stroke-dasharray="6 4"' if other else ""
             fill = FILL_OTHER if other else FILL_MINE
             out.append(f'<rect x="{x - w / 2}" y="{top}" width="{w}" height="44" fill="{fill}" stroke="{INK}" stroke-width="1.3"{dash}/>')

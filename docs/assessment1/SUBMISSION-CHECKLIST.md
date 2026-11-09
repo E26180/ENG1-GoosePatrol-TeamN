@@ -8,11 +8,11 @@ Deadline: **Monday 16 November 2026, 12:00**. Check every line against the Asses
 |------|-------|-------|-------|
 | `url1.txt` | Ahmet | ✅ | `https://e26180.github.io/ENG1-GoosePatrol-TeamN/` |
 | `Req1.pdf` | Ahmet, Alex | ✅ | 5 pages |
-| `Arch1.pdf` | Ahmet | 🟡 | Cover + 6 pages in `docs/architecture/source/Arch1.html`; swap the planned goose classes for the real ones, then copy here |
-| `Plan1.pdf` | Sean | ❓ | Not in the repository yet |
-| `Risk1.pdf` | Scrub, HaterClash | ❓ | Not in the repository yet |
-| `Impl1.pdf` | Ahmet, Alex | ✅ | Cover + 1 page; update the "not implemented" table when the geese are merged |
-| Game JAR | everyone | 🟡 | Built by the website workflow from `main`; waits for the geese |
+| `Arch1.pdf` | Ahmet | ✅ | Cover + 6 pages, printed from `docs/architecture/source/Arch1.html` |
+| `Plan1.pdf` | Ahmet | ✅ | Cover + 2 + 1 + 2 pages, printed from `source/Plan1.html`; Gantt charts from `docs/plan/source/draw_plan.py` |
+| `Risk1.pdf` | Ahmet (from the team's register) | ✅ | Cover + 3 pages, printed from `source/Risk1.html`; check the owners with the team |
+| `Impl1.pdf` | Ahmet, Alex | ✅ | Cover + 1 page |
+| Game JAR | everyone | ✅ | Built by the website workflow from `main`; still to be started on Windows and Linux |
 
 ## Before submitting
 

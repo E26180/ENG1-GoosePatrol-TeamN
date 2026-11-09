@@ -37,7 +37,7 @@
 <text x="48" y="143" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">+ slotForKey(keycode: int): int {static}</text>
 <text x="48" y="160" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">+ update(): void</text>
 <rect x="480" y="40" width="330" height="117" fill="#f4f4f4" stroke="#777" stroke-width="1.3" stroke-dasharray="6 4"/>
-<text x="645.0" y="61" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«core, planned»</text>
+<text x="645.0" y="61" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«screen»</text>
 <text x="645.0" y="78" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#777">GameScreen</text>
 <line x1="480" y1="90" x2="810" y2="90" stroke="#777" stroke-dasharray="6 4"/>
 <text x="488" y="110" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">calls update(delta) every frame</text>
@@ -79,11 +79,11 @@
 <text x="518" y="550" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">+ getMaxUses(): int</text>
 <text x="518" y="567" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">+ getCooldownLeft(): float</text>
 <rect x="40" y="660" width="300" height="100" fill="#f4f4f4" stroke="#777" stroke-width="1.3" stroke-dasharray="6 4"/>
-<text x="190.0" y="681" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«event, Alex»</text>
+<text x="190.0" y="681" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«hidden_event»</text>
 <text x="190.0" y="698" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#777">HEItems</text>
 <line x1="40" y1="710" x2="340" y2="710" stroke="#777" stroke-dasharray="6 4"/>
-<text x="48" y="730" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">trigger(): addItem(new EnergyDrinkItem(...))</text>
-<text x="48" y="747" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">and addUses(10) on the Bread</text>
+<text x="48" y="730" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">its EventSpot effect: addItem(new</text>
+<text x="48" y="747" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#777">EnergyDrinkItem(...)), addUses(10) on Bread</text>
 <rect x="380" y="700" width="260" height="133" fill="#eef5ee" stroke="#222" stroke-width="1.3"/>
 <text x="510.0" y="721" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#222">OatsItem</text>
 <line x1="380" y1="733" x2="640" y2="733" stroke="#222"/>
@@ -136,7 +136,7 @@
 <text x="870.0" y="1121" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«enemy, planned»</text>
 <text x="870.0" y="1138" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#777">Goose</text>
 <rect x="990" y="1100" width="170" height="50" fill="#f4f4f4" stroke="#777" stroke-width="1.3" stroke-dasharray="6 4"/>
-<text x="1075.0" y="1121" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«player, planned»</text>
+<text x="1075.0" y="1121" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="middle" fill="#777">«player»</text>
 <text x="1075.0" y="1138" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" font-style="normal" text-anchor="middle" fill="#777">Player</text>
 <rect x="40" y="900" width="300" height="250" fill="#fff" stroke="#bbb"/>
 <text x="52" y="924" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" font-style="normal" text-anchor="start" fill="#222">Key</text>
@@ -145,7 +145,7 @@
 <rect x="52" y="968" width="34" height="18" fill="#e6f3fb" stroke="#222"/>
 <text x="96" y="982" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">interface in the item package</text>
 <rect x="52" y="996" width="34" height="18" fill="#f4f4f4" stroke="#777" stroke-dasharray="6 4"/>
-<text x="96" y="1010" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">other package (name may change)</text>
+<text x="96" y="1010" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">other package</text>
 <path d="M52,1040 L90,1040" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
 <text x="100" y="1044" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="normal" font-style="normal" text-anchor="start" fill="#222">association / calls</text>
 <path d="M52,1066 L90,1066" fill="none" stroke="#222" stroke-width="1.3" marker-start="url(#diamond)"/>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Plan1</title>
+<style>
+  @page { size: A4; margin: 1.4cm 1.5cm; }
+  @page land { size: A4 landscape; margin: 1cm 1.1cm; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 11pt; line-height: 1.27; color: #111; margin: 0; }
+  h1 { font-size: 15pt; margin: 0 0 4pt; }
+  h2 { font-size: 12.5pt; margin: 8pt 0 3pt; page-break-after: avoid; }
+  p { margin: 0 0 5pt; }
+  ul { margin: 0 0 5pt; padding-left: 15pt; }
+  li { margin-bottom: 2pt; }
+  table { border-collapse: collapse; width: 100%; font-size: 10pt; line-height: 1.17; margin: 3pt 0 6pt; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid #999; padding: 2pt 4pt; vertical-align: top; text-align: left; }
+  th { background: #e8e8e8; }
+  code { font-family: "Courier New", monospace; font-size: 9.5pt; }
+  .cover { height: 25.5cm; display: flex; flex-direction: column; justify-content: center; text-align: center; page-break-after: always; }
+  .cover h1 { font-size: 24pt; margin-bottom: 8pt; }
+  .cover p { font-size: 13pt; margin: 3pt 0; }
+  .cover .team { margin-top: 30pt; font-size: 12pt; }
+  .break { page-break-before: always; }
+  .land { page: land; page-break-before: always; }
+  .land img { width: 100%; }
+  figure { margin: 2pt 0 4pt; }
+  figcaption { font-size: 10pt; color: #333; }
+  .refs { font-size: 10pt; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>ENG1 &ndash; Assessment 1: Greenfield Development</h1>
+  <p>Method Selection and Planning (Plan1)</p>
+  <p>Team 2 &ndash; Goose Patrol</p>
+  <p>University of York</p>
+  <div class="team">
+    <p><b>Team members</b></p>
+    <p>Ghalia Al-Raeissi &middot; Ahmet Baykoz &middot; Alex Dyer &middot; Angelina Kan</p>
+    <p>Aybike Pembecicek &middot; Leo Plaskett &middot; Sean Tavener &middot; Kevin Yu</p>
+  </div>
+</div>
+
+<h1>Plan1 &ndash; Part a: software engineering method and tools</h1>
+
+<h2>a1. Method: a Scrum-like agile method with one-week iterations</h2>
+<p>We used an agile method based on Scrum [1], adapted for eight students who work part time on several modules:</p>
+<ul>
+  <li><b>One-week iterations.</b> Each week had a goal from the milestone plan (Part c). At the start of a week the tasks were written as GitHub issues, one per role or sub-team, with the people assigned, and tracked on the project board (To do, Done). Week 1 had one issue per role (issues #2&ndash;#9); week 2 split the documents between sub-teams (issues #11&ndash;#18).</li>
+  <li><b>A prioritised backlog.</b> The requirements in Req1 have MoSCoW priorities [2] and a column saying which ones belong to Assessment 1. That told us what to build first and what to leave for Assessment 2.</li>
+  <li><b>The client as product owner.</b> The client meeting on 14 October was our main source of requirements; follow-up questions were answered afterwards (for example the client confirmed on 21 October that hidden events may have hints).</li>
+  <li><b>Small increments on a protected main branch.</b> Every change reached <code>main</code> through a pull request on a feature or document branch; a repository rule blocks direct pushes. Each merge to <code>main</code> rebuilds the website and the game JAR automatically, so there is always a current playable build.</li>
+  <li><b>Interfaces first.</b> Packages talk to each other through small interfaces (Arch1), agreed before the code, so each developer could build and unit test their own package in parallel.</li>
+  <li><b>No daily stand-up.</b> We do not meet every day, so short written updates on Discord replaced it.</li>
+</ul>
+<p><b>Why this method.</b> (1) <i>Requirements changed.</i> The concept agreed at the kick-off (an escape game) changed after the client meeting into a non-violent wave game where geese are fed, and Req1 was only final on 27 October. A plan-driven method that freezes the requirements first would have had to redo its design. (2) <i>A short, fixed timebox.</i> Six weeks with a fixed deadline suit fixed-length iterations with milestones. (3) <i>New technology.</i> Nobody had used libGDX before (risk R3), so we wanted working increments early rather than one big integration at the end. (4) <i>Fixed deliverables.</i> The assessment asks for documents with set contents, so we kept plan-driven milestones for them: a hybrid of agile delivery for the game and dated milestones for the documents.</p>
+<p><b>What we learned.</b> Week 1, with one clear issue per role, went to plan. From week 2 the board was used less: some issues (architecture, risk register, Gantt chart) stayed open while the work was tracked on Discord and in the Arch1 outline instead, and the integration step slipped (Part c). For Assessment 2 we will keep every task on the board and hold a short integration check at the end of each week.</p>
+
+<h2>a2. Tools</h2>
+<table>
+  <colgroup><col style="width:21%"><col style="width:33%"><col style="width:46%"></colgroup>
+  <thead><tr><th>Tool</th><th>Used for</th><th>Why we chose it</th></tr></thead>
+  <tr><td>GitHub repository, pull requests, &ldquo;Protect Main&rdquo; rule</td><td>Version control, review of every change, history of who did what</td><td>Free private repositories; everyone could learn it quickly; pull requests give a review step and the history is evidence for peer assessment.</td></tr>
+  <tr><td>GitHub Issues and Projects board</td><td>Weekly tasks with assignees, To do / Done</td><td>Tasks live next to the code and can be linked to pull requests, unlike a separate tool such as Trello.</td></tr>
+  <tr><td>GitHub Actions and Pages</td><td>Builds and publishes the website, the PDFs and the game JAR on every merge</td><td>No manual release steps, so the website always shows the current build and documents.</td></tr>
+  <tr><td>Discord (channels for general, task planning, updates, discussion, resources)</td><td>Day-to-day messages, quick questions, voice calls</td><td>Everyone already used it; channels keep topics apart and messages are kept, so decisions can be found later.</td></tr>
+  <tr><td>Microsoft Word on the university Microsoft 365</td><td>Writing document drafts together (e.g. the risk register)</td><td>All members have university accounts; several people can edit the same draft.</td></tr>
+  <tr><td>IntelliJ IDEA, JDK 17, Gradle, gdx-liftoff</td><td>Writing, building and running the game; generated the starting project</td><td>Required stack (Java 17, Gradle, libGDX); IntelliJ has good Gradle support; gdx-liftoff gave a working project on day 2.</td></tr>
+  <tr><td>Tiled</td><td>Drawing the campus map</td><td>libGDX loads Tiled maps directly, including the collision layer.</td></tr>
+  <tr><td>JUnit 5</td><td>Unit tests and simulated whole games</td><td>Runs with Gradle on every build; catches regressions while several people change the code.</td></tr>
+  <tr><td>Python scripts, Chrome</td><td>Diagrams, sprites and sound effects as code; printing the PDFs</td><td>Every version is a text file in Git, so diagrams can be rebuilt and compared between versions.</td></tr>
+</table>
+
+<h1 class="break">Plan1 &ndash; Part b: team organisation</h1>
+<p><b>Roles.</b> At the kick-off meeting (7 October) we split the work into eight roles, each owning a deliverable or a part of the game: team lead and project manager (plan, website, issues and reviews), requirements, architecture, risk and quality, and four developers, one for each package of the game (core engine and user interface, map and movement, items and inventory, geese and hidden events). The kick-off plan set a rule that every member contributes to deliverables worth at least 15 of the 90 marks, so no one is left with a small share, and gave the two roles below that a supporting deliverable.</p>
+<p><b>Sub-teams for the documents.</b> In week 2 each document got a small sub-team rather than one author: requirements (Alex, Ahmet, Aybike and one more), architecture (Angelina, Leo, Sean), risk (Leo, who started the register, with three others), planning (Sean with three others) and the website (Ahmet, Alex). Each risk in Risk1 also has one named owner, spread across all eight members.</p>
+<p><b>Developers own packages.</b> Each developer owns one package and gives the diagrams and CRC cards for it to Arch1, so the architecture matches the code. Because packages only meet through interfaces, a package can be built and tested before the others exist: the items were finished on 26&ndash;28 October, before any goose code.</p>
+<p><b>Communication and decisions.</b> Discord for daily messages and questions; team meetings for decisions; meeting notes and the client meeting summary are kept in the repository (<code>docs/meetings</code>); pull requests for every change, so the reason for a change is written down.</p>
+<p><b>Why this organisation.</b> It follows the shape of the assessment, so each deliverable has a clear owner and nothing is forgotten. Owners per package match the component architecture, so people rarely edit the same files. Sub-teams mean a document does not depend on one person. A single coordinator keeps the board and the plan up to date for eight people.</p>
+<p><b>How it changed.</b> From the end of October some owners could not deliver their part in time (risk R6 happened, and R9: quiet periods with few updates). Because the interfaces and the plan were written down, the work could be moved: the game screen, the geese, the final architecture and the remaining documents were taken over on 9 November by a member whose own package was finished. For Assessment 2 we will give each package two people, split tasks into pieces of at most a few days, and check progress against the board at every meeting.</p>
+<p class="refs">[1] K. Schwaber and J. Sutherland, <i>The Scrum Guide</i>, 2020. &nbsp; [2] Agile Business Consortium, &ldquo;MoSCoW Prioritisation&rdquo;, in <i>The DSDM Agile Project Framework</i>, 2014.</p>
+
+<div class="land">
+<h1>Plan1 &ndash; Part c: the plan and how it evolved</h1>
+<figure>
+  <img src="../../plan/plan-v3.svg" alt="Gantt chart of the plan">
+  <figcaption>Figure 1. The plan as of 9 November: planned bars (blue), the re-planned remaining work (orange) and the actual work taken from the repository (green, from the first commit to the merge on <code>main</code>). Critical tasks are bold and red. Every version of the plan is on the website.</figcaption>
+</figure>
+<p><b>Key tasks, order and critical path.</b> Set-up (T1) came first, then the requirements (T3), because the architecture (T5) and every package depend on them. The game screen (T8) and the geese (T11) depend on the interfaces in T5 and on each other, and integration and testing (T12), the final documents (T13), the review (T14) and submission (T15) need the finished game. This chain T1 &rarr; T3 &rarr; T5 &rarr; T8 &rarr; T11 &rarr; T12 &rarr; T13 &rarr; T14 &rarr; T15 is the critical path: a delay on any of these moves the end date. The items (T9), hidden events (T10), map (T7), risk register (T4) and website (T6) had float, so they were the tasks to delay if needed.</p>
+</div>
+
+<h2>c2. How the plan evolved</h2>
+<table>
+  <colgroup><col style="width:14%"><col style="width:43%"><col style="width:43%"></colgroup>
+  <thead><tr><th>Version</th><th>What changed</th><th>Why</th></tr></thead>
+  <tr><td>v1, 7 Oct (kick-off)</td><td>Weekly milestones: set-up in week 1; requirements, first diagrams and risk register in week 2; map, movement and timer in week 3; items, geese and events in week 4; feature freeze on 8 Nov; final review in week 6.</td><td>First plan, made before we knew the client&rsquo;s needs; one issue per role for week 1.</td></tr>
+  <tr><td>v2, 12 Oct (week 2)</td><td>Week 2 split into issues for sub-teams; the client meeting (14 Oct) added; the requirements task started after week 1 instead of at the kick-off.</td><td>Sub-teams give each document more than one author, and the requirements could not be finished before the client meeting.</td></tr>
+  <tr><td>v3, 9 Nov (re-plan)</td><td>Requirements took until 27 Oct and the architecture until 28 Oct; the items were early, but the map arrived on 30 Oct and the game screen and geese not until 9 Nov, after the planned feature freeze. The remaining work was re-planned: integration and testing 10&ndash;13 Nov (including Windows and Linux and real players), documents by 10 Nov, final review 11&ndash;14 Nov, submission a day early on 15 Nov.</td><td>The critical path slipped by about a week (risks R2, R6 and R9 happened). The re-plan keeps a day of slack before the deadline and puts the tasks that check the marks (page limits, links, the JAR on a clean machine) last, when nothing else changes.</td></tr>
+</table>
+<p>The website keeps every version of the plan (<code>plan/plan-v1.svg</code> to <code>plan-v3.svg</code>), drawn by a script from the kick-off notes, the GitHub issues and the repository history, so the versions can be compared.</p>
+
+</body>
+</html>
