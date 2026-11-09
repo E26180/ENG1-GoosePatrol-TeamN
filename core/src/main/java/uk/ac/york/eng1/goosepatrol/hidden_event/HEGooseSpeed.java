@@ -1,11 +1,7 @@
 package uk.ac.york.eng1.goosepatrol.hidden_event;
 
-/**
- * Hindering hidden event (FR_EVENT_EFFECT): when triggered, the geese move faster for
- * 10 seconds. The game applies the speed-up through its effect, {@code GooseManager.speedUp};
- * {@link #checkActive()} reports the same 10 seconds. Both count game time, so a pause
- * stops them.
- */
+import java.time.Instant;
+
 public class HEGooseSpeed implements IHiddenEvent{
 
     private final float posX;
@@ -13,24 +9,15 @@ public class HEGooseSpeed implements IHiddenEvent{
     private final float activationRadius = 50;
     private final float flagRadius = 100;
 
-    /** How long the speed-up lasts, in seconds of game time. */
-    public static final float ACTIVE_SECONDS = 10f;
-
-    /** Game time left of the speed-up, in seconds. */
-    private float secondsLeft = 0f;
+    private float activationTime = 0f;
     private boolean isActivated = false;
 
-    /**
-     * Creates the event at a place on the map.
-     *
-     * @param posX world x of the event
-     * @param posY world y of the event
-     */
     public HEGooseSpeed(float posX, float posY) {
         this.posX = posX;
         this.posY = posY;
     }
 
+    //Will be completed when there is a player class to use as a parameter
     @Override
     public float distanceFromPlayer(float[] playerPosition) {
         float distanceX = playerPosition[0] - this.posX;
@@ -50,23 +37,23 @@ public class HEGooseSpeed implements IHiddenEvent{
 
     @Override
     public void showFlag() {
-        // Nothing to do here: WorldRenderer draws the "?" hint while isPlayerInFlagRange is true.
+        //TODO: Setup the flag to show an event is nearby.  Dont show which event or exactly where
     }
-
     @Override
     public void trigger() {
-        this.secondsLeft = ACTIVE_SECONDS;
+        //TODO: Goose speed multiplier
+        this.activationTime = Instant.now().getEpochSecond() + 10;
         this.isActivated = true;
     }
 
     @Override
     public boolean checkActive() {
-        return this.secondsLeft > 0f;
-    }
-
-    @Override
-    public void elapse(float seconds) {
-        this.secondsLeft = Math.max(0f, this.secondsLeft - seconds);
+        if (Instant.now().getEpochSecond() > this.activationTime) {
+            //TODO: Goose speed multiplier
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override

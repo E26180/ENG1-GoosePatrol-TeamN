@@ -1,11 +1,10 @@
-CREDITS.md
-THIRD-PARTY-NOTICES.txt
 audio/eat.wav
 audio/event.wav
 audio/honk.wav
 audio/lose.wav
 audio/wave.wav
 audio/win.wav
+libgdx.png
 licenses/Apache-2.0.txt
 licenses/GLFW-zlib.txt
 licenses/LGPL-2.0.txt

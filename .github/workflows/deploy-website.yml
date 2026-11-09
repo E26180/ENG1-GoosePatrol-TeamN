@@ -52,15 +52,16 @@ jobs:
         run: ./gradlew --no-daemon test lwjgl3:jar
       - name: Put the website and the deliverables together
         run: |
-          mkdir -p _site/docs _site/architecture _site/plan
+          # every folder is optional, so the site still builds while documents are being rewritten
+          mkdir -p _site/docs _site/architecture _site/plan _site/testing
           cp -r website/. _site/
           cp docs/assessment1/*.pdf _site/docs/ 2>/dev/null || true
-          cp docs/architecture/*.pdf docs/architecture/*.svg _site/architecture/
-          cp docs/plan/*.svg _site/plan/
+          cp docs/architecture/*.pdf docs/architecture/*.svg _site/architecture/ 2>/dev/null || true
+          cp docs/plan/*.svg _site/plan/ 2>/dev/null || true
           cp lwjgl3/build/libs/GoosePatrol-1.0.0.jar _site/
-          mkdir -p _site/testing
-          cp -r docs/testing/images _site/testing/
+          if [ -d docs/testing/images ]; then cp -r docs/testing/images _site/testing/; fi
           for note in docs/testing/*.md; do
+            [ -e "$note" ] || continue
             python3 tools/md_page.py "$note" "_site/testing/$(basename "$note" .md).html"
           done
       - uses: actions/upload-pages-artifact@v3
