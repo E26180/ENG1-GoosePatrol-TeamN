@@ -27,6 +27,21 @@ public class OatsItem extends Item {
     }
 
     @Override
+    public String getIconPath() {
+        return "textures/items/oats.png";
+    }
+
+    @Override
+    public float getSplashRadius() {
+        return 14f;
+    }
+
+    @Override
+    public boolean isFood() {
+        return true;
+    }
+
+    @Override
     protected boolean applyEffect(float x, float y) {
         Feedable goose = geese.gooseAt(x, y);
         if (goose == null) {

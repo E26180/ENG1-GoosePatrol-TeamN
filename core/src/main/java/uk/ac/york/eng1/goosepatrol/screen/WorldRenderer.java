@@ -1,8 +1,10 @@
 package uk.ac.york.eng1.goosepatrol.screen;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -19,7 +21,6 @@ import com.badlogic.gdx.utils.Disposable;
 
 import uk.ac.york.eng1.goosepatrol.game.EventSpot;
 import uk.ac.york.eng1.goosepatrol.goose.Goose;
-import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
 import uk.ac.york.eng1.goosepatrol.hidden_event.IHiddenEvent;
 import uk.ac.york.eng1.goosepatrol.player.Player;
 
@@ -50,8 +51,8 @@ public class WorldRenderer implements Disposable {
     private final GlyphLayout layout = new GlyphLayout();
     private final Texture playerSheet = new Texture("textures/player/student.png");
     private final Texture gooseSheet = new Texture("textures/geese/goose.png");
-    private final Texture backpack = new Texture("textures/events/backpack.png");
-    private final Texture duck = new Texture("textures/events/duck.png");
+    /** Hidden-event props, loaded the first time they are drawn. */
+    private final Map<String, Texture> props = new HashMap<>();
     private final TextureRegion[] playerFrames;
     private final TextureRegion[] gooseFrames;
     private final List<float[]> splashes = new ArrayList<>();
@@ -142,7 +143,10 @@ public class WorldRenderer implements Disposable {
         batch.begin();
         for (EventSpot spot : events) {
             float[] pos = spot.getEvent().getPos();
-            Texture prop = spot.getEvent() instanceof HEGooseSpeed ? duck : backpack;
+            if (spot.getPropPath() == null) {
+                continue;
+            }
+            Texture prop = props.computeIfAbsent(spot.getPropPath(), Texture::new);
             batch.setColor(1f, 1f, 1f, spot.isTriggered() ? 0.55f : 1f);
             batch.draw(prop, pos[0] - 16f, pos[1] - 12f, 32f, 32f);
         }
@@ -369,7 +373,8 @@ public class WorldRenderer implements Disposable {
         font.dispose();
         playerSheet.dispose();
         gooseSheet.dispose();
-        backpack.dispose();
-        duck.dispose();
+        for (Texture prop : props.values()) {
+            prop.dispose();
+        }
     }
 }

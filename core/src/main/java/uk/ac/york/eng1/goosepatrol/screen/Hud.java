@@ -1,7 +1,9 @@
 package uk.ac.york.eng1.goosepatrol.screen;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -17,11 +19,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import uk.ac.york.eng1.goosepatrol.game.GameSession;
 import uk.ac.york.eng1.goosepatrol.game.GameState;
 import uk.ac.york.eng1.goosepatrol.game.WaveStatus;
-import uk.ac.york.eng1.goosepatrol.item.BreadItem;
-import uk.ac.york.eng1.goosepatrol.item.EnergyDrinkItem;
 import uk.ac.york.eng1.goosepatrol.item.Inventory;
 import uk.ac.york.eng1.goosepatrol.item.Item;
-import uk.ac.york.eng1.goosepatrol.item.OatsItem;
 import uk.ac.york.eng1.goosepatrol.player.Player;
 
 /**
@@ -53,9 +52,8 @@ public class Hud implements Disposable {
     private final BitmapFont goalFont = new BitmapFont();
     private final GlyphLayout layout = new GlyphLayout();
 
-    private final Texture oatsIcon = new Texture("textures/items/oats.png");
-    private final Texture breadIcon = new Texture("textures/items/bread.png");
-    private final Texture drinkIcon = new Texture("textures/items/energy-drink.png");
+    /** Item icons, loaded the first time an item with that icon is shown. */
+    private final Map<String, Texture> icons = new HashMap<>();
 
     private String message = "";
     private float messageLeft = 0f;
@@ -162,8 +160,8 @@ public class Hud implements Disposable {
         bigFont.setColor(lowTime ? Color.SALMON : Color.WHITE);
         bigFont.draw(batch, "Time " + session.getTimer().format() + (lowTime ? " !" : ""), x, y);
         y -= 46f;
-        String wave = waves.currentWave() == 0 ? "Waves: " + waves.totalWaves()
-            : "Wave " + waves.currentWave() + " of " + waves.totalWaves();
+        String wave = waves.currentWave() == 0 ? "Waves to come: " + waves.totalWaves()
+            : "Wave " + waves.currentWave() + " of " + waves.totalWaves() + ", " + waves.wavesLeft() + " to come";
         drawBold(goalFont, wave, x, y, Color.WHITE);
         y -= 26f;
         drawBold(goalFont, "Geese left: " + waves.geeseLeft(), x, y, Color.WHITE);
@@ -348,17 +346,13 @@ public class Hud implements Disposable {
         shapes.end();
     }
 
+    /** Returns the icon the item names, loading it once; any new item works without changes here. */
     private Texture iconFor(Item item) {
-        if (item instanceof OatsItem) {
-            return oatsIcon;
+        String path = item.getIconPath();
+        if (path == null) {
+            return null;
         }
-        if (item instanceof BreadItem) {
-            return breadIcon;
-        }
-        if (item instanceof EnergyDrinkItem) {
-            return drinkIcon;
-        }
-        return null;
+        return icons.computeIfAbsent(path, Texture::new);
     }
 
     @Override
@@ -368,8 +362,8 @@ public class Hud implements Disposable {
         font.dispose();
         bigFont.dispose();
         goalFont.dispose();
-        oatsIcon.dispose();
-        breadIcon.dispose();
-        drinkIcon.dispose();
+        for (Texture icon : icons.values()) {
+            icon.dispose();
+        }
     }
 }

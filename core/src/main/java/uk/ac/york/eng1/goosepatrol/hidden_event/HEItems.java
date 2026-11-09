@@ -45,7 +45,7 @@ public class HEItems implements IHiddenEvent{
 
     @Override
     public void showFlag() {
-        //TODO: Setup the flag to show an event is nearby.  Dont show what event or exactly where
+        // Nothing to do here: WorldRenderer draws the "?" hint while isPlayerInFlagRange is true.
     }
     @Override
     public void trigger() {

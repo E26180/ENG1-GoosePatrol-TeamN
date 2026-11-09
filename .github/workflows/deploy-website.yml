@@ -13,7 +13,11 @@ on:
       - "docs/assessment1/**"
       - "docs/architecture/**"
       - "docs/plan/**"
-      - "core/src/main/**"
+      - "core/**"
+      - "build.gradle"
+      - "settings.gradle"
+      - "gradle.properties"
+      - "gradle/**"
       - "lwjgl3/**"
       - "assets/**"
       - ".github/workflows/deploy-website.yml"
@@ -41,8 +45,9 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
-      - name: Build the game JAR
-        run: ./gradlew --no-daemon lwjgl3:jar
+      - name: Run the unit tests and build the game JAR
+        # A failing test stops the deploy, so the website never offers a broken build.
+        run: ./gradlew --no-daemon test lwjgl3:jar
       - name: Put the website and the deliverables together
         run: |
           mkdir -p _site/docs _site/architecture _site/plan

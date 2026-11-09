@@ -205,6 +205,18 @@ class GooseManagerTest {
     }
 
     @Test
+    void geeseNearListsTheNearestFirst() {
+        GooseManager manager = manager(List.of(new Wave(4, 0)));
+        run(manager, GooseManager.FIRST_WAVE_DELAY + 4 * GooseManager.SPAWN_GAP_SECONDS);
+        List<Goose> near = manager.geeseNear(PX, PY, 5000f);
+        for (int i = 1; i < near.size(); i++) {
+            double before = Math.hypot(near.get(i - 1).getCenterX() - PX, near.get(i - 1).getCenterY() - PY);
+            double after = Math.hypot(near.get(i).getCenterX() - PX, near.get(i).getCenterY() - PY);
+            assertTrue(before <= after, "nearest first");
+        }
+    }
+
+    @Test
     void hungryGeeseBlockThePlayerButFullOnesDoNot() {
         GooseManager manager = manager(List.of(new Wave(1, 0)));
         run(manager, GooseManager.FIRST_WAVE_DELAY + 0.1f);

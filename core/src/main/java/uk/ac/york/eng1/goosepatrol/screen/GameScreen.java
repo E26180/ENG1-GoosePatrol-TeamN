@@ -96,7 +96,8 @@ public class GameScreen extends ScreenAdapter {
         Rectangle world = new Rectangle(0f, 0f, mapManager.getMapWidth(), mapManager.getMapHeight());
         map = mapManager.getCollisionManager()::collidesWith;
         float[] start = Player.findFreeSpot(world, map, world.width / 2f, world.height / 2f);
-        player = new Player(start[0], start[1], world, this::blocksPlayer);
+        // Buildings always block; hungry geese block too (QR_COLLISION, UR_BOUNDS).
+        player = new Player(start[0], start[1], world, map, this::gooseBlocks);
         geese = new GooseManager(world, map, player, new Feedback());
         session = new GameSession(new GameTimer(), geese);
 
@@ -109,12 +110,9 @@ public class GameScreen extends ScreenAdapter {
         placeEvents(world);
     }
 
-    /**
-     * Tells whether the player may not stand in a space: buildings and hungry geese
-     * block them (QR_COLLISION, UR_BOUNDS).
-     */
-    private boolean blocksPlayer(Rectangle bounds) {
-        return map.collidesWith(bounds) || (geese != null && geese.collidesWith(bounds));
+    /** Tells whether a hungry goose stands in a space; the geese are created after the player. */
+    private boolean gooseBlocks(Rectangle bounds) {
+        return geese != null && geese.collidesWith(bounds);
     }
 
     /** Turns what happens to the geese into messages and sounds. */
@@ -159,7 +157,7 @@ public class GameScreen extends ScreenAdapter {
      */
     private void placeEvents(Rectangle world) {
         float[] helpSpot = Player.findFreeSpot(world, map, world.width * 0.25f, world.height * 0.7f);
-        events.add(new EventSpot(new HEItems(helpSpot[0], helpSpot[1]), () -> {
+        events.add(new EventSpot(new HEItems(helpSpot[0], helpSpot[1]), "textures/events/backpack.png", () -> {
             bread.addUses(EVENT_EXTRA_BREAD);
             inventory.addItem(new EnergyDrinkItem(player));
             hud.showMessage("Hidden event: a lost backpack full of picnic food! +" + EVENT_EXTRA_BREAD
@@ -169,7 +167,7 @@ public class GameScreen extends ScreenAdapter {
 
         // on the grass by Campus East Lake, clear of the trees
         float[] hinderSpot = Player.findFreeSpot(world, map, world.width * 0.79f, world.height * 0.32f);
-        events.add(new EventSpot(new HEGooseSpeed(hinderSpot[0], hinderSpot[1]), () -> {
+        events.add(new EventSpot(new HEGooseSpeed(hinderSpot[0], hinderSpot[1]), "textures/events/duck.png", () -> {
             geese.speedUp(EVENT_GOOSE_SPEED, EVENT_GOOSE_SECONDS);
             hud.showMessage("Hidden event: a tall duck (Long Boi's cousin?) tips over a bucket of chips! Geese "
                 + Math.round((EVENT_GOOSE_SPEED - 1f) * 100) + "% faster for " + (int) EVENT_GOOSE_SECONDS + " s");
@@ -228,16 +226,16 @@ public class GameScreen extends ScreenAdapter {
     private void useSelectedItem(float x, float y) {
         Item item = inventory.getItems().get(inventory.getSelectedNumber() - 1);
         if (inventory.useSelected(x, y)) {
-            if (item instanceof BreadItem) {
-                renderer.addSplash(x, y, BreadItem.RADIUS_PIXELS);
-                sfx.play(Sfx.Cue.EAT);
-            } else if (item instanceof OatsItem) {
-                renderer.addSplash(x, y, 14f);
+            // Feedback comes from the item itself, so a new item needs no change here (QR_EXTENSIBLE).
+            if (item.getSplashRadius() > 0f) {
+                renderer.addSplash(x, y, item.getSplashRadius());
+            }
+            if (item.isFood()) {
                 sfx.play(Sfx.Cue.EAT);
                 tutorial.trigger(Tutorial.Tip.FED);
-            } else if (item instanceof EnergyDrinkItem) {
-                hud.showMessage("Energy drink: " + Math.round((EnergyDrinkItem.SPEED_MULTIPLIER - 1f) * 100)
-                    + "% faster for " + (int) EnergyDrinkItem.BOOST_SECONDS + " s");
+            }
+            if (item.getUseMessage() != null) {
+                hud.showMessage(item.getUseMessage());
             }
             return;
         }
