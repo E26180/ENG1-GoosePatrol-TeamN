@@ -7,38 +7,37 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
-import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 import uk.ac.york.eng1.goosepatrol.Main;
 import uk.ac.york.eng1.goosepatrol.MapManager;
 import uk.ac.york.eng1.goosepatrol.game.EventSpot;
 import uk.ac.york.eng1.goosepatrol.game.GameSession;
 import uk.ac.york.eng1.goosepatrol.game.GameState;
 import uk.ac.york.eng1.goosepatrol.game.GameTimer;
-import uk.ac.york.eng1.goosepatrol.game.NoGeese;
-import uk.ac.york.eng1.goosepatrol.game.WaveStatus;
+import uk.ac.york.eng1.goosepatrol.goose.Goose;
+import uk.ac.york.eng1.goosepatrol.goose.GooseListener;
+import uk.ac.york.eng1.goosepatrol.goose.GooseManager;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 import uk.ac.york.eng1.goosepatrol.item.BreadItem;
 import uk.ac.york.eng1.goosepatrol.item.EnergyDrinkItem;
-import uk.ac.york.eng1.goosepatrol.item.GooseLocator;
 import uk.ac.york.eng1.goosepatrol.item.Inventory;
 import uk.ac.york.eng1.goosepatrol.item.InventoryInput;
 import uk.ac.york.eng1.goosepatrol.item.Item;
 import uk.ac.york.eng1.goosepatrol.item.OatsItem;
+import uk.ac.york.eng1.goosepatrol.player.CollisionChecker;
 import uk.ac.york.eng1.goosepatrol.player.Player;
 
 /**
  * The screen of one game. It puts the map, the player, the items, the hidden events
  * and the geese together, reads the keyboard and mouse, and draws the world and the HUD.
- * The rules themselves live in {@link GameSession}, {@link Player} and the item classes.
+ * The rules themselves live in {@link GameSession}, {@link Player}, {@link GooseManager}
+ * and the item classes.
  */
 public class GameScreen extends ScreenAdapter {
 
@@ -48,35 +47,38 @@ public class GameScreen extends ScreenAdapter {
     /** Height of the part of the map shown on screen, in world units. */
     public static final float VIEW_HEIGHT = 480f;
 
-    /** Seconds per frame of the walking animation. */
-    private static final float WALK_FRAME_SECONDS = 0.18f;
-
     /** Extra bread the item hidden event gives. */
-    private static final int EVENT_EXTRA_BREAD = 10;
+    public static final int EVENT_EXTRA_BREAD = 10;
+
+    /** Extra oats given each time a wave is cleared, so the game stays winnable (QR_WINNABLE). */
+    public static final int OATS_PER_CLEARED_WAVE = 5;
+
+    /** How much faster the geese walk during the goose speed event (QR_AVOID_EXTREME). */
+    public static final float EVENT_GOOSE_SPEED = 1.3f;
+
+    /** How long the goose speed event lasts. */
+    public static final float EVENT_GOOSE_SECONDS = 10f;
 
     private final Main game;
     private final MapManager mapManager;
     private final OrthographicCamera camera;
     private final FitViewport viewport;
-    private final SpriteBatch batch = new SpriteBatch();
-    private final Texture playerSheet = new Texture("textures/player/student.png");
-    private final TextureRegion[] walkFrames;
+    private final CollisionChecker map;
     private final Hud hud = new Hud();
-
-    /**
-     * The geese. {@link NoGeese} stands in until the goose manager exists;
-     * the goose manager should implement both {@link GooseLocator} and {@link WaveStatus}.
-     */
-    private final NoGeese geese = new NoGeese();
+    private final WorldRenderer renderer = new WorldRenderer();
+    private final Sfx sfx = new Sfx();
 
     private final Player player;
+    private final GooseManager geese;
+    private final GameSession session;
     private final Inventory inventory = new Inventory();
     private final InventoryInput inventoryInput = new InventoryInput(inventory);
-    private final GameSession session = new GameSession(new GameTimer(), geese);
+    private final OatsItem oats;
+    private final BreadItem bread;
     private final List<EventSpot> events = new ArrayList<>();
     private final Vector2 mouse = new Vector2();
-    private final BreadItem bread;
     private float walkTime = 0f;
+    private GameState lastState = GameState.READY;
 
     /**
      * Creates a new game, waiting on the start screen.
@@ -90,37 +92,79 @@ public class GameScreen extends ScreenAdapter {
         viewport = new FitViewport(VIEW_WIDTH, VIEW_HEIGHT, camera);
 
         Rectangle world = new Rectangle(0f, 0f, mapManager.getMapWidth(), mapManager.getMapHeight());
-        float[] start = Player.findFreeSpot(world, mapManager.getCollisionManager()::collidesWith,
-            world.width / 2f, world.height / 2f);
-        player = new Player(start[0], start[1], world, mapManager.getCollisionManager()::collidesWith);
+        map = mapManager.getCollisionManager()::collidesWith;
+        float[] start = Player.findFreeSpot(world, map, world.width / 2f, world.height / 2f);
+        player = new Player(start[0], start[1], world, this::blocksPlayer);
+        geese = new GooseManager(world, map, player, new Feedback());
+        session = new GameSession(new GameTimer(), geese);
 
         // FR_START_INVENTORY: one single-target and one area item.
-        inventory.addItem(new OatsItem(geese));
+        oats = new OatsItem(geese);
         bread = new BreadItem(geese);
+        inventory.addItem(oats);
         inventory.addItem(bread);
-
-        TextureRegion[][] split = TextureRegion.split(playerSheet, 32, 32);
-        walkFrames = split[0];
 
         placeEvents(world);
     }
 
-    /** Puts the two hidden events on free spots of the map (FR_EVENTS, FR_EVENT_EFFECT). */
+    /**
+     * Tells whether the player may not stand in a space: buildings and hungry geese
+     * block them (QR_COLLISION, UR_BOUNDS).
+     */
+    private boolean blocksPlayer(Rectangle bounds) {
+        return map.collidesWith(bounds) || (geese != null && geese.collidesWith(bounds));
+    }
+
+    /** Turns what happens to the geese into messages and sounds. */
+    private class Feedback implements GooseListener {
+        @Override
+        public void waveStarted(int number, int total) {
+            hud.showMessage("Wave " + number + " of " + total + ": here come the hungry geese!");
+            sfx.play(Sfx.Cue.WAVE);
+        }
+
+        @Override
+        public void gooseAlert(Goose goose) {
+            sfx.play(Sfx.Cue.HONK);
+        }
+
+        @Override
+        public void playerSnatched(Goose goose) {
+            hud.showMessage("A goose snatched a snack! You are startled: slower for "
+                + (int) GooseManager.STARTLE_SECONDS + " s");
+        }
+
+        @Override
+        public void waveCleared(int number) {
+            if (number < geese.totalWaves()) {
+                oats.addUses(OATS_PER_CLEARED_WAVE);
+                hud.showMessage("Wave " + number + " fed! A friendly student gives you "
+                    + OATS_PER_CLEARED_WAVE + " more oats");
+            }
+        }
+    }
+
+    /**
+     * Puts the two hidden events on free spots of the map (FR_EVENTS, FR_EVENT_EFFECT):
+     * one helps the player, the other speeds the geese up.
+     */
     private void placeEvents(Rectangle world) {
-        float[] helpSpot = Player.findFreeSpot(world, mapManager.getCollisionManager()::collidesWith,
-            world.width * 0.25f, world.height * 0.7f);
+        float[] helpSpot = Player.findFreeSpot(world, map, world.width * 0.25f, world.height * 0.7f);
         events.add(new EventSpot(new HEItems(helpSpot[0], helpSpot[1]), () -> {
             bread.addUses(EVENT_EXTRA_BREAD);
             inventory.addItem(new EnergyDrinkItem(player));
-            hud.showMessage("Hidden event: a food stash! +" + EVENT_EXTRA_BREAD
+            hud.showMessage("Hidden event: a picnic basket! +" + EVENT_EXTRA_BREAD
                 + " bread and " + EnergyDrinkItem.DEFAULT_USES + " energy drinks (key 3)");
+            sfx.play(Sfx.Cue.EVENT);
         }));
 
-        float[] hinderSpot = Player.findFreeSpot(world, mapManager.getCollisionManager()::collidesWith,
-            world.width * 0.75f, world.height * 0.3f);
-        events.add(new EventSpot(new HEGooseSpeed(hinderSpot[0], hinderSpot[1]), () ->
-            // The goose manager reads HEGooseSpeed.checkActive() to speed its geese up.
-            hud.showMessage("Hidden event: the geese smell food and get faster for 10 seconds!")));
+        float[] hinderSpot = Player.findFreeSpot(world, map, world.width * 0.75f, world.height * 0.3f);
+        events.add(new EventSpot(new HEGooseSpeed(hinderSpot[0], hinderSpot[1]), () -> {
+            geese.speedUp(EVENT_GOOSE_SPEED, EVENT_GOOSE_SECONDS);
+            hud.showMessage("Hidden event: a bag of chips spilled! The geese are "
+                + Math.round((EVENT_GOOSE_SPEED - 1f) * 100) + "% faster for " + (int) EVENT_GOOSE_SECONDS + " s");
+            sfx.play(Sfx.Cue.EVENT);
+        }));
     }
 
     @Override
@@ -131,6 +175,7 @@ public class GameScreen extends ScreenAdapter {
             return;
         }
         update(delta);
+        playResultSound();
         draw(delta);
     }
 
@@ -141,9 +186,11 @@ public class GameScreen extends ScreenAdapter {
      */
     private boolean handleInput() {
         GameState state = session.getState();
-        if (state == GameState.READY && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            session.play();
-        } else if (state == GameState.PAUSED && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
+            sfx.toggleMute();
+            hud.showMessage(sfx.isMuted() ? "Sound off (M to turn it on)" : "Sound on");
+        }
+        if ((state == GameState.READY || state == GameState.PAUSED) && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             session.play();
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.P) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             session.togglePause();
@@ -162,9 +209,20 @@ public class GameScreen extends ScreenAdapter {
         return false;
     }
 
+    /** Uses the selected item where the player clicked, and says why if it could not be used. */
     private void useSelectedItem(float x, float y) {
         Item item = inventory.getItems().get(inventory.getSelectedNumber() - 1);
         if (inventory.useSelected(x, y)) {
+            if (item instanceof BreadItem) {
+                renderer.addSplash(x, y, BreadItem.RADIUS_PIXELS);
+                sfx.play(Sfx.Cue.EAT);
+            } else if (item instanceof OatsItem) {
+                renderer.addSplash(x, y, 14f);
+                sfx.play(Sfx.Cue.EAT);
+            } else if (item instanceof EnergyDrinkItem) {
+                hud.showMessage("Energy drink: " + Math.round((EnergyDrinkItem.SPEED_MULTIPLIER - 1f) * 100)
+                    + "% faster for " + (int) EnergyDrinkItem.BOOST_SECONDS + " s");
+            }
             return;
         }
         if (item.getUsesLeft() == 0) {
@@ -197,30 +255,31 @@ public class GameScreen extends ScreenAdapter {
                 session.eventTriggered();
             }
         }
+        renderer.update(delta);
         session.update(delta);
     }
 
-    /** Draws the map around the player, the player, then the HUD. */
+    /** Plays the win or loss sound once, when the game ends. */
+    private void playResultSound() {
+        GameState state = session.getState();
+        if (state != lastState) {
+            if (state == GameState.WON) {
+                sfx.play(Sfx.Cue.WIN);
+            } else if (state == GameState.LOST) {
+                sfx.play(Sfx.Cue.LOSE);
+            }
+            lastState = state;
+        }
+    }
+
+    /** Draws the map around the player, the world on top of it, then the HUD. */
     private void draw(float delta) {
         ScreenUtils.clear(0f, 0f, 0f, 1f);
         followPlayer();
         viewport.apply();
         mapManager.render();
-
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        TextureRegion frame = walkFrames[(int) (walkTime / WALK_FRAME_SECONDS) % walkFrames.length];
-        Rectangle b = player.getBounds();
-        float drawX = player.getCenterX() - 16f;
-        float drawY = b.y - 3f;
-        if (player.isFacingLeft()) {
-            batch.draw(frame, drawX + 32f, drawY, -32f, 32f);
-        } else {
-            batch.draw(frame, drawX, drawY, 32f, 32f);
-        }
-        batch.end();
-
-        hud.render(delta, session, geese, inventory, player);
+        renderer.render(camera, player, walkTime, geese.getGeese(), events);
+        hud.render(delta, session, geese, inventory, player, geese.getSpeedUpLeft(), sfx.isMuted());
     }
 
     /** Centres the camera on the player without showing anything outside the map. */
@@ -253,9 +312,9 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        batch.dispose();
-        playerSheet.dispose();
+        renderer.dispose();
         hud.dispose();
+        sfx.dispose();
         mapManager.dispose();
     }
 }

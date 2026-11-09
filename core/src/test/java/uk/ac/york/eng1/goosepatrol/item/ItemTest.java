@@ -106,11 +106,11 @@ class ItemTest {
     }
 
     @Test
-    void oatsHaveTenUsesAndNoCooldown() {
+    void oatsStartFullAndHaveNoCooldown() {
         FakeGeese world = new FakeGeese();
         world.add(0f, 0f);
         OatsItem oats = new OatsItem(world);
-        assertEquals(10, oats.getUsesLeft());
+        assertEquals(OatsItem.START_USES, oats.getUsesLeft());
         oats.use(0f, 0f);
         assertTrue(oats.canUse());
     }
@@ -131,7 +131,7 @@ class ItemTest {
         world.add(100f, 100f);
         OatsItem oats = new OatsItem(world);
         assertFalse(oats.use(300f, 300f));
-        assertEquals(10, oats.getUsesLeft());
+        assertEquals(OatsItem.START_USES, oats.getUsesLeft());
     }
 
     @Test
@@ -148,9 +148,9 @@ class ItemTest {
     }
 
     @Test
-    void breadHasAShortCooldownAndFiveStartingUses() {
+    void breadHasAShortCooldownAndItsStartingUses() {
         BreadItem bread = new BreadItem(new FakeGeese());
-        assertEquals(5, bread.getUsesLeft());
+        assertEquals(BreadItem.START_USES, bread.getUsesLeft());
         bread.use(0f, 0f);
         assertFalse(bread.canUse());
         bread.update(BreadItem.COOLDOWN_SECONDS);
@@ -161,6 +161,6 @@ class ItemTest {
     void aHiddenEventCanGiveTenMoreBread() {
         BreadItem bread = new BreadItem(new FakeGeese());
         bread.addUses(10);
-        assertEquals(15, bread.getUsesLeft());
+        assertEquals(BreadItem.START_USES + 10, bread.getUsesLeft());
     }
 }

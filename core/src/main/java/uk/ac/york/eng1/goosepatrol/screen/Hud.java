@@ -1,5 +1,6 @@
 package uk.ac.york.eng1.goosepatrol.screen;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -24,9 +25,9 @@ import uk.ac.york.eng1.goosepatrol.item.OatsItem;
 import uk.ac.york.eng1.goosepatrol.player.Player;
 
 /**
- * Draws everything on top of the map, in screen pixels: the timer (FR_TIMER), the goals
- * (QR_OBJECTIVES), the counters (FR_COUNTERS), the inventory bar, short messages, and the
- * start, pause, win and loss screens (FR_START_PAUSED, FR_PAUSE_KEY, FR_JUDGEMENT).
+ * Draws everything on top of the map, in screen pixels: the timer (FR_TIMER), the goals in
+ * bold, large text (QR_OBJECTIVES), the counters (FR_COUNTERS), the inventory bar, short
+ * messages, and the start, pause, win and loss screens (FR_START_PAUSED, FR_PAUSE_KEY, FR_JUDGEMENT).
  * Every cue uses text as well as colour (QR_ACCESS_CUES).
  */
 public class Hud implements Disposable {
@@ -49,6 +50,7 @@ public class Hud implements Disposable {
     private final ShapeRenderer shapes = new ShapeRenderer();
     private final BitmapFont font = new BitmapFont();
     private final BitmapFont bigFont = new BitmapFont();
+    private final BitmapFont goalFont = new BitmapFont();
     private final GlyphLayout layout = new GlyphLayout();
 
     private final Texture oatsIcon = new Texture("textures/items/oats.png");
@@ -62,8 +64,10 @@ public class Hud implements Disposable {
     public Hud() {
         font.getData().setScale(1.15f);
         bigFont.getData().setScale(2.2f);
+        goalFont.getData().setScale(1.35f);
         font.setUseIntegerPositions(true);
         bigFont.setUseIntegerPositions(true);
+        goalFont.setUseIntegerPositions(true);
     }
 
     /**
@@ -93,9 +97,12 @@ public class Hud implements Disposable {
      * @param session   the game rules (timer, state, events counter)
      * @param waves     the geese (for the goals panel)
      * @param inventory the player's items
-     * @param player    the player (for the speed boost)
+     * @param player    the player (for the speed boost or startle)
+     * @param geeseFasterFor seconds left of the hidden event that speeds the geese up (0 if none)
+     * @param muted     whether the sound is off
      */
-    public void render(float delta, GameSession session, WaveStatus waves, Inventory inventory, Player player) {
+    public void render(float delta, GameSession session, WaveStatus waves, Inventory inventory, Player player,
+                       float geeseFasterFor, boolean muted) {
         if (session.isPlaying()) {
             messageLeft = Math.max(0f, messageLeft - delta);
         }
@@ -106,20 +113,42 @@ public class Hud implements Disposable {
         shapes.setProjectionMatrix(viewport.getCamera().combined);
         batch.setProjectionMatrix(viewport.getCamera().combined);
 
-        drawStatusPanel(session, waves, inventory, player, h);
+        drawStatusPanel(session, waves, inventory, player, geeseFasterFor, muted, h);
         drawInventoryBar(inventory, w);
         if (messageLeft > 0f) {
             drawMessage(w, h);
         }
         if (!session.isPlaying()) {
-            drawOverlay(session, inventory, w, h);
+            drawOverlay(session, waves, inventory, w, h);
         }
     }
 
-    /** Top-left panel: time, goals, counters and the speed boost. */
-    private void drawStatusPanel(GameSession session, WaveStatus waves, Inventory inventory, Player player, float h) {
-        float panelW = 290f;
-        float panelH = player.getBoostLeft() > 0f ? 150f : 125f;
+    /** Top-left panel: time, goals, counters and anything that is changing speeds. */
+    private void drawStatusPanel(GameSession session, WaveStatus waves, Inventory inventory, Player player,
+                                 float geeseFasterFor, boolean muted, float h) {
+        List<String> extras = new ArrayList<>();
+        List<Color> extraColours = new ArrayList<>();
+        float next = waves.secondsToNextWave();
+        if (next > 0f) {
+            extras.add((waves.currentWave() == 0 ? "Geese arrive in " : "Next wave in ") + (int) Math.ceil(next) + " s");
+            extraColours.add(TEXT_DIM);
+        }
+        if (player.getBoostLeft() > 0f) {
+            boolean faster = player.getSpeed() > Player.BASE_SPEED;
+            extras.add((faster ? "Speed boost: " : "Startled, slower: ") + (int) Math.ceil(player.getBoostLeft()) + " s");
+            extraColours.add(faster ? Color.CYAN : Color.SALMON);
+        }
+        if (geeseFasterFor > 0f) {
+            extras.add("Geese faster: " + (int) Math.ceil(geeseFasterFor) + " s");
+            extraColours.add(Color.SALMON);
+        }
+        if (muted) {
+            extras.add("Sound off (M)");
+            extraColours.add(TEXT_DIM);
+        }
+
+        float panelW = 300f;
+        float panelH = 150f + extras.size() * 22f;
         fillRect(PAD, h - PAD - panelH, panelW, panelH, PANEL);
 
         batch.begin();
@@ -128,20 +157,28 @@ public class Hud implements Disposable {
         boolean lowTime = session.getTimer().getSecondsLeft() <= 30f;
         bigFont.setColor(lowTime ? Color.SALMON : Color.WHITE);
         bigFont.draw(batch, "Time " + session.getTimer().format() + (lowTime ? " !" : ""), x, y);
-        y -= 48f;
-        font.setColor(Color.WHITE);
-        font.draw(batch, "Geese left: " + waves.geeseLeft() + "    Waves to come: " + waves.wavesLeft(), x, y);
-        y -= 24f;
+        y -= 46f;
+        String wave = waves.currentWave() == 0 ? "Waves: " + waves.totalWaves()
+            : "Wave " + waves.currentWave() + " of " + waves.totalWaves();
+        drawBold(goalFont, wave, x, y, Color.WHITE);
+        y -= 26f;
+        drawBold(goalFont, "Geese left: " + waves.geeseLeft(), x, y, Color.WHITE);
+        y -= 28f;
         font.setColor(TEXT_DIM);
-        font.draw(batch, "Items used: " + inventory.getItemsUsed(), x, y);
-        y -= 22f;
-        font.draw(batch, "Events triggered: " + session.getEventsTriggered(), x, y);
-        if (player.getBoostLeft() > 0f) {
-            y -= 24f;
-            font.setColor(Color.CYAN);
-            font.draw(batch, "Speed boost: " + (int) Math.ceil(player.getBoostLeft()) + "s", x, y);
+        font.draw(batch, "Items used: " + inventory.getItemsUsed() + "    Events: " + session.getEventsTriggered(), x, y);
+        for (int i = 0; i < extras.size(); i++) {
+            y -= 22f;
+            font.setColor(extraColours.get(i));
+            font.draw(batch, extras.get(i), x, y);
         }
         batch.end();
+    }
+
+    /** Draws text twice, one pixel apart, so it reads as bold (QR_OBJECTIVES). */
+    private void drawBold(BitmapFont f, String text, float x, float y, Color colour) {
+        f.setColor(colour);
+        f.draw(batch, text, x, y);
+        f.draw(batch, text, x + 1f, y);
     }
 
     /** Bottom bar: one box per item, the selected one with a yellow frame and "SELECTED" above it. */
@@ -213,7 +250,7 @@ public class Hud implements Disposable {
     }
 
     /** Darkens the screen and shows the start, pause or result text. */
-    private void drawOverlay(GameSession session, Inventory inventory, float w, float h) {
+    private void drawOverlay(GameSession session, WaveStatus waves, Inventory inventory, float w, float h) {
         fillRect(0f, 0f, w, h, new Color(0f, 0f, 0f, 0.65f));
         GameState state = session.getState();
         String title;
@@ -224,10 +261,12 @@ public class Hud implements Disposable {
                 title = "GOOSE PATROL";
                 colour = Color.WHITE;
                 lines = new String[] {
-                    "Hungry geese are coming for your food. Feed every goose before the 5 minutes run out!",
+                    "Hungry geese are coming to campus. Feed every goose in " + waves.totalWaves() + " waves before the 5 minutes run out!",
+                    "1 Bag of Oats: click on a goose.    2 Bread: throw it near a group of geese.",
+                    "A full goose flies away happily. A goose that flashes red and honks wants your snack - step away!",
+                    "Walk into the ? boxes around campus to see what they do.",
                     "",
-                    "WASD or arrow keys: walk          1-9: choose an item          Left click: use it",
-                    "P or Esc: pause          Find the hidden events around campus",
+                    "WASD or arrow keys: walk     1-9: choose an item     Left click: use it     P or Esc: pause     M: sound",
                     "",
                     "Press SPACE to start",
                 };
@@ -251,7 +290,7 @@ public class Hud implements Disposable {
                 title = "TIME'S UP - YOU LOSE";
                 colour = Color.SALMON;
                 lines = new String[] {
-                    "The geese are still hungry. Better luck next time!",
+                    waves.geeseLeft() + (waves.geeseLeft() == 1 ? " goose was" : " geese were") + " still hungry. Better luck next time!",
                     "Items used: " + inventory.getItemsUsed() + "    Events triggered: " + session.getEventsTriggered(),
                     "",
                     "Press R to play again",
@@ -309,6 +348,7 @@ public class Hud implements Disposable {
         shapes.dispose();
         font.dispose();
         bigFont.dispose();
+        goalFont.dispose();
         oatsIcon.dispose();
         breadIcon.dispose();
         drinkIcon.dispose();

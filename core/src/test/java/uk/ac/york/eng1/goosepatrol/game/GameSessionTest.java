@@ -29,6 +29,21 @@ class GameSessionTest {
         }
 
         @Override
+        public int currentWave() {
+            return 1;
+        }
+
+        @Override
+        public int totalWaves() {
+            return 1;
+        }
+
+        @Override
+        public float secondsToNextWave() {
+            return -1f;
+        }
+
+        @Override
         public boolean allWavesCleared() {
             return cleared;
         }

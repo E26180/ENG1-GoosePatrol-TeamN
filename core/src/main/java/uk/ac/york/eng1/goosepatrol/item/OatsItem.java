@@ -2,7 +2,7 @@ package uk.ac.york.eng1.goosepatrol.item;
 
 /**
  * Bag of Oats: a single-target item. Clicking a goose fills that goose's
- * hunger bar by {@link #HUNGER_FILLED}. It has 10 uses and no cooldown.
+ * hunger bar by {@link #HUNGER_FILLED}. It has {@link #START_USES} uses and no cooldown.
  * A click that misses every goose does not spend a use.
  */
 public class OatsItem extends Item {
@@ -11,7 +11,7 @@ public class OatsItem extends Item {
     public static final float HUNGER_FILLED = 0.5f;
 
     /** Number of uses the player starts with. */
-    public static final int START_USES = 10;
+    public static final int START_USES = 15;
 
     /** Finds the goose the player clicked. */
     private final GooseLocator geese;
