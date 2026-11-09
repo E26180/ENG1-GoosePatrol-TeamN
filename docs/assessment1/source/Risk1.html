@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Risk1</title>
+<style>
+  @page { size: A4; margin: 1.4cm 1.5cm; }
+  @page land { size: A4 landscape; margin: 1cm 1.1cm; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 11pt; line-height: 1.28; color: #111; margin: 0; }
+  h1 { font-size: 15pt; margin: 0 0 4pt; }
+  h2 { font-size: 12.5pt; margin: 9pt 0 3pt; page-break-after: avoid; }
+  p { margin: 0 0 5pt; }
+  ul { margin: 0 0 5pt; padding-left: 15pt; }
+  li { margin-bottom: 2pt; }
+  table { border-collapse: collapse; width: 100%; font-size: 10pt; line-height: 1.17; margin: 3pt 0 6pt; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid #999; padding: 2pt 4pt; vertical-align: top; text-align: left; }
+  th { background: #e8e8e8; }
+  thead { display: table-header-group; }
+  .cover { height: 25.5cm; display: flex; flex-direction: column; justify-content: center; text-align: center; page-break-after: always; }
+  .cover h1 { font-size: 24pt; margin-bottom: 8pt; }
+  .cover p { font-size: 13pt; margin: 3pt 0; }
+  .cover .team { margin-top: 30pt; font-size: 12pt; }
+  .land { page: land; page-break-before: always; }
+  .matrix { width: auto; margin: 3pt 0 6pt; }
+  .matrix td, .matrix th { text-align: center; padding: 3pt 10pt; }
+  .L { background: #d9efd5; }
+  .M { background: #fbe9b7; }
+  .H { background: #f6c6c1; }
+  .lvl { font-weight: bold; text-align: center; }
+  .c { text-align: center; }
+  .reg td:nth-child(3) b { display: block; }
+  .reg { line-height: 1.12; }
+  .reg td, .reg th { padding: 1.5pt 3pt; }
+  .refs { font-size: 10pt; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>ENG1 &ndash; Assessment 1: Greenfield Development</h1>
+  <p>Risk Assessment and Mitigation (Risk1)</p>
+  <p>Team 2 &ndash; Goose Patrol</p>
+  <p>University of York</p>
+  <div class="team">
+    <p><b>Team members</b></p>
+    <p>Ghalia Al-Raeissi &middot; Ahmet Baykoz &middot; Alex Dyer &middot; Angelina Kan</p>
+    <p>Aybike Pembecicek &middot; Leo Plaskett &middot; Sean Tavener &middot; Kevin Yu</p>
+  </div>
+</div>
+
+<h1>Risk1 &ndash; Part a: risk management process</h1>
+
+<h2>a1. Process</h2>
+<p>We follow the risk management process described by Sommerville [1], in four steps that repeat for the whole project:</p>
+<ul>
+  <li><b>Identification.</b> At the kick-off meeting in week 1 the team created a Risk and Quality Manager role to set up and look after the register, which started from a template in the repository (<code>docs/templates</code>). Risks were then collected from the product brief, the client meeting of 14 October, and our own lack of experience with libGDX and with an eight-person team. We used Sommerville&rsquo;s categories as a checklist so that we did not only think of technical problems: <i>project</i> risks (schedule and resources), <i>product</i> risks (the quality of the game), and <i>business</i> risks (the client and the university). Because this is a student team we split out <i>technical</i>, <i>people</i> and <i>legal</i> risks as well, since they need different owners.</li>
+  <li><b>Analysis.</b> Each risk gets a likelihood and a severity on a three-point scale (L, M, H), and a level from the matrix below. The level decides how much attention a risk gets: High risks should be checked at every team meeting and have a mitigation already in use, Medium risks need a planned mitigation, and Low risks are watched.</li>
+  <li><b>Planning.</b> Every risk has a mitigation that either <i>avoids</i> it, <i>reduces</i> its likelihood or its effect, or sets out a <i>contingency</i> plan for when it happens. Each risk also has one named owner, who checks it and acts on early signs.</li>
+  <li><b>Monitoring.</b> The register is a living document. Owners report changes on the team Discord and at team meetings; a risk whose likelihood or severity changes is re-rated, and new risks are added with the next free ID. The last column records the state of each risk at the latest review (9 November 2026), including the risks that actually happened and how the mitigation worked.</li>
+</ul>
+
+<h2>a2. Format and level of detail, and why</h2>
+<table class="matrix">
+  <thead><tr><th>Likelihood &darr; &nbsp; Severity &rarr;</th><th>L</th><th>M</th><th>H</th></tr></thead>
+  <tr><th>L</th><td class="L">Low</td><td class="L">Low</td><td class="M">Medium</td></tr>
+  <tr><th>M</th><td class="L">Low</td><td class="M">Medium</td><td class="H">High</td></tr>
+  <tr><th>H</th><td class="M">Medium</td><td class="H">High</td><td class="H">High</td></tr>
+</table>
+<ul>
+  <li><b>A table with one row per risk.</b> It can be scanned at a meeting, sorted by owner or level, and kept under version control with the rest of the project, so earlier versions can be compared.</li>
+  <li><b>Columns.</b> <i>ID</i> (never reused, so meeting notes and commits can refer to a risk), <i>type</i>, a <i>description</i> that starts with a short name and says what could happen and what it would cause, <i>likelihood</i>, <i>severity</i>, <i>level</i>, <i>owner</i>, <i>mitigation</i>, and <i>status</i> at the last review.</li>
+  <li><b>Three-point scales.</b> None of us has run a project like this before, so our estimates are rough; a five-point or percentage scale would suggest a precision we do not have. Three levels are quick to agree on in a meeting and are enough to decide what to act on first.</li>
+  <li><b>One owner per risk.</b> With eight people, a risk owned by &ldquo;the team&rdquo; is owned by no one. Owners are matched to roles, for example the developer of the shared interfaces owns integration (R4).</li>
+  <li><b>Letters as well as colour.</b> Levels are written as words and ratings as letters, with colour only as an extra cue, so the register can be read by colour-blind team members and when printed in black and white.</li>
+  <li><b>Project-specific risks.</b> As well as risks common to any software project, the register includes risks that come from this client: the no-violence rule (R15), accessibility (R16), a game that is too hard for first-time players (R17) and running on all three operating systems (R18).</li>
+</ul>
+
+<p class="refs">[1] I. Sommerville, <i>Software Engineering</i>, 10th ed. Pearson, 2016, ch. 22.</p>
+
+<div class="land">
+<h1>Risk1 &ndash; Part b: risk register</h1>
+<p>Reviewed on 9 November 2026. Likelihood, severity: L = low, M = medium, H = high. Level from the matrix in a2. Requirement IDs are from Req1.</p>
+<table class="reg">
+  <colgroup><col style="width:3.3%"><col style="width:6.4%"><col style="width:23%"><col style="width:3.4%"><col style="width:3.4%"><col style="width:6%"><col style="width:6.3%"><col style="width:24.6%"><col style="width:23.6%"></colgroup>
+  <thead><tr><th>ID</th><th>Type</th><th>Description</th><th>Lik.</th><th>Sev.</th><th>Level</th><th>Owner</th><th>Mitigation</th><th>Status (9 Nov)</th></tr></thead>
+  <tr><td>R1</td><td>Product</td><td><b>Requirements misunderstood.</b> A requirement is interpreted incorrectly, so functionality is missing or does not meet the client&rsquo;s needs.</td><td class="c M">M</td><td class="c H">H</td><td class="lvl H">High</td><td>Alex</td><td>Review requirements as a team and clarify unclear points with the client early; keep traceability from requirements to code and tests.</td><td>Controlled. Client meeting recorded and summarised; Req1 IDs traced to classes and tests in Arch1.</td></tr>
+  <tr><td>R2</td><td>Project</td><td><b>Behind schedule.</b> Tasks take longer than estimated, especially with technologies new to the team such as libGDX, leaving too little time for integration and testing.</td><td class="c H">H</td><td class="c H">H</td><td class="lvl H">High</td><td>Sean</td><td>Split the work into small tasks, track progress and set realistic deadlines; build essential (A1) features first and reserve time for integration and testing.</td><td>Happened: little code was merged between 30 Oct and 9 Nov. Recovered by re-planning around the A1 features; all A1 requirements are now implemented.</td></tr>
+  <tr><td>R3</td><td>Technical</td><td><b>Implementation difficulties.</b> A library, algorithm or technology is harder to use than expected.</td><td class="c M">M</td><td class="c M">M</td><td class="lvl M">Medium</td><td>Ahmet</td><td>Investigate unfamiliar technology early, build small prototypes and ask peers for help before a problem causes delays.</td><td>Controlled. Packages were built and tested one at a time, starting with the items.</td></tr>
+  <tr><td>R4</td><td>Technical</td><td><b>Integration failure.</b> Components developed separately do not work together.</td><td class="c M">M</td><td class="c H">H</td><td class="lvl H">High</td><td>Ahmet</td><td>Agree interfaces early, use version control, integrate in small steps and test the interfaces throughout.</td><td>Controlled. Packages meet only through interfaces (e.g. <code>Feedable</code>, <code>WaveStatus</code>); the geese replaced a stand-in by changing one line.</td></tr>
+  <tr><td>R5</td><td>Product</td><td><b>Software defects.</b> Coding errors cause wrong results, crashes or unexpected behaviour.</td><td class="c M">M</td><td class="c H">H</td><td class="lvl H">High</td><td>Leo</td><td>Code reviews through pull requests, unit tests including boundary cases, and system testing against the requirements; fix high-priority defects first.</td><td>Monitored. 93 unit tests; they found a bug that let the player pass through thin walls. A rendering bug (buildings vanishing) was found in play-testing and fixed.</td></tr>
+  <tr><td>R6</td><td>People</td><td><b>Team member unavailable.</b> Illness or other commitments stop a member finishing their work.</td><td class="c M">M</td><td class="c M">M</td><td class="lvl M">Medium</td><td>Ghalia</td><td>Document work, share knowledge, use version control, and make sure critical tasks can be continued by someone else.</td><td>Happened: the goose package was taken over by another member. The documented interfaces made the handover quick.</td></tr>
+  <tr><td>R7</td><td>Project</td><td><b>Too little testing time.</b> Development overruns reduce the time left for verification and validation.</td><td class="c M">M</td><td class="c H">H</td><td class="lvl H">High</td><td>Kevin</td><td>Plan testing from the start and write tests with each feature; watch the remaining testing work and reserve time for it.</td><td>Controlled for unit tests. Testing with real first-time players is still to do (see R17).</td></tr>
+  <tr><td>R8</td><td>Project</td><td><b>Incomplete documentation.</b> Required documents or evidence are missing or incomplete at submission.</td><td class="c M">M</td><td class="c M">M</td><td class="lvl M">Medium</td><td>Angelina</td><td>Write documentation during development, not at the end; check the submission against a checklist before the deadline.</td><td>Monitored. Req1, Arch1 and Impl1 done; a submission checklist is in the repository.</td></tr>
+  <tr><td>R9</td><td>People</td><td><b>Poor communication.</b> Members misunderstand who owns a task, an interface or the progress, causing duplicated or missing work.</td><td class="c M">M</td><td class="c M">M</td><td class="lvl M">Medium</td><td>Ghalia</td><td>Discuss progress regularly, keep a shared task list, and tell affected members about changes.</td><td>Happened: quiet periods with no updates. Status requests on Discord and the commit history are used to see who is doing what.</td></tr>
+  <tr><td>R10</td><td>Technical</td><td><b>Version-control problems.</b> Changes are overwritten, lost or merged wrongly on shared code.</td><td class="c M">M</td><td class="c M">M</td><td class="lvl M">Medium</td><td>Ahmet</td><td>One shared repository, a branch per feature, pull requests reviewed before merging into a protected <code>main</code>, and frequent commits.</td><td>Controlled. An out-of-date branch that would have deleted other members&rsquo; files was spotted and not merged.</td></tr>
+  <tr><td>R11</td><td>Technical</td><td><b>Data loss.</b> Project files, code or documents are deleted, corrupted or never pushed.</td><td class="c L">L</td><td class="c H">H</td><td class="lvl M">Medium</td><td>Aybike</td><td>Keep everything in the shared repository, commit regularly and keep backups of important files.</td><td>Happened once: the map was merged without its map files, so the game would not start. Found on the same day and fixed.</td></tr>
+  <tr><td>R12</td><td>Technical</td><td><b>External dependency failure.</b> A library becomes unavailable, incompatible or behaves unexpectedly.</td><td class="c M">M</td><td class="c M">M</td><td class="lvl M">Medium</td><td>Kevin</td><td>Use well-maintained libraries, test compatibility early, record versions and know an alternative for critical ones.</td><td>Controlled. Versions fixed in the build (libGDX 1.14.2, Gradle wrapper 9.3.0).</td></tr>
+  <tr><td>R13</td><td>Project</td><td><b>Submission errors.</b> Marks are lost to a missing JAR, a wrong zip structure or a broken website link.</td><td class="c L">L</td><td class="c M">M</td><td class="lvl L">Low</td><td>Alex</td><td>Use a submission checklist; test the JAR and every link on a clean machine at least two days before the deadline; one named person submits.</td><td>Open until submission. Checklist written; every website link checked; the JAR is built automatically.</td></tr>
+  <tr><td>R14</td><td>Legal</td><td><b>Licence problems.</b> A library or asset (image, sound) is not listed or is used without a proper licence.</td><td class="c L">L</td><td class="c M">M</td><td class="lvl L">Low</td><td>Aybike</td><td>List every library and asset with its licence; use only our own, open-licensed or public-domain material; check the list before submission.</td><td>Happened: one tile pack&rsquo;s licence forbids sharing the whole pack, so the unused files were removed. All assets are in <code>assets/CREDITS.md</code>.</td></tr>
+  <tr><td>R15</td><td>Business</td><td><b>Content seen as violent.</b> An item, animation or wording reads as hurting geese, against the client&rsquo;s main rule (UR_NONVIOLENT) for a university marketing game.</td><td class="c L">L</td><td class="c H">H</td><td class="lvl M">Medium</td><td>Ahmet</td><td>Avoid: geese are only fed and fly away happily; a goose&rsquo;s &ldquo;attack&rdquo; only snatches a snack and slows the player. Check all sprites and text against UR_NONVIOLENT.</td><td>Controlled. No damage, health or weapons anywhere in the game.</td></tr>
+  <tr><td>R16</td><td>Product</td><td><b>Inaccessible cues.</b> Colour-blind, deaf or hard-of-hearing players miss a cue that uses only colour or only sound (UR_ACCESS).</td><td class="c M">M</td><td class="c H">H</td><td class="lvl H">High</td><td>Ahmet</td><td>Reduce: every cue uses at least two of colour, text and sound (QR_ACCESS_CUES); check each new cue against this rule.</td><td>Controlled. E.g. a goose about to snatch flashes red, shows &ldquo;HONK!&rdquo; and honks; sound can be muted.</td></tr>
+  <tr><td>R17</td><td>Product</td><td><b>Game too hard.</b> First-time players cannot win, so the game fails as marketing (QR_NEWBIE, QR_WINNABLE).</td><td class="c M">M</td><td class="c H">H</td><td class="lvl H">High</td><td>Ahmet</td><td>Reduce: keep balance values in named constants; test whole games automatically; test with real first-time players and retune.</td><td>Monitored. Simulated games first showed a player could run out of food; food was increased and they now win with time to spare. Real-player tests to do.</td></tr>
+  <tr><td>R18</td><td>Technical</td><td><b>Fails on one platform.</b> The JAR does not start on Windows, macOS or Linux (QR_PLATFORM).</td><td class="c L">L</td><td class="c H">H</td><td class="lvl M">Medium</td><td>Ahmet</td><td>Use only cross-platform libraries; build one JAR; contingency: start it on all three systems before submission and fix what fails.</td><td>Open. Runs on macOS; Windows and Linux still to be tried.</td></tr>
+  <tr><td>R19</td><td>Project</td><td><b>Scope creep.</b> Time goes into extra features before the required ones work.</td><td class="c M">M</td><td class="c M">M</td><td class="lvl M">Medium</td><td>Ahmet</td><td>Avoid: build the A1 requirements first, using the MoSCoW priorities and the A1 column in Req1; leave the rest for Assessment 2.</td><td>Controlled. Score, pick-up items and difficulty levels are left for Assessment 2.</td></tr>
+</table>
+</div>
+
+</body>
+</html>

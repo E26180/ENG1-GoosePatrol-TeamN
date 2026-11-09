@@ -10,7 +10,7 @@ Deadline: **Monday 16 November 2026, 12:00**. Check every line against the Asses
 | `Req1.pdf` | Ahmet, Alex | ✅ | 5 pages |
 | `Arch1.pdf` | Ahmet | ✅ | Cover + 6 pages, printed from `docs/architecture/source/Arch1.html` |
 | `Plan1.pdf` | Sean | ❓ | Not in the repository yet |
-| `Risk1.pdf` | Scrub, HaterClash | ❓ | Not in the repository yet |
+| `Risk1.pdf` | Ahmet (from the team's register) | ✅ | Cover + 3 pages, printed from `source/Risk1.html`; check the owners with the team |
 | `Impl1.pdf` | Ahmet, Alex | ✅ | Cover + 1 page |
 | Game JAR | everyone | ✅ | Built by the website workflow from `main`; still to be started on Windows and Linux |
 

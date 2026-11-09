@@ -18,3 +18,5 @@ Place the final PDFs here before submission:
 ```
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer --print-to-pdf="$PWD/docs/assessment1/Impl1.pdf" "file://$PWD/docs/assessment1/source/Impl1.html"
 ```
+
+`Risk1.pdf` is printed from `source/Risk1.html` and `Arch1.pdf` from `../architecture/source/Arch1.html` in the same way.
