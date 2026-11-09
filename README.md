@@ -36,10 +36,11 @@ ENG1-GoosePatrol-TeamN/
 │       ├── game/      Game rules without graphics: timer, game state, hidden-event spots, WaveStatus for the geese
 │       ├── player/    The player: movement, collision with the map, speed boost
 │       ├── screen/    GameScreen (puts everything together, reads input) and the HUD
-│       └── ...        One sub-package per area: goose, map, player, event, ui (add yours here)
+│       ├── hidden_event/  Hidden events: IHiddenEvent, HEItems, HEGooseSpeed
+│       └── ...        Main, MapManager and CollisionManager sit in the root package; goose is in progress
 ├── lwjgl3/            Desktop launcher (LWJGL3 backend)
 ├── assets/            Game assets; every file is listed in assets/CREDITS.md with its licence
-│   ├── textures/      Sprites, tilesets, UI images (items/ holds the item icons)
+│   ├── textures/      Sprites (items/ holds the item icons, player/ the student)
 │   ├── audio/         Music and sound effects
 │   └── maps/          Tiled map files (.tmx / .tsx)
 ├── docs/

@@ -1,5 +1,11 @@
 package uk.ac.york.eng1.goosepatrol.hidden_event;
 
+/**
+ * Helping hidden event (FR_EVENT_EFFECT): finding it gives the player more food.
+ * The reward itself (+10 Bread and 3 Energy Drinks) is applied by the effect that
+ * {@code GameScreen} gives to this event's {@code EventSpot}, so this class does not
+ * need a reference to the inventory.
+ */
 public class HEItems implements IHiddenEvent{
 
     private float posX;
@@ -9,12 +15,17 @@ public class HEItems implements IHiddenEvent{
 
     private boolean isActivated = false;
 
+    /**
+     * Creates the event at a place on the map.
+     *
+     * @param posX world x of the event
+     * @param posY world y of the event
+     */
     public HEItems(float posX, float posY) {
         this.posX = posX;
         this.posY = posY;
     }
 
-    //Will be completed when there is a player class to use as a parameter
     @Override
     public float distanceFromPlayer(float[] playerPosition) {
         float distanceX = playerPosition[0] - this.posX;
@@ -38,8 +49,7 @@ public class HEItems implements IHiddenEvent{
     }
     @Override
     public void trigger() {
-        //TODO: Increase energy drink count by 3
-        //TODO: Increase bread count by 10
+        // The extra Bread and Energy Drinks are added by the EventSpot effect in GameScreen.
         this.isActivated = true;
     }
 

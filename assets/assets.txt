@@ -59,10 +59,3 @@ textures/items/bread.png
 textures/items/energy-drink.png
 textures/items/oats.png
 textures/player/student.png
-ui/font-list.fnt
-ui/font-subtitle.fnt
-ui/font-window.fnt
-ui/font.fnt
-ui/uiskin.atlas
-ui/uiskin.json
-ui/uiskin.png

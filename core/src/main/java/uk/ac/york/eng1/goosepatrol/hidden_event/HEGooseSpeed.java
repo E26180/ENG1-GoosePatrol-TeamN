@@ -2,6 +2,10 @@ package uk.ac.york.eng1.goosepatrol.hidden_event;
 
 import java.time.Instant;
 
+/**
+ * Hindering hidden event (FR_EVENT_EFFECT): when triggered, the geese move faster for
+ * 10 seconds. The goose package reads {@link #checkActive()} to know when to speed up.
+ */
 public class HEGooseSpeed implements IHiddenEvent{
 
     private final float posX;
@@ -12,12 +16,17 @@ public class HEGooseSpeed implements IHiddenEvent{
     private float activationTime = 0f;
     private boolean isActivated = false;
 
+    /**
+     * Creates the event at a place on the map.
+     *
+     * @param posX world x of the event
+     * @param posY world y of the event
+     */
     public HEGooseSpeed(float posX, float posY) {
         this.posX = posX;
         this.posY = posY;
     }
 
-    //Will be completed when there is a player class to use as a parameter
     @Override
     public float distanceFromPlayer(float[] playerPosition) {
         float distanceX = playerPosition[0] - this.posX;
