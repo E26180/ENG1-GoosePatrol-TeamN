@@ -1,5 +1,10 @@
 CREDITS.md
-audio/.gitkeep
+audio/eat.wav
+audio/event.wav
+audio/honk.wav
+audio/lose.wav
+audio/wave.wav
+audio/win.wav
 maps/.gitkeep
 maps/Buildingsss.tsx
 maps/Campus-Goose Patrol.tmx
@@ -55,6 +60,7 @@ maps/cozy_world_kit_32_free/tiled/tilesets/props_64.tsx
 maps/cozy_world_kit_32_free/tiled/tilesets/water_64.tsx
 maps/stone1.tsx
 textures/.gitkeep
+textures/geese/goose.png
 textures/items/bread.png
 textures/items/energy-drink.png
 textures/items/oats.png

@@ -17,9 +17,10 @@ public interface WaveStatus {
     void update(float delta, float playerX, float playerY);
 
     /**
-     * Returns how many geese of the current wave are still hungry.
+     * Returns how many geese are still hungry: those on the map plus those of the
+     * current wave that have not arrived yet.
      *
-     * @return hungry geese on the map
+     * @return geese left to feed
      */
     int geeseLeft();
 
@@ -29,6 +30,27 @@ public interface WaveStatus {
      * @return waves still to come
      */
     int wavesLeft();
+
+    /**
+     * Returns the number of the current wave.
+     *
+     * @return 1 for the first wave, 0 before the first wave starts
+     */
+    int currentWave();
+
+    /**
+     * Returns how many waves there are in the whole game.
+     *
+     * @return the number of waves
+     */
+    int totalWaves();
+
+    /**
+     * Returns the time until the next wave starts (QR_PROGRESSION).
+     *
+     * @return seconds to the next wave, or a negative number if no wave is left to come
+     */
+    float secondsToNextWave();
 
     /**
      * Tells whether every wave has been satisfied (FR_WAVE_COMPLETE).

@@ -36,7 +36,7 @@
 </div>
 
 <h1>Implementation &ndash; Part b</h1>
-<p>The code is in the team repository and the playable JAR is on the team website. The code is documented with Javadoc (QR_DOCUMENTATION), and the logic that does not need a window (items, inventory, player movement, timer, game rules, hidden-event triggering) is covered by JUnit tests (<code>./gradlew test</code>).</p>
+<p>The code is in the team repository and the playable JAR is on the team website. The code is documented with Javadoc (QR_DOCUMENTATION), and the logic that does not need a window (items, inventory, player movement, geese and waves, timer, game rules, hidden events, and whole simulated games) is covered by JUnit tests (<code>./gradlew test</code>).</p>
 
 <h2>1. Third-party libraries, tools and assets</h2>
 <table>
@@ -51,22 +51,19 @@
   <tr><td>Cozy World Kit 32 (free), VibeForge</td><td>&ndash;</td><td>Grass, path and water tiles, props</td><td>Free use and changes; no redistribution as a pack, so only used tiles are kept. Author states it is AI-made (PixelLab).</td></tr>
   <tr><td>Mini Nature Tileset (free)</td><td>&ndash;</td><td>Nature tiles</td><td>Free use, no credit required</td></tr>
   <tr><td>50+ City Essential Assets Pack, Ranitaya Studios</td><td>&ndash;</td><td>Buildings and street props</td><td>Free to use (author, itch.io page)</td></tr>
-  <tr><td>Player sprite, item icons, campus map</td><td>&ndash;</td><td>Student, item icons, map layout</td><td>Made by the team</td></tr>
+  <tr><td>Player, goose and item sprites; sound effects; campus map</td><td>&ndash;</td><td>Drawn and synthesised with our scripts in <code>tools/</code>; map layout</td><td>Made by the team</td></tr>
 </table>
 <p>Every asset is listed with its source in <code>assets/CREDITS.md</code> (QR_LICENSING). No licence asks for a credit inside the game; the packs are credited on the website anyway.</p>
 
 <h2>2. Features of the requirements not (fully) implemented</h2>
-<p>IDs are from Req1. Requirements due in Assessment 1 (A1 = Yes) that are not complete come first, then those planned for Assessment 2.</p>
+<p>IDs are from Req1. Every requirement due in Assessment 1 (A1 = Yes) is implemented; the first two rows say where the evidence is still incomplete. The other rows are Assessment 2 requirements, some of them started early.</p>
 <table>
   <colgroup><col style="width:27%"><col style="width:6%"><col style="width:14%"><col style="width:53%"></colgroup>
   <thead><tr><th>Requirement</th><th>A1</th><th>State</th><th>Why, and what is left</th></tr></thead>
-  <tr><td>FR_ENEMY, FR_WAVES, FR_WAVE_COMPLETE, UR_GROUP</td><td>Yes</td><td>Not complete</td><td>The goose package is still in progress. A stand-in (<code>NoGeese</code>) sits behind <code>GooseLocator</code> and <code>WaveStatus</code>, so geese plug in without changing the screen, items or rules.</td></tr>
-  <tr><td>FR_SINGLE_TARGET, FR_MULTI_TARGET</td><td>Yes</td><td>Items done, tested</td><td>Oats and Bread work through <code>Feedable</code>; they act in play once geese exist.</td></tr>
-  <tr><td>FR_JUDGEMENT (win)</td><td>Yes</td><td>Partly</td><td>Win/loss screens and rules done and tested; without geese the game can only be lost on time.</td></tr>
-  <tr><td>FR_EVENT_EFFECT (hinder)</td><td>Yes</td><td>Partly</td><td>The helping event (more Bread, Energy Drinks) works. The hindering one triggers and is counted; it speeds geese up once they read <code>HEGooseSpeed.checkActive()</code>.</td></tr>
-  <tr><td>QR_ALERT, QR_COLLISION (geese)</td><td>Yes</td><td>Not complete</td><td>Need the geese. Collision with buildings and the map border is done.</td></tr>
-    <tr><td>FR_PICKUP_ITEMS, FR_SCORE, FR_LEVELS, FR_GOOSE_VAR, FR_BOSS, FR_TOKENS, FR_MUSIC, FR_EVENT_HINT, FR_POCKET_MAP</td><td>No</td><td>Not implemented</td><td>Planned for Assessment 2. A new item is one new <code>Item</code> subclass and a new event one new <code>IHiddenEvent</code> class (QR_EXTENSIBLE).</td></tr>
-  <tr><td>FR_REPLAY</td><td>No</td><td class="state-done">Done early</td><td>Pressing R after a win or loss starts a new game.</td></tr>
+  <tr><td>QR_NEWBIE, QR_WINNABLE</td><td>Yes</td><td>Partly</td><td>Balanced so the food always covers every goose, and checked by simulated games that win with time to spare without any hidden event (<code>WinnableGameTest</code>). Testing with real first-time players is still to do.</td></tr>
+  <tr><td>QR_PLATFORM</td><td>Yes</td><td>Partly</td><td>One JAR for all three systems, built by the website workflow; run and played on macOS. Still to be started on Windows and Linux.</td></tr>
+  <tr><td>FR_GOOSE_VAR, FR_BOSS, FR_EVENT_HINT, FR_MUSIC, FR_REPLAY</td><td>No</td><td>Started early</td><td>A slower head goose with twice the appetite comes in the last wave; each event is a &ldquo;?&rdquo; box that bobs when the player is near; sound effects but no music; R starts a new game.</td></tr>
+  <tr><td>FR_PICKUP_ITEMS, FR_SCORE, FR_LEVELS, FR_TOKENS, FR_POCKET_MAP</td><td>No</td><td>Not implemented</td><td>Planned for Assessment 2. A new item is one new <code>Item</code> subclass, a new event one new <code>IHiddenEvent</code> class, and a score can use the timer and the counters (QR_EXTENSIBLE).</td></tr>
 </table>
 
 </body>

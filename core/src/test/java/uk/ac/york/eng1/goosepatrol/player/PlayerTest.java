@@ -73,6 +73,18 @@ class PlayerTest {
     }
 
     @Test
+    void canWalkOutOfSomethingThatMovedOntoIt() {
+        // a goose pushed onto the player must not trap them
+        Rectangle goose = new Rectangle(95f, 95f, 30f, 30f);
+        Player player = new Player(100f, 100f, WORLD, goose::overlaps);
+        player.update(1f, -1f, 0f);
+        assertTrue(player.getBounds().x < 100f, "walked out");
+        assertFalse(goose.overlaps(player.getBounds()));
+        player.update(1f, 1f, 0f);
+        assertTrue(player.getBounds().x + Player.WIDTH <= goose.x, "and cannot walk back in");
+    }
+
+    @Test
     void energyDrinkBoostsSpeedForAWhile() {
         Player player = new Player(100f, 100f, WORLD, NOTHING);
         new EnergyDrinkItem(player).use(0f, 0f);

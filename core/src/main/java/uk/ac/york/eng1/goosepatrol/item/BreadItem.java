@@ -11,14 +11,14 @@ public class BreadItem extends Item {
     /** Share of the hunger bar the bread fills for each goose in range (0.5 = 50%). */
     public static final float HUNGER_FILLED = 0.5f;
 
-    /** Radius around the click in which geese are fed, in pixels. Easy to tune. */
-    public static final float RADIUS_PIXELS = 30f;
+    /** Radius around the click in which geese are fed, in pixels: about three geese wide. */
+    public static final float RADIUS_PIXELS = 60f;
 
     /** Seconds to wait between two uses. */
     public static final float COOLDOWN_SECONDS = 3f;
 
     /** Number of uses the player starts with. */
-    public static final int START_USES = 5;
+    public static final int START_USES = 6;
 
     /** Finds the geese near the click. */
     private final GooseLocator geese;

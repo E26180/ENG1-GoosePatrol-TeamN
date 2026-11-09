@@ -18,8 +18,9 @@ University of York campus. Waves of hungry geese come at the player, who feeds t
 they fly away. Nothing is ever hurt.
 
 - **Time limit:** each run lasts at most 5 minutes; the clock is always visible on screen.
-- **Win/lose:** disperse every wave to win (finishing early is possible); lose if geese are
-  left when the timer runs out, or if the player gets too tired.
+- **Win/lose:** feed every goose of all 3 waves to win (finishing early is possible); lose if
+  geese are still hungry when the timer runs out. A goose that reaches the player honks and
+  snatches a snack, which only slows the player for a moment.
 - **Items and events:** the player starts with 2 items and can discover 2 hidden events.
 - **Map:** a stylised part of the University of York campus built with Tiled.
 - **Audience:** A-level students and first-year students; easy by default and accessible.
@@ -37,10 +38,11 @@ ENG1-GoosePatrol-TeamN/
 │       ├── player/    The player: movement, collision with the map, speed boost
 │       ├── screen/    GameScreen (puts everything together, reads input) and the HUD
 │       ├── hidden_event/  Hidden events: IHiddenEvent, HEItems, HEGooseSpeed
-│       └── ...        Main, MapManager and CollisionManager sit in the root package; goose is in progress
+│       ├── goose/     The geese: Goose, GooseType, Wave, GooseManager (waves, feeding, blocking the player)
+│       └── ...        Main, MapManager and CollisionManager sit in the root package
 ├── lwjgl3/            Desktop launcher (LWJGL3 backend)
 ├── assets/            Game assets; every file is listed in assets/CREDITS.md with its licence
-│   ├── textures/      Sprites (items/ holds the item icons, player/ the student)
+│   ├── textures/      Sprites (items/ the item icons, player/ the student, geese/ the goose)
 │   ├── audio/         Music and sound effects
 │   └── maps/          Tiled map files (.tmx / .tsx)
 ├── docs/
@@ -48,7 +50,7 @@ ENG1-GoosePatrol-TeamN/
 │   ├── architecture/  Diagram versions for Arch1 and the scripts that draw them
 │   ├── meetings/      Meeting notes
 │   └── templates/     Empty tables for the Req1, Risk1 and Plan1 documents
-├── tools/             Small scripts, for example the ones that draw the item icons and the player sprite
+├── tools/             Scripts that draw the sprites and synthesise the sound effects (our own assets)
 └── website/           Team website; the PDFs in docs/ are added when it is published
 ```
 

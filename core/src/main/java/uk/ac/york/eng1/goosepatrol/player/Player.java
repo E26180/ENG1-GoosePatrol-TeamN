@@ -6,7 +6,7 @@ import uk.ac.york.eng1.goosepatrol.item.SpeedBoostTarget;
 
 /**
  * The student the user controls (FR_AVATAR). It walks in the direction the keys give
- * (FR_CONTROLS), stops at buildings and obstacles (QR_COLLISION) and at the edge of
+ * (FR_CONTROLS), stops at buildings, obstacles and geese (QR_COLLISION) and at the edge of
  * the map (QR_OUT_OF_BOUNDS), and can be sped up by an Energy Drink.
  * Reading the keys and drawing are done by {@code GameScreen}, so this class can be unit tested.
  */
@@ -131,9 +131,11 @@ public class Player implements SpeedBoostTarget {
         }
         float oldX = bounds.x;
         float oldY = bounds.y;
+        // If something moved onto the player (a goose pushed by another), let them walk out of it.
+        boolean wasBlocked = obstacles.collidesWith(bounds);
         bounds.x = clamp(bounds.x + dx, world.x, world.x + world.width - bounds.width);
         bounds.y = clamp(bounds.y + dy, world.y, world.y + world.height - bounds.height);
-        if (obstacles.collidesWith(bounds)) {
+        if (!wasBlocked && obstacles.collidesWith(bounds)) {
             bounds.x = oldX;
             bounds.y = oldY;
         }

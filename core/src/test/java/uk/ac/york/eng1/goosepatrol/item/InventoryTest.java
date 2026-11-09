@@ -47,7 +47,7 @@ class InventoryTest {
     void usingTheSelectedItemSpendsOneUseAndCountsIt() {
         Inventory inventory = twoItems();
         assertTrue(inventory.useSelected(10f, 20f));
-        assertEquals(9, inventory.getItems().get(0).getUsesLeft());
+        assertEquals(OatsItem.START_USES - 1, inventory.getItems().get(0).getUsesLeft());
         assertEquals(1, inventory.getItemsUsed());
     }
 
@@ -98,9 +98,9 @@ class InventoryTest {
     @Test
     void slotTextShowsNumberNameAndUses() {
         Inventory inventory = twoItems();
-        assertEquals("1: Bag of Oats 10/10", inventory.slotText(1));
+        assertEquals("1: Bag of Oats 15/15", inventory.slotText(1));
         inventory.useSelected(10f, 20f);
-        assertEquals("1: Bag of Oats 9/10", inventory.slotText(1));
+        assertEquals("1: Bag of Oats 14/15", inventory.slotText(1));
     }
 
     @Test
@@ -108,9 +108,9 @@ class InventoryTest {
         Inventory inventory = twoItems();
         inventory.select(2);
         inventory.useSelected(10f, 20f);
-        assertEquals("2: Bread 4/5 (wait 3s)", inventory.slotText(2));
+        assertEquals("2: Bread 5/6 (wait 3s)", inventory.slotText(2));
         inventory.update(1.5f);
-        assertEquals("2: Bread 4/5 (wait 2s)", inventory.slotText(2));
+        assertEquals("2: Bread 5/6 (wait 2s)", inventory.slotText(2));
     }
 
     @Test
