@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -33,6 +34,9 @@ public class Hud implements Disposable {
 
     /** Side of one inventory slot, in pixels. */
     private static final float SLOT = 64f;
+
+    /** Width of the status panel in the top-left corner. */
+    private static final float STATUS_WIDTH = 300f;
 
     /** Gap around panels, in pixels. */
     private static final float PAD = 10f;
@@ -149,7 +153,7 @@ public class Hud implements Disposable {
             extraColours.add(TEXT_DIM);
         }
 
-        float panelW = 300f;
+        float panelW = STATUS_WIDTH;
         float panelH = 150f + extras.size() * 22f;
         fillRect(PAD, h - PAD - panelH, panelW, panelH, PANEL);
 
@@ -253,16 +257,21 @@ public class Hud implements Disposable {
         batch.end();
     }
 
+    /**
+     * Shows the current message at the top, to the right of the status panel so it never
+     * covers the timer; a long message wraps onto a second line.
+     */
     private void drawMessage(float w, float h) {
-        layout.setText(font, message);
+        float left = PAD + STATUS_WIDTH + PAD;
+        float maxText = Math.max(100f, w - left - PAD - 30f);
+        layout.setText(font, message, Color.YELLOW, maxText, Align.left, true);
         float boxW = layout.width + 30f;
         float boxH = layout.height + 22f;
-        float x = (w - boxW) / 2f;
+        float x = Math.max(left, (w - boxW) / 2f);
         float y = h - PAD - boxH;
         fillRect(x, y, boxW, boxH, PANEL);
         batch.begin();
-        font.setColor(Color.YELLOW);
-        font.draw(batch, message, x + 15f, y + boxH - 11f);
+        font.draw(batch, layout, x + 15f, y + boxH - 11f);
         batch.end();
     }
 
