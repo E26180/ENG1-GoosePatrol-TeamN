@@ -1,39 +1,17 @@
 package uk.ac.york.eng1.goosepatrol;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Game;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class Main extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private Texture image;
-    private MapManager mapManager;
+import uk.ac.york.eng1.goosepatrol.screen.GameScreen;
+
+/**
+ * Entry point shared by all platforms. It opens the game screen, which starts
+ * paused on the start screen (FR_START_PAUSED).
+ */
+public class Main extends Game {
 
     @Override
     public void create() {
-        batch = new SpriteBatch();
-        image = new Texture("libgdx.png");
-        mapManager = new MapManager();
-
-    }
-
-    @Override
-    public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        batch.begin();
-        batch.draw(image, 140, 210);
-        batch.end();
-        mapManager.render();
-    }
-
-    @Override
-    public void dispose() {
-        batch.dispose();
-        image.dispose();
-        if(mapManager != null){
-            mapManager.dispose();
-        }
+        setScreen(new GameScreen(this));
     }
 }

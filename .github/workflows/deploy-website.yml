@@ -1,7 +1,8 @@
 # Publishes the website/ folder to GitHub Pages:
 # https://e26180.github.io/ENG1-GoosePatrol-TeamN/
-# Runs when the website or a deliverable changes on main, or by hand from the Actions tab.
-# The PDFs are copied from docs/ at build time, so each file lives in one place only.
+# Runs when the website, a deliverable or the game changes on main, or by hand from the Actions tab.
+# The PDFs are copied from docs/ and the game JAR is built from the code at build time,
+# so the site always offers the latest version and nothing is stored twice.
 name: Deploy website
 
 on:
@@ -11,6 +12,9 @@ on:
       - "website/**"
       - "docs/assessment1/**"
       - "docs/architecture/**"
+      - "core/src/main/**"
+      - "lwjgl3/**"
+      - "assets/**"
       - ".github/workflows/deploy-website.yml"
   workflow_dispatch:
 
@@ -32,12 +36,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Build the game JAR
+        run: ./gradlew --no-daemon lwjgl3:jar
       - name: Put the website and the deliverables together
         run: |
           mkdir -p _site/docs _site/architecture
           cp -r website/. _site/
           cp docs/assessment1/*.pdf _site/docs/ 2>/dev/null || true
           cp docs/architecture/*.pdf docs/architecture/*.svg _site/architecture/
+          cp lwjgl3/build/libs/GoosePatrol-1.0.0.jar _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

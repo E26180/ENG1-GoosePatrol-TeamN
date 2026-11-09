@@ -41,6 +41,22 @@ public class MapManager {
     public OrthographicCamera getCamera(){
         return camera;
     }
+    /**
+     * Returns the width of the whole map, in world units (pixels).
+     *
+     * @return map width
+     */
+    public float getMapWidth(){
+        return map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
+    }
+    /**
+     * Returns the height of the whole map, in world units (pixels).
+     *
+     * @return map height
+     */
+    public float getMapHeight(){
+        return map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
+    }
     //Returns the CollisionManager so other classes can access it.
     public CollisionManager getCollisionManager(){
         return collisionManager;
