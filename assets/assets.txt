@@ -1,4 +1,5 @@
 CREDITS.md
+THIRD-PARTY-NOTICES.txt
 audio/eat.wav
 audio/event.wav
 audio/honk.wav
@@ -10,7 +11,6 @@ maps/Buildingsss.tsx
 maps/Campus-Goose Patrol.tmx
 maps/Cozy_World.tsx
 maps/Mini Nature Tileset Free/readme.txt.txt
-maps/Mini Nature Tileset Free/tiles/bush1.png
 maps/Mini Nature Tileset Free/tiles/stone1.png
 maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Pngs/Building1.png
 maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Pngs/Building2.png
@@ -20,23 +20,13 @@ maps/Ranitaya’s 50+ City Essential Assets Pack/Buildings/Pngs/Building7.png
 maps/cozy_world_kit_32_free/LICENSE.txt
 maps/cozy_world_kit_32_free/README.txt
 maps/cozy_world_kit_32_free/fills/grass/grass_fill_04.png
-maps/cozy_world_kit_32_free/fills/grass/grass_fill_08.png
-maps/cozy_world_kit_32_free/fills/grass/grass_fill_09.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_01.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_02.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_05.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_07.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_08.png
-maps/cozy_world_kit_32_free/fills/grass/grass_variant_09.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_10.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_13.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_15.png
 maps/cozy_world_kit_32_free/fills/grass/grass_variant_16.png
-maps/cozy_world_kit_32_free/index.csv
 maps/cozy_world_kit_32_free/props/props_32/berry_bush.png
 maps/cozy_world_kit_32_free/props/props_32/blue_flowers_patch.png
 maps/cozy_world_kit_32_free/props/props_32/red_mushrooms.png
-maps/cozy_world_kit_32_free/props/props_32/round_leafy_oak_tree.png
 maps/cozy_world_kit_32_free/props/props_32/small_rocks_cluster.png
 maps/cozy_world_kit_32_free/props/props_32/small_round_bush.png
 maps/cozy_world_kit_32_free/props/props_32/street_lamp_post.png
@@ -48,16 +38,9 @@ maps/cozy_world_kit_32_free/props/props_64/large_willow_tree.png
 maps/cozy_world_kit_32_free/props/water_64/cattail_reeds_bank.png
 maps/cozy_world_kit_32_free/props/water_64/lily_pads_lotus.png
 maps/cozy_world_kit_32_free/props/water_64/small_wooden_rowboat_floating.png
-maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_llll.png
 maps/cozy_world_kit_32_free/terrain/grass_dirt/grass_dirt_uuuu.png
 maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_llll.png
 maps/cozy_world_kit_32_free/terrain/grass_water/grass_water_uuuu.png
-maps/cozy_world_kit_32_free/tiled/tilesets/fills_grass.tsx
-maps/cozy_world_kit_32_free/tiled/tilesets/grass_dirt.tsx
-maps/cozy_world_kit_32_free/tiled/tilesets/grass_water.tsx
-maps/cozy_world_kit_32_free/tiled/tilesets/props_32.tsx
-maps/cozy_world_kit_32_free/tiled/tilesets/props_64.tsx
-maps/cozy_world_kit_32_free/tiled/tilesets/water_64.tsx
 maps/stone1.tsx
 textures/.gitkeep
 textures/events/backpack.png

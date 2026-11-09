@@ -11,7 +11,8 @@ Interim versions of the diagrams for Arch1 (the report has to show how the archi
 | `items-class.svg`, `items-sequence.svg` | The two item diagrams as images |
 | `Arch1-outline.md` | Skeleton of the Arch1 report: what each section needs and what is already done |
 | `../assessment1/Arch1.pdf` | The Arch1 report (v3, final design), printed from `source/Arch1.html` |
-| `final-component.svg`, `final-class.svg`, `final-activity.svg`, `final-sequence.svg` | The v3 diagrams used in Arch1, matching the code on main |
+| `final-component.svg`, `final-class.svg`, `final-activity.svg`, `final-sequence.svg` | The full-detail v3 diagrams, matching the code on main; on the website's architecture page |
+| `print-*.svg` | Simpler versions of the same four diagrams, drawn so every label prints at 10 pt or more in Arch1 (`source/draw_print.py`) |
 | `source/` | The diagrams as code, so any version can be rebuilt and compared |
 
 ## Rebuild a version
@@ -36,6 +37,7 @@ The final (v3) diagrams and the Arch1 report:
 ```bash
 cd docs/architecture
 python3 source/draw_final.py .  # writes the four final-*.svg files (uses draw_items.py)
+python3 source/draw_print.py .  # writes the four print-*.svg files used in Arch1
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer --print-to-pdf="$PWD/../assessment1/Arch1.pdf" "file://$PWD/source/Arch1.html"
 ```
 

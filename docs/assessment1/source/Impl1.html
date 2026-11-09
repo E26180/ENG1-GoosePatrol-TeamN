@@ -13,7 +13,7 @@
   tr { page-break-inside: avoid; }
   th, td { border: 1px solid #999; padding: 2pt 4pt; vertical-align: top; text-align: left; }
   th { background: #e8e8e8; }
-  code { font-family: "Courier New", monospace; font-size: 9.5pt; }
+  code { font-family: "Courier New", monospace; font-size: inherit; }
   .cover { height: 25cm; display: flex; flex-direction: column; justify-content: center; text-align: center; page-break-after: always; }
   .cover h1 { font-size: 24pt; margin-bottom: 8pt; }
   .cover p { font-size: 13pt; margin: 3pt 0; }
@@ -36,34 +36,32 @@
 </div>
 
 <h1>Implementation &ndash; Part b</h1>
-<p>The code is in the team repository and the playable JAR is on the team website. The code is documented with Javadoc (QR_DOCUMENTATION), and the logic that does not need a window (items, inventory, player movement, geese and waves, timer, game rules, hidden events, tutorial tips, and whole simulated games) is covered by JUnit tests (<code>./gradlew test</code>).</p>
+<p>The code is in the team repository and the playable JAR is on the team website. Every public class and method is documented with Javadoc (QR_DOCUMENTATION), and the logic that does not need a window is covered by 106 JUnit tests, which the website build runs before it publishes the JAR.</p>
 
-<h2>1. Third-party libraries, tools and assets</h2>
+<h2>1. Third-party libraries and assets, and their licences</h2>
 <table>
-  <colgroup><col style="width:30%"><col style="width:11%"><col style="width:24%"><col style="width:35%"></colgroup>
-  <thead><tr><th>Name</th><th>Version</th><th>Used for</th><th>Licence</th></tr></thead>
-  <tr><td>libGDX (<code>gdx</code>, <code>gdx-backend-lwjgl3</code>, <code>gdx-platform</code>)</td><td>1.14.2</td><td>Game framework, tile maps</td><td>Apache 2.0</td></tr>
-  <tr><td>LWJGL 3 (through the libGDX backend)</td><td>3.4.3</td><td>Window and OpenGL on all three OSs</td><td>BSD 3-Clause</td></tr>
-  <tr><td>JUnit Jupiter / Platform (tests only)</td><td>5.11.4 / 1.11.4</td><td>Unit tests</td><td>Eclipse Public License 2.0</td></tr>
-  <tr><td>Gradle; gdx-liftoff template (incl. <code>StartupHelper</code> by damios)</td><td>9.3.0; &ndash;</td><td>Build; project template, macOS start-up</td><td>Apache 2.0</td></tr>
-  <tr><td>Tiled map editor (not shipped)</td><td>1.12.2</td><td>Drawing the campus map (<code>.tmx</code>)</td><td>GPL 2.0 (tool only; our maps are ours)</td></tr>
-  <tr><td>Liberation Sans font (in libGDX)</td><td>&ndash;</td><td>HUD and menu text</td><td>SIL Open Font License 1.1</td></tr>
-  <tr><td>Cozy World Kit 32 (free), VibeForge</td><td>&ndash;</td><td>Grass, path and water tiles, props</td><td>Free use and changes; no redistribution as a pack, so only used tiles are kept. Author states it is AI-made (PixelLab).</td></tr>
-  <tr><td>Mini Nature Tileset (free)</td><td>&ndash;</td><td>Nature tiles</td><td>Free use, no credit required</td></tr>
-  <tr><td>50+ City Essential Assets Pack, Ranitaya Studios</td><td>&ndash;</td><td>Buildings and street props</td><td>Free to use (author, itch.io page)</td></tr>
-  <tr><td>Player, goose and item sprites; sound effects; campus map</td><td>&ndash;</td><td>Drawn and synthesised with our scripts in <code>tools/</code>; map layout</td><td>Made by the team</td></tr>
+  <colgroup><col style="width:33%"><col style="width:27%"><col style="width:40%"></colgroup>
+  <thead><tr><th>Name and version</th><th>Used for</th><th>Licence</th></tr></thead>
+  <tr><td>libGDX 1.14.2 (gdx, backend, platform, jnigen-loader 2.5.2)</td><td>Game framework, tile maps</td><td>Apache 2.0</td></tr>
+  <tr><td>LWJGL 3.4.3</td><td>Window, OpenGL, audio</td><td>BSD 3-Clause</td></tr>
+  <tr><td>JLayer 1.0.1-gdx, JOrbis 0.0.17 (added by the libGDX backend)</td><td>MP3 and Ogg decoding (our sounds are WAV)</td><td>LGPL 2.0 or later</td></tr>
+  <tr><td>Liberation Sans font (in libGDX); StartupHelper (gdx-liftoff template)</td><td>All text; macOS start-up</td><td>SIL OFL 1.1; Apache 2.0</td></tr>
+  <tr><td>JUnit 5.11.4; Gradle 9.3.0; Tiled 1.12.2 (not in the JAR)</td><td>Tests; build; drawing the map</td><td>EPL 2.0; Apache 2.0; GPL 2.0 (tool only)</td></tr>
+  <tr><td>Cozy World Kit 32, VibeForge</td><td>Grass, paths, water, props</td><td>Free use and changes; no redistribution as a standalone pack. Art made with AI tools, as its author states</td></tr>
+  <tr><td>Mini Nature Tileset; Ranitaya&rsquo;s City Essential Assets</td><td>Nature tiles; buildings and street props</td><td>Free, no credit needed; royalty-free, may be modified (store page)</td></tr>
+  <tr><td>Player, goose, item and event sprites; sound effects; the map layout</td><td>Characters, icons, sounds, campus</td><td>Our own work (scripts in <code>tools/</code>)</td></tr>
 </table>
-<p>Every asset is listed with its source in <code>assets/CREDITS.md</code> (QR_LICENSING). No licence asks for a credit inside the game; the packs are credited on the website anyway.</p>
+<p><b>Suitability.</b> Every licence allows use in a free university game and allows us to change the art. The permissive licences (Apache, BSD, EPL, OFL) ask that their notices go with the game: <code>THIRD-PARTY-NOTICES.txt</code> inside the JAR does this, and <code>assets/CREDITS.md</code> lists every asset file (QR_LICENSING). The two LGPL libraries are used unchanged, and the game can be rebuilt from our repository against another version of them, as the LGPL requires. Tiled&rsquo;s GPL covers only the editor, not the maps made with it. The one condition that limits us is Cozy World&rsquo;s ban on sharing its tiles as a pack, so the repository and JAR keep only the tiles the map uses, inside the game. No licence asks for a credit in the game; the packs are credited on the website.</p>
 
 <h2>2. Features of the requirements not (fully) implemented</h2>
-<p>IDs are from Req1. Every requirement due in Assessment 1 (A1 = Yes) is implemented; the first two rows say where the evidence is still incomplete. The other rows are Assessment 2 requirements, some of them started early.</p>
+<p>IDs are from Req1. Every A1 requirement is implemented in the code; the first two rows are where the acceptance evidence that Req1 asks for is not complete yet. The rest are Assessment 2 requirements.</p>
 <table>
-  <colgroup><col style="width:27%"><col style="width:6%"><col style="width:14%"><col style="width:53%"></colgroup>
+  <colgroup><col style="width:25%"><col style="width:6%"><col style="width:15%"><col style="width:54%"></colgroup>
   <thead><tr><th>Requirement</th><th>A1</th><th>State</th><th>Why, and what is left</th></tr></thead>
-  <tr><td>QR_NEWBIE, QR_WINNABLE</td><td>Yes</td><td>Partly</td><td>Balanced so the food always covers every goose, and checked by simulated games that win with time to spare without any hidden event (<code>WinnableGameTest</code>). Testing with real first-time players is still to do.</td></tr>
-  <tr><td>QR_PLATFORM</td><td>Yes</td><td>Partly</td><td>One JAR for all three systems, built by the website workflow; run and played on macOS. Still to be started on Windows and Linux.</td></tr>
-  <tr><td>FR_GOOSE_VAR, FR_BOSS, FR_EVENT_HINT, FR_MUSIC, FR_REPLAY</td><td>No</td><td>Started early</td><td>A slower head goose with twice the appetite comes in the last wave; each event is a visible prop (a lost backpack, a tall duck by a bucket) that shows a &ldquo;?&rdquo; when the player is near; sound effects but no music; R starts a new game.</td></tr>
-  <tr><td>FR_PICKUP_ITEMS, FR_SCORE, FR_LEVELS, FR_TOKENS, FR_POCKET_MAP</td><td>No</td><td>Not implemented</td><td>Planned for Assessment 2. A new item is one new <code>Item</code> subclass, a new event one new <code>IHiddenEvent</code> class, and a score can use the timer and the counters (QR_EXTENSIBLE).</td></tr>
+  <tr><td>QR_NEWBIE, QR_WINNABLE</td><td>Yes</td><td>Not yet verified</td><td>The food covers every goose, and simulated games win with time to spare without any hidden event (<code>WinnableGameTest</code>; open map, perfect clicks). Tests with first-time players (<code>docs/testing/playtest.md</code>) are still to do.</td></tr>
+  <tr><td>QR_PLATFORM, QR_STABLE</td><td>Yes</td><td>Partly verified</td><td>One JAR for all systems; started and played on macOS, where a whole game played by a script on the real map ended without an exception. Windows and Linux still to try.</td></tr>
+  <tr><td>FR_GOOSE_VAR, FR_BOSS, FR_EVENT_HINT, FR_MUSIC, FR_REPLAY</td><td>No</td><td>Started early</td><td>A slower head goose with twice the appetite; events are visible props that show a &ldquo;?&rdquo; nearby; sound effects but no music; R starts a new game.</td></tr>
+  <tr><td>FR_PICKUP_ITEMS, FR_SCORE, FR_LEVELS, FR_TOKENS, FR_POCKET_MAP</td><td>No</td><td>Not implemented</td><td>For Assessment 2. A new item is one <code>Item</code> subclass and a new event one <code>IHiddenEvent</code> class plus an <code>EventSpot</code> (QR_EXTENSIBLE).</td></tr>
 </table>
 
 </body>

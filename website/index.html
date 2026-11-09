@@ -59,13 +59,34 @@
     .soon { color: var(--muted); font-style: italic; }
     a { color: var(--accent); }
     footer { margin-top: 56px; color: var(--muted); font-size: 0.9rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 28px; font-weight: 600; }
+    .quick { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 24px; }
+    .quick a { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; text-decoration: none; font-weight: 600; }
+    .quick span { display: block; color: var(--muted); font-weight: 400; font-size: 0.9rem; }
+    img.figure { width: 100%; height: auto; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
   </style>
 </head>
 <body>
   <main>
+    <nav aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="index.html#deliverables">Deliverables</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="plan.html">Plan</a>
+      <a href="index.html#play">Play the game</a>
+      <a href="https://github.com/E26180/ENG1-GoosePatrol-TeamN">Source code</a>
+    </nav>
     <p class="eyebrow">ENG1 Software Engineering · University of York</p>
     <h1>Goose Patrol</h1>
     <p class="lead">Waves of hungry geese are coming across the University of York campus. Feed them until they fly away, and clear every wave before the 5-minute timer runs out. No geese are harmed.</p>
+
+    <div class="quick">
+      <a href="#deliverables">Assessment 1 documents<span>Req1, Arch1, Plan1, Risk1, Impl1 (PDF)</span></a>
+      <a href="GoosePatrol-1.0.0.jar" download>Download the game<span>GoosePatrol-1.0.0.jar, Java 17</span></a>
+      <a href="https://github.com/E26180/ENG1-GoosePatrol-TeamN">Source code repository<span>GitHub: E26180/ENG1-GoosePatrol-TeamN</span></a>
+      <a href="architecture.html">Architecture<span>Full diagrams, CRC cards, every version</span></a>
+      <a href="plan.html">Plan<span>Weekly Gantt snapshots</span></a>
+    </div>
 
     <h2>The game</h2>
     <div class="card">
@@ -92,7 +113,7 @@
       <li>Sean</li>
     </ul>
 
-    <h2>Assessment 1 deliverables</h2>
+    <h2 id="deliverables">Assessment 1 deliverables</h2>
     <div class="card">
       <table>
         <thead>
@@ -103,43 +124,17 @@
           <tr><td>Architecture</td><td><a href="docs/Arch1.pdf">Arch1.pdf</a></td></tr>
           <tr><td>Method selection and planning</td><td><a href="docs/Plan1.pdf">Plan1.pdf</a></td></tr>
           <tr><td>Risk assessment and mitigation</td><td><a href="docs/Risk1.pdf">Risk1.pdf</a></td></tr>
-          <tr><td>Implementation</td><td><a href="docs/Impl1.pdf">Impl1.pdf</a></td></tr>
+          <tr><td>Implementation</td><td><a href="docs/Impl1.pdf">Impl1.pdf</a>, code in the <a href="https://github.com/E26180/ENG1-GoosePatrol-TeamN">repository</a>, game: <a href="GoosePatrol-1.0.0.jar" download>GoosePatrol-1.0.0.jar</a></td></tr>
         </tbody>
       </table>
     </div>
 
-    <h2>Architecture versions</h2>
+    <h2>Architecture and plan</h2>
     <div class="card">
-      <p>The architecture changed as we learned more. Every version is kept here so the changes can be followed.</p>
-      <table>
-        <thead>
-          <tr><th scope="col">Version</th><th scope="col">What changed</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><a href="architecture/v1-draft.pdf">v1 draft</a></td><td>First component and activity diagrams</td></tr>
-          <tr><td><a href="architecture/v2-draft.pdf">v2 draft</a></td><td>Checked against the requirements and the code, with a table of the changes from v1</td></tr>
-          <tr><td><a href="architecture/items-subsystem.pdf">Items and Inventory</a></td><td>Class diagram, sequence diagram and CRC cards for the item package, and how it evolved</td></tr>
-          <tr><td><a href="docs/Arch1.pdf">v3 final</a></td><td>Matched to the finished code: component, class, activity and sequence diagrams with the geese, CRC cards, traceability and the reasons for each change (<a href="architecture/final-class.svg">class diagram</a>, <a href="architecture/final-component.svg">component diagram</a>)</td></tr>
-        </tbody>
-      </table>
+      <p>The <a href="architecture.html">architecture page</a> has the full-detail diagrams, the CRC cards and every interim version of the design. The <a href="plan.html">plan page</a> has a Gantt snapshot of the plan for every week.</p>
     </div>
 
-    <h2>Plan versions</h2>
-    <div class="card">
-      <p>The project plan as a Gantt chart at each version, so the changes can be followed.</p>
-      <table>
-        <thead>
-          <tr><th scope="col">Version</th><th scope="col">What changed</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><a href="plan/plan-v1.svg">v1, 7 Oct</a></td><td>Kick-off plan with weekly milestones</td></tr>
-          <tr><td><a href="plan/plan-v2.svg">v2, 12 Oct</a></td><td>Week 2 split into sub-team tasks; client meeting added</td></tr>
-          <tr><td><a href="plan/plan-v3.svg">v3, 9 Nov</a></td><td>Re-plan of the remaining work, with the actual progress from the repository</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2>Play the game</h2>
+    <h2 id="play">Play the game</h2>
     <div class="card">
       <p><a href="GoosePatrol-1.0.0.jar" download>Download GoosePatrol-1.0.0.jar</a> (about 17 MB). It runs on Windows, macOS and Linux with Java 17 or newer. Double-click it, or run <code>java -jar GoosePatrol-1.0.0.jar</code></p>
       <p><strong>How to play:</strong> three waves of hungry geese come to Campus East. Click a goose with the Bag of Oats (key 1), or throw Bread (key 2) near a group. A full goose flies away happily. Feed every goose before the 5 minutes run out. A goose that flashes red and honks wants your snack, so step away or feed it. Odd things are hidden around campus, such as a lost backpack and a tall duck staring at a bucket: walk up to them to see what they do. Tips appear while you play (T hides them).</p>

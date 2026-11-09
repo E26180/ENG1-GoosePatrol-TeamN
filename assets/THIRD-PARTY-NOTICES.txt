@@ -1,0 +1,53 @@
+Goose Patrol - third-party software and assets
+==============================================
+
+This game (ENG1 Team 2, University of York) includes the following third-party
+software and assets. Each is used under the licence named. The full licence texts
+are at the links given. The game's own code, sprites and sound effects are the
+team's own work.
+
+Software (inside GoosePatrol-1.0.0.jar)
+---------------------------------------
+libGDX 1.14.2 (gdx, gdx-backend-lwjgl3, gdx-platform, gdx-jnigen-loader 2.5.2)
+  Apache License 2.0 - https://www.apache.org/licenses/LICENSE-2.0
+  Source: https://github.com/libgdx/libgdx
+
+LWJGL 3.4.3 (lwjgl, glfw, opengl, openal, stb, jemalloc)
+  BSD 3-Clause licence - https://www.lwjgl.org/license
+  The native libraries it loads (GLFW, OpenAL Soft, stb, jemalloc) are under their own
+  open licences, listed on the same page.
+
+JLayer 1.0.1-gdx (MP3 decoding, included by the libGDX desktop backend)
+  GNU Lesser (Library) General Public License, version 2 or later
+  https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html
+  Source: https://github.com/libgdx/jlayer
+
+JOrbis 0.0.17 (Ogg Vorbis decoding, included by the libGDX desktop backend)
+  GNU Lesser (Library) General Public License, version 2 or later
+  https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html
+  Source: http://www.jcraft.com/jorbis/
+
+  Both LGPL libraries are used unmodified. The game's source code and build files are in
+  the team repository, so the game can be rebuilt with a different version of either
+  library, as the LGPL allows.
+
+StartupHelper.java by damios (macOS start-up helper from the gdx-liftoff template)
+  Apache License 2.0 - https://www.apache.org/licenses/LICENSE-2.0
+
+Liberation Sans bitmap font (inside the libGDX jar, used for all text)
+  SIL Open Font License 1.1 - https://openfontlicense.org
+
+Art (in the maps folder)
+------------------------
+Cozy World Kit 32 (free), VibeForge - https://vibeforge.itch.io
+  Free for personal and commercial use and may be modified. It may not be resold or
+  redistributed as standalone assets, so only the tiles the campus map uses are included.
+  Licence: maps/cozy_world_kit_32_free/LICENSE.txt
+
+Mini Nature Tileset (free), anonymous author
+  Free for personal and commercial use; may be modified and redistributed; no credit
+  required. Licence: maps/Mini Nature Tileset Free/readme.txt.txt
+
+Ranitaya's 50+ City Essential Assets Pack, Ranitaya Studios
+  https://ranitaya-studios.itch.io/ranitayas-city-essential
+  "Royalty-free for personal and commercial projects. Modify, re-color, and customize."

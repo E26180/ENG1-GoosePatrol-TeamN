@@ -27,4 +27,4 @@ Results go into Impl1 (features table) and Risk1 (R17, R18).
 | 2 | | | | | | | | |
 | 3 | | | | | | | | |
 
-**Pass mark:** every player wins in game 1 or game 2 (QR_NEWBIE), and at least 80% of all games played are won (QR_WINNABLE).
+**Pass mark:** every player wins in game 1 or game 2 (QR_NEWBIE), and more than 80% of all games played are won (QR_WINNABLE).

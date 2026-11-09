@@ -109,7 +109,7 @@ def class_diagram():
                          "+ update(): void"])
     screen = Box(480, 40, 330, "GameScreen", "screen", kind="other",
                  ops=["calls update(delta) every frame",
-                      "draws slotText(1..9) and getItemsUsed()",
+                      "draws icons, uses, cooldowns, getItemsUsed()",
                       "on click: useSelected(mouseX, mouseY)"])
     inventory = Box(40, 260, 360, "Inventory",
                     attrs=["+ MAX_SLOTS: int = 9 {static}",
@@ -143,11 +143,11 @@ def class_diagram():
                  ops=["its EventSpot effect: addItem(new",
                       "EnergyDrinkItem(...)), addUses(10) on Bread"])
     oats = Box(380, 700, 260, "OatsItem",
-               attrs=["+ HUNGER_FILLED = 0.5f", "+ START_USES = 10", "- geese: GooseLocator"],
+               attrs=["+ HUNGER_FILLED = 0.5f", "+ START_USES = 15", "- geese: GooseLocator"],
                ops=["# applyEffect(x, y): boolean"])
     bread = Box(660, 700, 250, "BreadItem",
-                attrs=["+ HUNGER_FILLED = 0.5f", "+ RADIUS_PIXELS = 30f",
-                       "+ COOLDOWN_SECONDS = 3f", "+ START_USES = 5", "- geese: GooseLocator"],
+                attrs=["+ RADIUS_PIXELS = 60f", "+ MAX_GEESE = 10",
+                       "+ COOLDOWN_SECONDS = 3f", "+ START_USES = 6", "- geese: GooseLocator"],
                 ops=["# applyEffect(x, y): boolean"])
     drink = Box(930, 700, 250, "EnergyDrinkItem",
                 attrs=["+ SPEED_MULTIPLIER = 1.5f", "+ BOOST_SECONDS = 5f",
@@ -311,10 +311,10 @@ def sequence_diagram():
     out.append(text(612, fy + 76, "[else]", 12))
     self_msg(4, fy + 86, "applyEffect(x, y)", dx=6)
     act(4, fy + 96, fy + 250, dx=6)
-    msg(4, 5, fy + 128, "geeseNear(x, y, 30)", dx_from=6)
+    msg(4, 5, fy + 128, "geeseNear(x, y, 60)", dx_from=6)
     act(5, fy + 122, fy + 160)
-    msg(5, 4, fy + 156, "geese within 30 px", ret=True, dx_to=6)
-    frame(700, fy + 172, 1178, fy + 240, "loop", "[for each goose in the list]")
+    msg(5, 4, fy + 156, "geese within 60 px, nearest first", ret=True, dx_to=6)
+    frame(700, fy + 172, 1178, fy + 240, "loop", "[for the first 10 geese in the list]")
     msg(4, 6, fy + 222, "feed(0.5)", dx_from=6)
     act(6, fy + 216, fy + 234)
     self_msg(4, fy + 258, "usesLeft - 1,  cooldownLeft = 3 s")
@@ -330,7 +330,7 @@ def sequence_diagram():
     act(1, y - 10, y + 50)
     msg(1, 3, y, "update(delta)  counts the cooldown down")
     act(3, y - 6, y + 44)
-    msg(1, 3, y + 34, "slotText(2)  →  \"2: Bread 4/5 (wait 3s)\" on the HUD")
+    msg(1, 3, y + 34, "getUsesLeft(), getCooldownLeft()  read by the Hud to draw slot 2")
     out.append("</svg>")
     return "\n".join(out)
 
