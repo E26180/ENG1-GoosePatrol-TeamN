@@ -4,67 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Plan · Goose Patrol</title>
-  <meta name="description" content="Weekly Gantt snapshots of the Goose Patrol project plan.">
-  <style>
-    :root {
-      --bg: #f5f2e8;
-      --card: #fffdf7;
-      --text: #1e2b26;
-      --muted: #4a5149;
-      --accent: #b85f0a;
-      --line: #e2dccb;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1e2b26;
-        --card: #26362f;
-        --text: #f5f2e8;
-        --muted: #c9d2c5;
-        --accent: #f2a541;
-        --line: #3a4a42;
-      }
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      line-height: 1.6;
-    }
-    main { max-width: 860px; margin: 0 auto; padding: 48px 16px 64px; }
-    .eyebrow {
-      color: var(--accent);
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      margin: 0;
-    }
-    h1 { font-size: clamp(2.4rem, 7vw, 3.6rem); line-height: 1.1; margin: 8px 0 12px; }
-    h2 { font-size: 1.5rem; margin: 48px 0 12px; }
-    .lead { font-size: 1.15rem; color: var(--muted); margin: 0; }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 20px 24px;
-    }
-    ul { padding-left: 1.2rem; margin: 0; }
-    .team { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding: 0; list-style: none; }
-    .team li { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; font-weight: 600; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); }
-    th { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
-    .soon { color: var(--muted); font-style: italic; }
-    a { color: var(--accent); }
-    footer { margin-top: 56px; color: var(--muted); font-size: 0.9rem; }
-    nav { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 28px; font-weight: 600; }
-    .quick { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 24px; }
-    .quick a { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; text-decoration: none; font-weight: 600; }
-    .quick span { display: block; color: var(--muted); font-weight: 400; font-size: 0.9rem; }
-    img.figure { width: 100%; height: auto; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
-  </style>
+  <meta name="description" content="Weekly snapshots of the Goose Patrol project plan.">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
@@ -78,48 +19,16 @@
     </nav>
     <p class="eyebrow">Planning</p>
     <h1>Plan</h1>
-    <p class="lead">A Gantt snapshot of the plan for every week of the project, as discussed in <a href="docs/Plan1.pdf">Plan1.pdf</a>. Blue: the plan at that time; orange: the re-plan; green: the actual work, from the first commit to the merge on <code>main</code>; red and bold: the critical path.</p>
-    <div class="card" style="margin-top:20px">
-      <p>We did not save a chart every week at the time. All six were drawn on 9&ndash;10 November by <code>docs/plan/source/draw_plan.py</code> from the kick-off notes, the GitHub issues and the repository history. Weeks 3&ndash;5 are reconstructed and marked as such.</p>
+    <p class="lead">Weekly snapshots of the project plan. How the plan changed over the project is discussed in <a href="docs/Plan1.pdf">Plan1.pdf</a>.</p>
+
+    <h2>Weekly snapshots</h2>
+    <div id="plan-files">
+      <div class="card"><p class="soon">Nothing has been added yet.</p></div>
     </div>
 
-    <h2>Week 6 (9 Nov)</h2>
-    <div class="card">
-      <p>Plan v3: re-plan of the remaining work. <a href="plan/plan-week6.svg">Open full size</a></p>
-      <a href="plan/plan-week6.svg"><img class="figure" src="plan/plan-week6.svg" alt="Gantt chart, week 6" loading="lazy"></a>
-    </div>
-
-    <h2>Week 5 (2 Nov)</h2>
-    <div class="card">
-      <p>Plan v2 with the progress that week (reconstructed from the repository history). <a href="plan/plan-week5.svg">Open full size</a></p>
-      <a href="plan/plan-week5.svg"><img class="figure" src="plan/plan-week5.svg" alt="Gantt chart, week 5" loading="lazy"></a>
-    </div>
-
-    <h2>Week 4 (26 Oct)</h2>
-    <div class="card">
-      <p>Plan v2 with the progress that week (reconstructed from the repository history). <a href="plan/plan-week4.svg">Open full size</a></p>
-      <a href="plan/plan-week4.svg"><img class="figure" src="plan/plan-week4.svg" alt="Gantt chart, week 4" loading="lazy"></a>
-    </div>
-
-    <h2>Week 3 (19 Oct)</h2>
-    <div class="card">
-      <p>Plan v2 with the progress that week (reconstructed from the repository history). <a href="plan/plan-week3.svg">Open full size</a></p>
-      <a href="plan/plan-week3.svg"><img class="figure" src="plan/plan-week3.svg" alt="Gantt chart, week 3" loading="lazy"></a>
-    </div>
-
-    <h2>Week 2 (12 Oct)</h2>
-    <div class="card">
-      <p>Plan v2: week 2 split into GitHub issues for sub-teams. <a href="plan/plan-week2.svg">Open full size</a></p>
-      <a href="plan/plan-week2.svg"><img class="figure" src="plan/plan-week2.svg" alt="Gantt chart, week 2" loading="lazy"></a>
-    </div>
-
-    <h2>Week 1 (7 Oct)</h2>
-    <div class="card">
-      <p>Plan v1 from the kick-off meeting. <a href="plan/plan-week1.svg">Open full size</a></p>
-      <a href="plan/plan-week1.svg"><img class="figure" src="plan/plan-week1.svg" alt="Gantt chart, week 1" loading="lazy"></a>
-    </div>
-
-    <footer>Goose Patrol · ENG1 Team 2 · University of York, 2026</footer>
+    <footer>Goose Patrol · ENG1 Team 2 · University of York, 2026 · <a href="index.html#ai">About this website</a></footer>
   </main>
+  <script src="gallery.js"></script>
+  <script>showGallery("plan", "plan-files");</script>
 </body>
 </html>

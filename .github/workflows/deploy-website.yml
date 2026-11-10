@@ -56,8 +56,12 @@ jobs:
           mkdir -p _site/docs _site/architecture _site/plan _site/testing
           cp -r website/. _site/
           cp docs/assessment1/*.pdf _site/docs/ 2>/dev/null || true
-          cp docs/architecture/*.pdf docs/architecture/*.svg _site/architecture/ 2>/dev/null || true
-          cp docs/plan/*.svg _site/plan/ 2>/dev/null || true
+          # the team's diagrams, CRC cards and plan snapshots: every file in these folders is published
+          # and listed in files.json, which architecture.html and plan.html read to show them
+          for folder in architecture plan; do
+            if [ -d "docs/$folder" ]; then find "docs/$folder" -maxdepth 1 -type f ! -name '.*' -exec cp {} "_site/$folder/" \; ; fi
+            python3 -c 'import json, os, sys; d = sys.argv[1]; print(json.dumps(sorted(f for f in os.listdir(d) if f != "files.json")))' "_site/$folder" > "_site/$folder/files.json"
+          done
           cp lwjgl3/build/libs/GoosePatrol-1.0.0.jar _site/
           if [ -d docs/testing/images ]; then cp -r docs/testing/images _site/testing/; fi
           for note in docs/testing/*.md; do

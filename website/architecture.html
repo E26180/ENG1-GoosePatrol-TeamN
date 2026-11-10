@@ -4,67 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Architecture · Goose Patrol</title>
-  <meta name="description" content="Architecture of Goose Patrol: full UML diagrams, CRC cards and every interim version.">
-  <style>
-    :root {
-      --bg: #f5f2e8;
-      --card: #fffdf7;
-      --text: #1e2b26;
-      --muted: #4a5149;
-      --accent: #b85f0a;
-      --line: #e2dccb;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1e2b26;
-        --card: #26362f;
-        --text: #f5f2e8;
-        --muted: #c9d2c5;
-        --accent: #f2a541;
-        --line: #3a4a42;
-      }
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      line-height: 1.6;
-    }
-    main { max-width: 860px; margin: 0 auto; padding: 48px 16px 64px; }
-    .eyebrow {
-      color: var(--accent);
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      margin: 0;
-    }
-    h1 { font-size: clamp(2.4rem, 7vw, 3.6rem); line-height: 1.1; margin: 8px 0 12px; }
-    h2 { font-size: 1.5rem; margin: 48px 0 12px; }
-    .lead { font-size: 1.15rem; color: var(--muted); margin: 0; }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 20px 24px;
-    }
-    ul { padding-left: 1.2rem; margin: 0; }
-    .team { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding: 0; list-style: none; }
-    .team li { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; font-weight: 600; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); }
-    th { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
-    .soon { color: var(--muted); font-style: italic; }
-    a { color: var(--accent); }
-    footer { margin-top: 56px; color: var(--muted); font-size: 0.9rem; }
-    nav { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 28px; font-weight: 600; }
-    .quick { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 24px; }
-    .quick a { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; text-decoration: none; font-weight: 600; }
-    .quick span { display: block; color: var(--muted); font-weight: 400; font-size: 0.9rem; }
-    img.figure { width: 100%; height: auto; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
-  </style>
+  <meta name="description" content="Architecture of Goose Patrol: the Arch1 report and the evidence of the design process.">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
@@ -78,74 +19,16 @@
     </nav>
     <p class="eyebrow">Architecture</p>
     <h1>Architecture</h1>
-    <p class="lead">The full-detail diagrams behind <a href="docs/Arch1.pdf">Arch1.pdf</a>, the CRC cards, and every interim version, so the design process can be followed. All diagrams are UML 2, drawn by Python scripts in <code>docs/architecture/source/</code> of the repository.</p>
+    <p class="lead">The architecture report is <a href="docs/Arch1.pdf">Arch1.pdf</a>. This page holds the evidence of the design process that the report links to: interim versions of the diagrams and the CRC cards.</p>
 
-    <h2>Final design (v3)</h2>
-    <div class="card" style="margin-bottom:16px">
-      <h3 style="margin-top:0">Component diagram (v3)</h3>
-      <p>Every component with its classes, requirement IDs and the interfaces between them. <a href="architecture/final-component.svg">Open full size</a></p>
-      <a href="architecture/final-component.svg"><img class="figure" src="architecture/final-component.svg" alt="Component diagram (v3)" loading="lazy"></a>
-    </div>
-    <div class="card" style="margin-bottom:16px">
-      <h3 style="margin-top:0">Class diagram (v3)</h3>
-      <p>Every main class with attributes, operations and associations, coloured by package. <a href="architecture/final-class.svg">Open full size</a></p>
-      <a href="architecture/final-class.svg"><img class="figure" src="architecture/final-class.svg" alt="Class diagram (v3)" loading="lazy"></a>
-    </div>
-    <div class="card" style="margin-bottom:16px">
-      <h3 style="margin-top:0">Activity diagram (v3)</h3>
-      <p>What one frame does, from the start screen to the result. <a href="architecture/final-activity.svg">Open full size</a></p>
-      <a href="architecture/final-activity.svg"><img class="figure" src="architecture/final-activity.svg" alt="Activity diagram (v3)" loading="lazy"></a>
-    </div>
-    <div class="card" style="margin-bottom:16px">
-      <h3 style="margin-top:0">Sequence diagram: one frame (v3)</h3>
-      <p>Every object involved in one frame while playing. <a href="architecture/final-sequence.svg">Open full size</a></p>
-      <a href="architecture/final-sequence.svg"><img class="figure" src="architecture/final-sequence.svg" alt="Sequence diagram: one frame (v3)" loading="lazy"></a>
-    </div>
-    <div class="card" style="margin-bottom:16px">
-      <h3 style="margin-top:0">Sequence diagram: feeding geese with Bread</h3>
-      <p>How a click with Bread reaches the nearest geese (FR_MULTI_TARGET). <a href="architecture/items-sequence.svg">Open full size</a></p>
-      <a href="architecture/items-sequence.svg"><img class="figure" src="architecture/items-sequence.svg" alt="Sequence diagram: feeding geese with Bread" loading="lazy"></a>
-    </div>
-    <div class="card" style="margin-bottom:16px">
-      <h3 style="margin-top:0">Class diagram of the item package</h3>
-      <p>Item, its subclasses, the inventory and the interfaces they use. <a href="architecture/items-class.svg">Open full size</a></p>
-      <a href="architecture/items-class.svg"><img class="figure" src="architecture/items-class.svg" alt="Class diagram of the item package" loading="lazy"></a>
+    <h2>Diagrams and CRC cards</h2>
+    <div id="architecture-files">
+      <div class="card"><p class="soon">Nothing has been added yet.</p></div>
     </div>
 
-    <h2>CRC cards</h2>
-    <div class="card">
-      <p>Responsibilities and collaborators of the main classes.</p>
-      <table>
-  
-  <thead><tr><th>Class</th><th>Responsibilities</th><th>Collaborators</th></tr></thead>
-  <tr><td>GameScreen</td><td>Creates one game; reads the keys and mouse; calls the other parts once per frame in a fixed order; draws the map and player</td><td>GameSession, Player, Inventory, EventSpot, MapManager, Hud</td></tr>
-  <tr><td>GameSession</td><td>Knows the state (ready, playing, paused, won, lost); starts and pauses the timer; decides the result; counts events</td><td>GameTimer, WaveStatus</td></tr>
-  <tr><td>GameTimer</td><td>Counts the 5 minutes down only while running; formats the time for the HUD</td><td>&ndash;</td></tr>
-  <tr><td>Player</td><td>Moves in small steps, stops at walls and the map edge; applies and ends speed boosts; finds a free start spot</td><td>CollisionChecker</td></tr>
-  <tr><td>Inventory / Item</td><td>Holds up to nine items; selects one; uses it where the player clicked; enforces uses and cooldowns; counts items used</td><td>GooseLocator, Feedable, SpeedBoostTarget</td></tr>
-  <tr><td>EventSpot</td><td>Triggers its hidden event once when the player walks into range, then runs the event&rsquo;s effect</td><td>IHiddenEvent</td></tr>
-  <tr><td>MapManager / CollisionManager</td><td>Loads and draws the Tiled campus map; reads the collision rectangles; answers &ldquo;is this space blocked?&rdquo;</td><td>libGDX TmxMapLoader</td></tr>
-  <tr><td>Hud</td><td>Draws the time, goals, counters, inventory bar, messages and the start, pause and result screens, always with text as well as colour</td><td>GameSession, Inventory, Player, WaveStatus</td></tr>
-  <tr><td>GooseManager</td><td>Sends the waves; moves and separates the geese; finds geese for the items; blocks the player; startles the player when a snatch lands; reports when every wave is fed</td><td>Goose, Wave, GooseListener, SpeedBoostTarget</td></tr>
-  <tr><td>Goose</td><td>Walks to the player, flapping over obstacles; warns, then snatches; fills its hunger bar and flies away when full</td><td>GooseType, CollisionChecker</td></tr>
-</table>
-
-    </div>
-
-    <h2>How the design evolved</h2>
-    <div class="card">
-      <table>
-        <thead><tr><th scope="col">Version</th><th scope="col">What changed</th></tr></thead>
-        <tbody>
-          <tr><td><a href="architecture/v1-draft.pdf">v1 draft</a></td><td>First component and activity diagrams, from the product brief</td></tr>
-          <tr><td><a href="architecture/v2-draft.pdf">v2 draft</a></td><td>Checked against Req1 and the first code, with a table of the changes from v1</td></tr>
-          <tr><td><a href="architecture/items-subsystem.pdf">Items and Inventory</a></td><td>The first package built: class and sequence diagrams, CRC cards and its own history</td></tr>
-          <tr><td><a href="docs/Arch1.pdf">v3 final</a></td><td>Matched to the finished code, with the geese, the reasons for each change and traceability to Req1 and the tests</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <footer>Goose Patrol · ENG1 Team 2 · University of York, 2026</footer>
+    <footer>Goose Patrol · ENG1 Team 2 · University of York, 2026 · <a href="index.html#ai">About this website</a></footer>
   </main>
+  <script src="gallery.js"></script>
+  <script>showGallery("architecture", "architecture-files");</script>
 </body>
 </html>
