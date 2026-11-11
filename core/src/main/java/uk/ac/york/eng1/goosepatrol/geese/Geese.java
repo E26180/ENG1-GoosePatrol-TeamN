@@ -1,7 +1,6 @@
 package uk.ac.york.eng1.goosepatrol.geese;
 
 import uk.ac.york.eng1.goosepatrol.item.Feedable;
-import java.util.List;
 
 /**
  * Base class for geese
@@ -12,13 +11,9 @@ public class Geese implements Feedable
     private float GooseX;
     private float GooseY;
     private float GooseHunger;
-    private float GooseSpeed;
+    private float GooseSpeed = 5;
+    private int WaveCount = 1;
     private final float MaxGooseHunger = 10;
-
-    public float GetGooseHunger()
-    {
-        return GooseHunger;
-    }
 
     public void SetGooseSpeed(float imp)
     {
@@ -33,21 +28,6 @@ public class Geese implements Feedable
     public void GooseDistracted()
     {
 
-    }
-
-    public void feed(float amount)
-    {
-        GooseHunger -= amount;
-    }
-
-    public Feedable gooseAt(float imp1, float imp2)
-    {
-        return null;
-    }
-
-    public List<? extends Feedable> geeseNear(float imp1, float imp2, float imp3)
-    {
-        return null;
     }
 
     @Override
@@ -76,5 +56,10 @@ public class Geese implements Feedable
         {
             GooseFlyAway();
         }
+    }
+
+    public void NewWave()
+    {
+
     }
 }
