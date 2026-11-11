@@ -69,12 +69,14 @@ public class Main extends ApplicationAdapter {
         for (int i = 0; i < testGooseX.length; i++) {
             hud.drawFeedBar(mapManager.getCamera(), testGooseX[i], testGooseY[i], testFeedLevel[i]);
         }
-        hud.draw(batch, 95, false, 3, 1);
+        hud.draw(batch, 95, false, bag.getUsed(), 1);
     }
 
 
     /**
-     * Resizes the HUD when the window size changes.
+     * Resizes the HUD when the window size changes
+     * @param width the new window width in pixels
+     * @param height the new window height in pixels
      */
     @Override
     public void resize(int width, int height) {

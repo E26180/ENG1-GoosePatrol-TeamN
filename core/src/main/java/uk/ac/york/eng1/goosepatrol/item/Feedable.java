@@ -30,4 +30,10 @@ public interface Feedable {
      * Satisfies the target's hunger.
      */
     void feed();
+
+    /**
+     * How full the goose is, used by the HUD feed bar.
+     * @return a value from 0 (empty) to 1 (full)
+     */
+    float getFeedLevel();
 }
