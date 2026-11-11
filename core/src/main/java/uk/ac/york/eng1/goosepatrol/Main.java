@@ -24,11 +24,11 @@ public class Main extends ApplicationAdapter {
 
     //TODO: test geese for the HUD feed bars, replace with the real Geese class later
     //x positions of the test geese in the world
-    private float[] testGooseX= {400, 800, 1200};
+    private final float[] testGooseX= {400, 800, 1200};
     //y positions of the test geese in the world
-    private float[] testGooseY= {300, 640, 900};
+    private final float[] testGooseY= {300, 640, 900};
     //how full each test goose is, from 0 (empty) to 1 (full)
-    private float[] testFeedLevel= {0.2f, 0.5f, 1f};
+    private final float[] testFeedLevel= {0.2f, 0.5f, 1f};
 
     private final List<Feedable> geese = new ArrayList<>();
 
@@ -69,6 +69,7 @@ public class Main extends ApplicationAdapter {
         for (int i = 0; i < testGooseX.length; i++) {
             hud.drawFeedBar(mapManager.getCamera(), testGooseX[i], testGooseY[i], testFeedLevel[i]);
         }
+        //TODO: replace 95, false and 1 with the real timer, pause and event counter
         hud.draw(batch, 95, false, bag.getUsed(), 1);
     }
 
