@@ -1,17 +1,21 @@
 package uk.ac.york.eng1.goosepatrol.hidden_event;
 
+import uk.ac.york.eng1.goosepatrol.item.Inventory;
+
 public class HEItems implements IHiddenEvent{
 
     private float posX;
     private float posY;
     private final float activationRadius = 50;
     private final float flagRadius = 100;
+    private Inventory bag;
 
     private boolean isActivated = false;
 
-    public HEItems(float posX, float posY) {
+    public HEItems(float posX, float posY, Inventory inventory) {
         this.posX = posX;
         this.posY = posY;
+        this.bag = inventory;
     }
 
     //Will be completed when there is a player class to use as a parameter

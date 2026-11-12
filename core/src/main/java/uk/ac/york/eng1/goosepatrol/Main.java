@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.york.eng1.goosepatrol.geese.Geese;
 import uk.ac.york.eng1.goosepatrol.item.Feedable;
 import uk.ac.york.eng1.goosepatrol.item.Inventory;
 import uk.ac.york.eng1.goosepatrol.item.ItemInput;
@@ -21,7 +22,7 @@ public class Main extends ApplicationAdapter {
     private Texture image;
     private MapManager mapManager;
 
-    private final List<Feedable> geese = new ArrayList<>();
+    private final List<Geese> geese = new ArrayList<>();
 
     private Inventory bag;
     private ItemInput input;

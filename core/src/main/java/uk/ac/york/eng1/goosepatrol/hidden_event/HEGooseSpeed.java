@@ -1,6 +1,10 @@
 package uk.ac.york.eng1.goosepatrol.hidden_event;
 
+import uk.ac.york.eng1.goosepatrol.geese.Geese;
+import uk.ac.york.eng1.goosepatrol.item.Feedable;
+
 import java.time.Instant;
+import java.util.List;
 
 public class HEGooseSpeed implements IHiddenEvent{
 
@@ -11,10 +15,12 @@ public class HEGooseSpeed implements IHiddenEvent{
 
     private float activationTime = 0f;
     private boolean isActivated = false;
+    private List<Geese> existingGeese;
 
-    public HEGooseSpeed(float posX, float posY) {
+    public HEGooseSpeed(float posX, float posY, List<Geese> geese) {
         this.posX = posX;
         this.posY = posY;
+        this.existingGeese = geese;
     }
 
     //Will be completed when there is a player class to use as a parameter
@@ -41,7 +47,9 @@ public class HEGooseSpeed implements IHiddenEvent{
     }
     @Override
     public void trigger() {
-        //TODO: Goose speed multiplier
+        for (Geese goose : existingGeese) {
+            goose.SetGooseSpeed(7.5f);
+        }
         this.activationTime = Instant.now().getEpochSecond() + 10;
         this.isActivated = true;
     }
@@ -49,7 +57,9 @@ public class HEGooseSpeed implements IHiddenEvent{
     @Override
     public boolean checkActive() {
         if (Instant.now().getEpochSecond() > this.activationTime) {
-            //TODO: Goose speed multiplier
+            for (Geese goose : existingGeese) {
+                goose.SetGooseSpeed(5f);
+            }
             return false;
         } else {
             return true;
