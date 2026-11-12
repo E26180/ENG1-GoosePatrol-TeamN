@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Color;
 //ShapeRenderer- used to draw simple shapes like the feed bars
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+//Sound- used to play short sound effects for the warnings
+import com.badlogic.gdx.audio.Sound;
 
 /** Draws the heads-up display (timer, counters and warnings) on top of the game */
 public class HUD {
@@ -24,6 +26,20 @@ public class HUD {
     //Draws the feed bars above the goose
     private final ShapeRenderer shapeRenderer;
 
+    //Sound effects for the warnings (sound is used together with text and colour)
+    private final Sound honkSound;
+    private final Sound eatSound;
+    private final Sound eventSound;
+    private final Sound winSound;
+    private final Sound loseSound;
+    private final Sound waveSound;
+
+    //true after the "Hurry!" honk has played, so it plays only once
+    private boolean hurryPlayed = false;
+    //Counter values from the last frame, to notice when they go up
+    private int lastItemsUsed = 0;
+    private int lastEventsTriggered = 0;
+
     /** Creates the HUD and loads the default font and creates the shape renderer*/
     public HUD() {
         //libGDX built-in font, so we don't need a font file
@@ -35,6 +51,13 @@ public class HUD {
         camera.setToOrtho(false, Gdx.graphics.getWidth(),  Gdx.graphics.getHeight());
         //Tool for drawing simple shapes, used for the goose feed bars
         shapeRenderer= new ShapeRenderer();
+        //Load the sound files from assets/audio
+        honkSound = Gdx.audio.newSound(Gdx.files.internal("audio/honk.wav"));
+        eatSound = Gdx.audio.newSound(Gdx.files.internal("audio/eat.wav"));
+        eventSound = Gdx.audio.newSound(Gdx.files.internal("audio/event.wav"));
+        winSound = Gdx.audio.newSound(Gdx.files.internal("audio/win.wav"));
+        loseSound = Gdx.audio.newSound(Gdx.files.internal("audio/lose.wav"));
+        waveSound = Gdx.audio.newSound(Gdx.files.internal("audio/wave.wav"));
     }
 
     /**
@@ -48,6 +71,19 @@ public class HUD {
     public void draw(SpriteBatch batch, float secondsLeft, boolean paused, int itemsUsed, int eventsTriggered){
         //Apply any changes to the camera before using it
         camera.update();
+
+        //Play a sound when an item has just been used
+        if (itemsUsed > lastItemsUsed) {
+            eatSound.play();
+        }
+        lastItemsUsed = itemsUsed;
+
+        //Play a sound when a hidden event has just been triggered
+        if (eventsTriggered > lastEventsTriggered) {
+            eventSound.play();
+        }
+        lastEventsTriggered = eventsTriggered;
+
         //Tell the batch to draw in HUD (screen) coordinates, not game world coordinates
         batch.setProjectionMatrix(camera.combined);
         //Small gap from the left edge
@@ -58,6 +94,11 @@ public class HUD {
         batch.begin();
         //Show a warning when 30 sec or less are left
         if ((int) secondsLeft <= 30){
+            //Play the honk only once, when the warning first appears
+            if (!hurryPlayed) {
+                honkSound.play();
+                hurryPlayed = true;
+            }
             //Warning colour for the timer
             font.setColor(Color.RED);
             //Draw the timer in red
@@ -65,6 +106,8 @@ public class HUD {
             //Show a text warning, so the warning does not rely on colour alone
             font.draw(batch, "Hurry!", x+120, y);
         } else {
+            //More than 30 seconds again (e.g. a new game), so the honk can play next time
+            hurryPlayed = false;
             //Normal timer in white
             font.draw(batch, "Time: " + formatTime(secondsLeft), x, y);
         }
@@ -127,6 +170,22 @@ public class HUD {
 
         //Finish drawing the shapes
         shapeRenderer.end();
+
+    }
+
+    /** Plays the win sound. Call this once when the win screen appears */
+    public void playWin() {
+        winSound.play();
+    }
+
+    /** Plays the lose sound. Call this once when the lose screen appears */
+    public void playLose() {
+        loseSound.play();
+    }
+
+    /** Plays the wave sound. Call this once when a new wave starts */
+    public void playWave() {
+        waveSound.play();
     }
 
     /**
@@ -147,12 +206,19 @@ public class HUD {
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-    /** Frees the memory used by the font and the shape renderer. Call this when the game closes */
+    /** Creates the HUD, loads the default font, creates the shape renderer and loads the sounds */
     public void dispose() {
         //the font uses video memory, so it must be freed by hand
         font.dispose();
         //the shape renderer also uses video memory
         shapeRenderer.dispose();
+        //sounds also use memory, so they must be freed too
+        honkSound.dispose();
+        eatSound.dispose();
+        eventSound.dispose();
+        winSound.dispose();
+        loseSound.dispose();
+        waveSound.dispose();
     }
 
 }

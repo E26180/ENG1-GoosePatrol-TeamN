@@ -70,7 +70,8 @@ public class Main extends ApplicationAdapter {
             hud.drawFeedBar(mapManager.getCamera(), testGooseX[i], testGooseY[i], testFeedLevel[i]);
         }
         //TODO: replace 95, false and 1 with the real timer, pause and event counter
-        hud.draw(batch, 95, false, bag.getUsed(), 1);
+        //TODO: call hud.playWave() when a new wave starts, and hud.playWin() / hud.playLose() on the end screens
+        hud.draw(batch, 95, false, bag.getUsed(), 0);
     }
 
 
