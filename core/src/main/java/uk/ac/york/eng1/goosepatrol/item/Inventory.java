@@ -37,6 +37,25 @@ public class Inventory {
     }
 
     /**
+     * Adds an item or combines its uses with an item of the same class.
+     *
+     * @param item item to add
+     * @throws NullPointerException if item is null
+     */
+    public void addItem(Item item) {
+        Objects.requireNonNull(item, "Item cannot be null");
+
+        for (Item stored : this.items) {
+            if (stored.getClass() == item.getClass()) {
+                stored.addUses(item.getUses());
+                return;
+            }
+        }
+
+        this.items.add(item);
+    }
+
+    /**
      * Returns the inventory items.
      *
      * @return an unmodifiable view of the items

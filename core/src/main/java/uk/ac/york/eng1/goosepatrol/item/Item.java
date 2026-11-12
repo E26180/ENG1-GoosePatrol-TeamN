@@ -46,6 +46,20 @@ public abstract class Item {
     }
 
     /**
+     * Adds to the item's remaining uses.
+     *
+     * @param amount number of uses to add
+     * @throws IllegalArgumentException if amount is negative
+     */
+    public void addUses(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount cannot be negative");
+        }
+
+        this.uses += amount;
+    }
+
+    /**
      * Checks whether the item has any uses left.
      *
      * @return true if a use remains
