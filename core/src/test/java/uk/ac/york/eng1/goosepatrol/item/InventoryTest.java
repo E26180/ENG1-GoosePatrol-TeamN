@@ -66,6 +66,19 @@ class InventoryTest {
         public void feed() {
             this.hungry = false;
         }
+
+        /**
+         * Returns how full the goose is, for the HUD feed bar.
+         *
+         * @return 0 if the goose is hungry, 1 if it has been fed
+         */
+        @Override
+        public float getFeedLevel(){
+            if (this.hungry) {
+                return 0f;
+            }
+            return 1f;
+        }
     }
 
     /**
