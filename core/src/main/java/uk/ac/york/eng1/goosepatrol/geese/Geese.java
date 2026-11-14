@@ -1,6 +1,10 @@
 package uk.ac.york.eng1.goosepatrol.geese;
 
 import uk.ac.york.eng1.goosepatrol.item.Feedable;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.math.Rectangle;
+import uk.ac.york.eng1.goosepatrol.CollisionManager;
 
 /**
  * Base class for geese
@@ -10,14 +14,17 @@ public class Geese implements Feedable
 {
     private float GooseX;
     private float GooseY;
-    private float GooseHunger;
+    private float GooseHunger = 0;
     private float GooseSpeed = 5;
-    private int WaveCount = 0;
+    private float GooseWidth = 1f;
+    private float GooseHeight = 1f;
     private final float MaxGooseHunger = 10;
 
-    public Geese()
-    {
+    private GooseWaveManager waveManager;
 
+    public Geese(GooseWaveManager manager)
+    {
+        waveManager = manager;
     }
 
     public void SetGooseSpeed(float imp)
@@ -27,12 +34,7 @@ public class Geese implements Feedable
 
     public void GooseFlyAway()
     {
-
-    }
-
-    public void GooseDistracted()
-    {
-
+        waveManager.removeGoose(this);
     }
 
     @Override
@@ -73,15 +75,32 @@ public class Geese implements Feedable
         }
     }
 
-    public void NewWave()
+    public void GooseMove(PolygonSprite player, CollisionManager collisionManager)
     {
-        WaveCount += 1;
-
+        float playerX = player.getX() + player.getWidth() / 2;
+        float playerY = player.getY() + player.getHeight() / 2;
+        float dx = playerX - (GooseX + GooseWidth / 2);
+        float dy = playerY - (GooseY + GooseHeight / 2);
+        float distance = (float) Math.sqrt(dx * dx + dy * dy);
+        if (distance == 0)
+        {
+            return;
+        }
+        dx /= distance;
+        dy /= distance;
+        float movement = GooseSpeed * Gdx.graphics.getDeltaTime();
+        float moveX = dx * movement;
+        float moveY = dy * movement;
+        Rectangle gooseBounds = new Rectangle(GooseX, GooseY, GooseWidth, GooseHeight);
+        gooseBounds.setPosition(GooseX + moveX, GooseY);
+        if (!collisionManager.collidesWith(gooseBounds))
+        {
+            GooseX += moveX;
+        }
+        gooseBounds.setPosition(GooseX, GooseY + moveY);
+        if (!collisionManager.collidesWith(gooseBounds))
+        {
+            GooseY += moveY;
+        }
     }
-
-    public void GooseMove()
-    {
-
-    }
-
 }
