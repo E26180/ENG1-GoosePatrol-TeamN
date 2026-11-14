@@ -31,11 +31,11 @@ public class Geese implements Feedable
         switch (bound) {
             case 0:
                 this.GooseX = side == 0 ? 10f : 1590f;
-                this.GooseY = (int) (Math.random() * 1180) + 11;
+                this.GooseY = (int) (Math.random() * 1260) + 11;
                 break;
             case 1:
                 this.GooseX = (int) (Math.random() * 1580) + 11;
-                this.GooseY = side == 0 ? 10f : 1190f;
+                this.GooseY = side == 0 ? 10f : 1270;
         }
     }
 
