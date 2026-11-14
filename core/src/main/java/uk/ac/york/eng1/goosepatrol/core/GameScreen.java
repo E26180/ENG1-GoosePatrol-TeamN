@@ -5,10 +5,13 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.utils.ScreenUtils;
 import uk.ac.york.eng1.goosepatrol.MapManager;
 import uk.ac.york.eng1.goosepatrol.HUD;
 import uk.ac.york.eng1.goosepatrol.geese.Geese;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 import uk.ac.york.eng1.goosepatrol.item.Inventory;
 import uk.ac.york.eng1.goosepatrol.item.ItemInput;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HiddenEvent;
@@ -31,6 +34,7 @@ public class GameScreen implements Screen {
     private final Inventory bag;
     private final ItemInput input;
     private GameState state = GameState.PAUSED;   // starts paused
+    private PolygonSprite player; //TODO: Replace with Player class
 
     public GameScreen(CoreMain game) {
         this.game = game;
@@ -39,6 +43,9 @@ public class GameScreen implements Screen {
         this.hud = new HUD();
         this.bag = new Inventory(this.geese);
         this.input = new ItemInput(this.bag, this.mapManager.getCamera());
+        this.hiddenEvents.add(new HEItems(0, 0));
+        this.hiddenEvents.add(new HEGooseSpeed(0, 0));
+
 
     }
 
@@ -56,7 +63,7 @@ public class GameScreen implements Screen {
 
         if (state == GameState.RUNNING) {
             input.update();
-            update(delta);
+            update(delta, this.player);
 
             if (checkEndConditions()) {
                 // The end check will switch screens, so stop drawing this one.
@@ -130,8 +137,20 @@ public class GameScreen implements Screen {
     // --- Update ---
 
     /** Per-frame logic, RUNNING only: timer, player, geese, hidden events. */
-    private void update(float delta) {
+    private void update(float delta, PolygonSprite player) {
         timer.update(delta);
+        //TODO Use player position for hidden events trigger
+        for (HiddenEvent event : hiddenEvents) {
+            if (event.isPlayerInActiveRange(player)) {
+                if (event instanceof HEItems) {
+                    HEItems e = (HEItems) event;
+                    e.trigger(this.bag);
+                } else {
+                    HEGooseSpeed e = (HEGooseSpeed) event;
+                    e.trigger(this.geese);
+                }
+            }
+        }
     }
 
     /** Checks win then lose; switches screen if the round ended. */
