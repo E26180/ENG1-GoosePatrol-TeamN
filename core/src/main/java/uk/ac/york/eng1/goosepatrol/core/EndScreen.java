@@ -2,12 +2,21 @@ package uk.ac.york.eng1.goosepatrol.core;
 
 import com.badlogic.gdx.Screen;
 
-import uk.ac.york.eng1.goosepatrol.Main;
+import uk.ac.york.eng1.goosepatrol.core.CoreMain;
 
 /** Win/lose screen. R or ENTER restarts via Main.startNewGame(). */
 public class EndScreen implements Screen {
 
-    public EndScreen(Main game, boolean won, float timeRemaining) { }
+
+    private CoreMain game;
+    private boolean won;
+    private float timeRemaining;
+
+    public EndScreen(CoreMain game, boolean won, float timeRemaining) {
+        this.game = game;
+        this.won = won;
+        this.timeRemaining = timeRemaining;
+    }
 
     @Override public void show() { }
 

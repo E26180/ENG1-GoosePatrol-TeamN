@@ -4,6 +4,7 @@ audio/honk.wav
 audio/lose.wav
 audio/wave.wav
 audio/win.wav
+font/font.ttf
 libgdx.png
 licenses/Apache-2.0.txt
 licenses/GLFW-zlib.txt
