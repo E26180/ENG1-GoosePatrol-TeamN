@@ -5,10 +5,13 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.utils.ScreenUtils;
 import uk.ac.york.eng1.goosepatrol.MapManager;
 import uk.ac.york.eng1.goosepatrol.HUD;
 import uk.ac.york.eng1.goosepatrol.geese.Geese;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 import uk.ac.york.eng1.goosepatrol.item.Inventory;
 import uk.ac.york.eng1.goosepatrol.item.ItemInput;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HiddenEvent;
@@ -27,12 +30,13 @@ public class GameScreen implements Screen {
     private final GameTimer timer;
     private final MapManager mapManager;
     private final HUD hud;
-    private final List<Geese> geese = new ArrayList<>();
+    private List<Geese> geese = new ArrayList<>();
     private final List<HiddenEvent> hiddenEvents = new ArrayList<>();
     private final Inventory bag;
     private final ItemInput input;
     private GameState state = GameState.PAUSED; // starts paused
     private final GooseWaveManager waveManager;
+    private PolygonSprite player;
 
     /** Creates a new round in the paused state.
      *
@@ -45,6 +49,8 @@ public class GameScreen implements Screen {
         this.bag = new Inventory(this.geese);
         this.input = new ItemInput(this.bag, this.mapManager.getCamera());
         this.waveManager = new GooseWaveManager(this.geese);
+        this.hiddenEvents.add(new HEItems(0, 0));
+        this.hiddenEvents.add(new HEGooseSpeed(0, 0));
 
     }
 
@@ -62,7 +68,7 @@ public class GameScreen implements Screen {
 
         if (state == GameState.RUNNING) {
             input.update();
-            update(delta);
+            update(delta, this.player);
 
             if (checkEndConditions()) {
                 // The end check will switch screens, so stop drawing this one.
@@ -136,10 +142,25 @@ public class GameScreen implements Screen {
     // --- Update ---
 
     /** Updates the timer while the round is running. */
-    private void update(float delta)
+    private void update(float delta, PolygonSprite player)
     {
         timer.update(delta);
 
+        for (HiddenEvent event : this.hiddenEvents) {
+            if (event.isPlayerInActiveRange(this.player)) {
+                if (event instanceof HEItems) {
+                    HEItems e = (HEItems) event;
+                    e.trigger(this.bag);
+                } else {
+                    HEGooseSpeed e = (HEGooseSpeed) event;
+                    e.trigger(this.geese);
+                }
+            }
+        }
+        if (this.hiddenEvents.get(1).getIsActivated()) {
+            HEGooseSpeed event = (HEGooseSpeed) this.hiddenEvents.get(1);
+            this.geese = event.checkActive(this.geese);
+        }
     }
 
     /** Checks win then lose; switches screen if the round ended. */

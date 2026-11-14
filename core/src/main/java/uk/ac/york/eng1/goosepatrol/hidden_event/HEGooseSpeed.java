@@ -3,6 +3,7 @@ package uk.ac.york.eng1.goosepatrol.hidden_event;
 import uk.ac.york.eng1.goosepatrol.geese.Geese;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,7 +69,7 @@ public class HEGooseSpeed extends HiddenEvent {
      * @return boolean flag
      */
 
-    public boolean checkActive(List<Geese> geeseList) {
+    public List<Geese> checkActive(List<Geese> geeseList) {
 
         //Checks if the event is over
         if (Instant.now().getEpochSecond() > this.activationTime) {
@@ -78,9 +79,9 @@ public class HEGooseSpeed extends HiddenEvent {
             for (Geese goose : existingGeese) {
                 goose.SetGooseSpeed(5f);
             }
-            return false;
+            return this.existingGeese;
         } else {
-            return true;
+            return geeseList;
         }
     }
 
