@@ -18,12 +18,18 @@ public class EndScreen implements Screen {
     private float timeRemaining;
     private final OrthographicCamera camera = new OrthographicCamera();
 
+    /** Creates a screen displaying the game result.
+     *
+     * @param game the game managing screens and shared rendering resources
+     * @param won whether the player won the game
+     * @param timeRemaining the remaining game time in seconds */
     public EndScreen(CoreMain game, boolean won, float timeRemaining) {
         this.game = game;
         this.won = won;
         this.timeRemaining = timeRemaining;
     }
 
+    /** Sets up the camera using the current window dimensions. */
     @Override public void show() {
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
@@ -40,6 +46,11 @@ public class EndScreen implements Screen {
         draw();
     }
 
+    /** Updates the camera to match the window dimensions.
+     * Ignores non-positive dimensions.
+     *
+     * @param width the window width in pixels
+     * @param height the window height in pixels */
     @Override public void resize(int width, int height) {
         if (width <= 0 || height <= 0) {
             return;
@@ -58,6 +69,7 @@ public class EndScreen implements Screen {
 
     @Override public void dispose() { }
 
+    /** Clears the screen and draws the result and restart instructions. */
     private void draw() {
         ScreenUtils.clear(0.12f, 0.15f, 0.18f, 1f);
 
