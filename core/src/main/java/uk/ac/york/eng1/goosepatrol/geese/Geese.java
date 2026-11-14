@@ -47,6 +47,16 @@ public class Geese implements Feedable
         return GooseY;
     }
 
+    /**
+     * How full the goose is, used by the HUD feed bar.
+     * @return a value from 0 (empty) to 1 (full)
+     */
+    @Override
+    public float getFeedLevel()
+    {
+        return GooseHunger / MaxGooseHunger;
+    }
+
     @Override
     public boolean isHungry()
     {

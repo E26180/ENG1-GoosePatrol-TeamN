@@ -66,6 +66,19 @@ class InventoryTest {
         public void feed() {
             this.hungry = false;
         }
+
+        /**
+         * Returns how full the goose is, for the HUD feed bar.
+         *
+         * @return 0 if the goose is hungry, 1 if it has been fed
+         */
+        @Override
+        public float getFeedLevel(){
+            if (this.hungry) {
+                return 0f;
+            }
+            return 1f;
+        }
     }
 
     /**
@@ -144,6 +157,33 @@ class InventoryTest {
         assertTrue(goose.isHungry());
         assertEquals(uses, bag.getSelected().getUses());
         assertEquals(0, bag.getUsed());
+    }
+
+    /**
+     * Checks that adding oats increases uses without adding another slot.
+     */
+    @Test
+    void addedOatsCombinesUses() {
+        Inventory bag = new Inventory(List.of());
+        Item oats = bag.getSelected();
+        int uses = oats.getUses();
+
+        bag.addItem(new Oats(3, 32));
+
+        assertEquals(uses + 3, oats.getUses());
+        assertEquals(2, bag.getItems().size());
+        assertSame(oats, bag.getSelected());
+    }
+
+    /**
+     * Checks that adding a negative number of uses is rejected.
+     */
+    @Test
+    void negativeAddedUsesThrows() {
+        Oats oats = new Oats(3, 32);
+
+        assertThrows(IllegalArgumentException.class, () -> oats.addUses(-1));
+        assertEquals(3, oats.getUses());
     }
 
     /**

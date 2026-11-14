@@ -1,78 +1,131 @@
 package uk.ac.york.eng1.goosepatrol.hidden_event;
 
+import uk.ac.york.eng1.goosepatrol.geese.Geese;
+
 import java.time.Instant;
+import java.util.List;
 
-public class HEGooseSpeed implements IHiddenEvent{
+/**
+ * Source code for the negative hidden event
+ *      This speeds geese up by 30% (speed 5 up to 6.5) for 10 seconds, then brings them
+ *          back to normal speed
+ *      Extends HiddenEvent class which contains get methods, activate() and player distance
+ *          methods
+ */
 
-    private final float posX;
-    private final float posY;
-    private final float activationRadius = 50;
-    private final float flagRadius = 100;
+public class HEGooseSpeed extends HiddenEvent {
 
-    private float activationTime = 0f;
-    private boolean isActivated = false;
+    //Event end time
+    private long activationTime = 0L;
+
+    //All existing geese
+    private List<Geese> existingGeese;
+
+    //Event time remaining during pause
+    private long remainingWhenPaused = 0L;
+
+    //Boolean flag (true if the game is paused, false otherwise)
+    private boolean isPaused = false;
+
+
+    /**
+     * Constructor that sets the event activation coordinates
+     *
+     * @param posX X-coordinate of event
+     * @param posY Y-coordinate of event
+     */
 
     public HEGooseSpeed(float posX, float posY) {
-        this.posX = posX;
-        this.posY = posY;
+        super(posX, posY);
     }
 
-    //Will be completed when there is a player class to use as a parameter
-    @Override
-    public float distanceFromPlayer(float[] playerPosition) {
-        float distanceX = playerPosition[0] - this.posX;
-        float distanceY = playerPosition[1] - this.posY;
-        return (float) Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
-    }
+    /**
+     * Method that gets run upon event activation
+     *
+     * @param geeseList list of all existing geese
+     */
 
-    @Override
-    public boolean isPlayerInActiveRange(float[] playerPosition) {
-        return this.distanceFromPlayer(playerPosition) < this.activationRadius;
-    }
+    public void trigger(List<Geese> geeseList) {
+        //Sets existingGeese field to match the currently rendered geese list
+        this.existingGeese = geeseList;
 
-    @Override
-    public boolean isPlayerInFlagRange(float[] playerPosition) {
-        return this.distanceFromPlayer(playerPosition) < this.flagRadius;
-    }
+        //Increases speed for all existing goose instances
+        for (Geese goose : existingGeese) {
+            goose.SetGooseSpeed(6.5f);
+        }
 
-    @Override
-    public void showFlag() {
-        //TODO: Setup the flag to show an event is nearby.  Dont show which event or exactly where
-    }
-    @Override
-    public void trigger() {
-        //TODO: Goose speed multiplier
+        //Sets 10-second timer till the event ends
         this.activationTime = Instant.now().getEpochSecond() + 10;
-        this.isActivated = true;
+
+        //Runs the activation method in the parent class
+        activate();
     }
 
-    @Override
-    public boolean checkActive() {
+    /**
+     * Checks whether the event timer (10s) has run out
+     *
+     * @param geeseList list of all existing geese
+     * @return boolean flag
+     */
+
+    public boolean checkActive(List<Geese> geeseList) {
+
+        //Checks if the event is over
         if (Instant.now().getEpochSecond() > this.activationTime) {
-            //TODO: Goose speed multiplier
+
+            //Sets the speed of every existing goose to original value (5f)
+            this.existingGeese = geeseList;
+            for (Geese goose : existingGeese) {
+                goose.SetGooseSpeed(5f);
+            }
             return false;
         } else {
             return true;
         }
     }
 
-    @Override
-    public float getActivationRadius() {
-        return this.activationRadius;
+    /**
+     * Ensures that pausing the game doesn't affect the remaining event time
+     */
+
+    public void onPause() {
+
+        //Ends the function if the game is paused or there are no geese
+        if (this.isPaused || this.existingGeese == null) {
+            return;
+        } else {
+
+            //Calculates the time remaining
+            long remaining = this.activationTime - Instant.now().getEpochSecond();
+
+            //Ends function if event is over
+            if (remaining <= 0) {
+                return;
+            }
+
+            this.remainingWhenPaused = remaining;
+            this.isPaused = true;
+        }
     }
 
-    @Override
-    public float[] getPos() {
-        return new float[] {this.posX, this.posY};
+    /**
+     * Resets the timer to where it left off when the game was paused
+     */
+
+    public void onResume() {
+
+        //Ends the function if the game isn't paused
+        if (!this.isPaused ) {
+            return;
+
+        } else {
+
+            //Sets timer to time remaining when game was paused
+            this.activationTime = this.remainingWhenPaused + Instant.now().getEpochSecond();
+
+            this.remainingWhenPaused = 0L;
+            this.isPaused = false;
+        }
     }
 
-    @Override
-    public float getFlagRadius() {
-        return this.flagRadius;
-    }
-
-    @Override
-    public boolean getIsActivated() {
-        return this.isActivated;
-    }
 }

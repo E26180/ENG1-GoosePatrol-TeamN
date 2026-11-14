@@ -1,70 +1,42 @@
 package uk.ac.york.eng1.goosepatrol.hidden_event;
 
-public class HEItems implements IHiddenEvent{
+import uk.ac.york.eng1.goosepatrol.item.Bread;
+import uk.ac.york.eng1.goosepatrol.item.Inventory;
+import uk.ac.york.eng1.goosepatrol.item.Oats;
 
-    private float posX;
-    private float posY;
-    private final float activationRadius = 50;
-    private final float flagRadius = 100;
 
-    private boolean isActivated = false;
+/**
+ * Source code for the positive hidden event
+ *      This fills up the bread and oats in the inventory by 10 and 5 respectively
+ *      Extends HiddenEvent class which contains get methods, activate() and player distance
+ *          methods
+ */
+
+public class HEItems extends HiddenEvent {
+
+    /**
+     * Constructor that sets the event activation coordinates
+     *
+     * @param posX X-coordinate of event
+     * @param posY Y-coordinate of event
+     */
 
     public HEItems(float posX, float posY) {
-        this.posX = posX;
-        this.posY = posY;
+        super(posX, posY);
     }
 
-    //Will be completed when there is a player class to use as a parameter
-    @Override
-    public float distanceFromPlayer(float[] playerPosition) {
-        float distanceX = playerPosition[0] - this.posX;
-        float distanceY = playerPosition[1] - this.posY;
-        return (float) Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
-    }
+    /**
+     * Method that gets run upon event activation
+     *
+     * @param bag Current player inventory
+     */
+    public void trigger(Inventory bag) {
 
-    @Override
-    public boolean isPlayerInActiveRange(float[] playerPosition) {
-        return this.distanceFromPlayer(playerPosition) < this.activationRadius;
-    }
+        //Adds items to the bag
+        bag.addItem(new Bread(5, 15));
+        bag.addItem(new Oats(10, 30));
 
-    @Override
-    public boolean isPlayerInFlagRange(float[] playerPosition) {
-        return this.distanceFromPlayer(playerPosition) < this.flagRadius;
-    }
-
-    @Override
-    public void showFlag() {
-        //TODO: Setup the flag to show an event is nearby.  Dont show what event or exactly where
-    }
-    @Override
-    public void trigger() {
-        //TODO: Increase energy drink count by 3
-        //TODO: Increase bread count by 10
-        this.isActivated = true;
-    }
-
-    @Override
-    public boolean checkActive() {
-        return false;
-    }
-
-    @Override
-    public float getActivationRadius() {
-        return this.activationRadius;
-    }
-
-    @Override
-    public float[] getPos() {
-        return new float[] {this.posX, this.posY};
-    }
-
-    @Override
-    public float getFlagRadius() {
-        return this.flagRadius;
-    }
-
-    @Override
-    public boolean getIsActivated() {
-        return this.isActivated;
+        //Runs the activation method in the parent class
+        activate();
     }
 }
