@@ -2,10 +2,6 @@ package uk.ac.york.eng1.goosepatrol.core;
 
 import com.badlogic.gdx.Screen;
 
-import uk.ac.york.eng1.goosepatrol.core.GameState;
-import uk.ac.york.eng1.goosepatrol.core.GameTimer;
-import uk.ac.york.eng1.goosepatrol.Main;
-
 /**
  * Gameplay screen. Holds everything belonging to one round
  * (MapManager, geese, Inventory, ItemInput, GameTimer), so restart
@@ -13,9 +9,10 @@ import uk.ac.york.eng1.goosepatrol.Main;
  */
 public class GameScreen implements Screen {
 
+    // Assumes GameState is in the same package; add an import if it isn't.
     private GameState state = GameState.PAUSED;   // starts paused
 
-    public GameScreen(Main game) { }
+    public GameScreen(CoreMain game) { }
 
     // --- Screen lifecycle ---
 
@@ -34,7 +31,7 @@ public class GameScreen implements Screen {
 
     @Override public void hide() { }
 
-    /** Disposes MapManager only (batch/font belong to Main). */
+    /** Disposes MapManager only (batch/font belong to CoreMain). */
     @Override public void dispose() { }
 
     // --- Pause / resume ---
