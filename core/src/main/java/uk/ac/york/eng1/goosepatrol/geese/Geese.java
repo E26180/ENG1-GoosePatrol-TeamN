@@ -12,8 +12,13 @@ public class Geese implements Feedable
     private float GooseY;
     private float GooseHunger;
     private float GooseSpeed = 5;
-    private int WaveCount = 1;
+    private int WaveCount = 0;
     private final float MaxGooseHunger = 10;
+
+    public Geese()
+    {
+
+    }
 
     public void SetGooseSpeed(float imp)
     {
@@ -60,6 +65,13 @@ public class Geese implements Feedable
 
     public void NewWave()
     {
+        WaveCount += 1;
 
     }
+
+    public void GooseMove()
+    {
+
+    }
+
 }
