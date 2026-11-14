@@ -76,7 +76,7 @@ jar {
 // Setting the manifest makes the JAR runnable.
 // Enabling native access helps avoid a warning when Java 24 or later runs the JAR.
 // Setting Multi-Release to true allows LWJGL3 to use different classes on recent Java versions.
-// This setting for Add-Exports ensures a warning on recent JDKs is avoided by LWJGL 3.4.2 and later.
+// This setting fEor Add-Exports ensures a warning on recent JDKs is avoided by LWJGL 3.4.2 and later.
   manifest {
     attributes 'Main-Class': application.mainClass, 'Enable-Native-Access': 'ALL-UNNAMED', 'Multi-Release': 'true', 'Add-Exports': 'java.base/jdk.internal.misc'
   }
