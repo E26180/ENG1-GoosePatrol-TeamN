@@ -1,13 +1,10 @@
 package uk.ac.york.eng1.goosepatrol.mechanics;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.MathUtils;
-import uk.ac.york.eng1.goosepatrol.geese.Geese;
 import uk.ac.york.eng1.goosepatrol.item.Feedable;
 import uk.ac.york.eng1.goosepatrol.item.Inventory;
 import uk.ac.york.eng1.goosepatrol.item.Item;
@@ -75,8 +72,8 @@ public class PlayerMovement {
     }
 
     public void moveNW(PolygonSprite playerSprite, float velocity) {
-        playerSprite.translateX((float) (Math.sqrt(2)*velocity*delta));
-        playerSprite.translateY((float) (-Math.sqrt(2)*velocity*delta));
+        playerSprite.translateX((float) (-Math.sqrt(2)*velocity*delta));
+        playerSprite.translateY((float) (Math.sqrt(2)*velocity*delta));
     }
 
     public void moveNE(PolygonSprite playerSprite, float velocity) {
@@ -85,8 +82,8 @@ public class PlayerMovement {
     }
 
     public void moveSE(PolygonSprite playerSprite, float velocity) {
-        playerSprite.translateX((float) (-Math.sqrt(2)*velocity*delta));
-        playerSprite.translateY((float) (Math.sqrt(2)*velocity*delta));
+        playerSprite.translateX((float) (Math.sqrt(2)*velocity*delta));
+        playerSprite.translateY((float) (-Math.sqrt(2)*velocity*delta));
     }
 
     public void moveSW(PolygonSprite playerSprite, float velocity) {
@@ -132,7 +129,7 @@ public class PlayerMovement {
             || scarecircle.contains(goose.getX(), goose.getY()+goose.getHeight())
             || scarecircle.contains(goose.getX()+goose.getWidth(), goose.getY()+goose.getHeight())
             || scarecircle.contains(goose.getX()+goose.getWidth(), goose.getY())) {
-                for (int i = 0; i < Gdx.graphics.getFramesPerSecond(); ) {
+                for (int i = 0; i < Gdx.graphics.getFramesPerSecond(); i++) {
                     goose.setOrigin(scarecircle.x , scarecircle.y);
                     float scaredDirection = -goose.getRotation();
                     goose.translate(MathUtils.cos(scaredDirection)*delta,

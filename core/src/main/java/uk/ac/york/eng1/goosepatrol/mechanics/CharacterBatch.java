@@ -6,5 +6,15 @@ public interface CharacterBatch {
 
     public void createCharacter();
 
+    public void deleteCharacter();
+
+    public void faceDown();
+
+    public void faceUp();
+
+    public void faceLeft();
+
+    public void faceRight();
+
 
 }
