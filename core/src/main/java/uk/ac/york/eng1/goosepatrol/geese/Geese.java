@@ -30,12 +30,12 @@ public class Geese implements Feedable
         int side = (int) (Math.random() * 2);
         switch (bound) {
             case 0:
-                this.GooseX = side == 0 ? 10f : 630f;
-                this.GooseY = (int) (Math.random() * 460) + 11;
+                this.GooseX = side == 0 ? 10f : 1590f;
+                this.GooseY = (int) (Math.random() * 1180) + 11;
                 break;
             case 1:
-                this.GooseX = (int) (Math.random() * 620) + 11;
-                this.GooseY = side == 0 ? 10f : 470f;
+                this.GooseX = (int) (Math.random() * 1580) + 11;
+                this.GooseY = side == 0 ? 10f : 1190f;
         }
     }
 
