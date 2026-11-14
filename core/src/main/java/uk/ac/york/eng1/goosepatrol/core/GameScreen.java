@@ -15,6 +15,7 @@ import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 import uk.ac.york.eng1.goosepatrol.item.Inventory;
 import uk.ac.york.eng1.goosepatrol.item.ItemInput;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HiddenEvent;
+import uk.ac.york.eng1.goosepatrol.geese.GooseWaveManager;
 
 
 
@@ -29,13 +30,17 @@ public class GameScreen implements Screen {
     private final GameTimer timer;
     private final MapManager mapManager;
     private final HUD hud;
-    private final List<Geese> geese = new ArrayList<>();
+    private List<Geese> geese = new ArrayList<>();
     private final List<HiddenEvent> hiddenEvents = new ArrayList<>();
     private final Inventory bag;
     private final ItemInput input;
-    private GameState state = GameState.PAUSED;   // starts paused
-    private PolygonSprite player; //TODO: Replace with Player class
+    private GameState state = GameState.PAUSED; // starts paused
+    private final GooseWaveManager waveManager;
+    private PolygonSprite player;
 
+    /** Creates a new round in the paused state.
+     *
+     * @param game the game managing screens and shared rendering resources */
     public GameScreen(CoreMain game) {
         this.game = game;
         this.timer = new GameTimer();
@@ -43,9 +48,9 @@ public class GameScreen implements Screen {
         this.hud = new HUD();
         this.bag = new Inventory(this.geese);
         this.input = new ItemInput(this.bag, this.mapManager.getCamera());
+        this.waveManager = new GooseWaveManager(this.geese);
         this.hiddenEvents.add(new HEItems(0, 0));
         this.hiddenEvents.add(new HEGooseSpeed(0, 0));
-
 
     }
 
@@ -136,12 +141,13 @@ public class GameScreen implements Screen {
 
     // --- Update ---
 
-    /** Per-frame logic, RUNNING only: timer, player, geese, hidden events. */
-    private void update(float delta, PolygonSprite player) {
+    /** Updates the timer while the round is running. */
+    private void update(float delta, PolygonSprite player)
+    {
         timer.update(delta);
-        //TODO Use player position for hidden events trigger
-        for (HiddenEvent event : hiddenEvents) {
-            if (event.isPlayerInActiveRange(player)) {
+
+        for (HiddenEvent event : this.hiddenEvents) {
+            if (event.isPlayerInActiveRange(this.player)) {
                 if (event instanceof HEItems) {
                     HEItems e = (HEItems) event;
                     e.trigger(this.bag);
@@ -150,6 +156,10 @@ public class GameScreen implements Screen {
                     e.trigger(this.geese);
                 }
             }
+        }
+        if (this.hiddenEvents.get(1).getIsActivated()) {
+            HEGooseSpeed event = (HEGooseSpeed) this.hiddenEvents.get(1);
+            this.geese = event.checkActive(this.geese);
         }
     }
 

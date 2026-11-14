@@ -1,39 +1,31 @@
 package uk.ac.york.eng1.goosepatrol.geese;
 
-import java.util.ArrayList;
 import java.util.List;
-import com.badlogic.gdx.graphics.g2d.PolygonSprite;
-import uk.ac.york.eng1.goosepatrol.CollisionManager;
 
 public class GooseWaveManager
 {
 
     private List<Geese> geese;
     private int waveCount;
-    private final int IntialGeese = 5;
 
-    public GooseWaveManager()
+    public GooseWaveManager(List<Geese> geese)
     {
-        geese = new ArrayList<>();
+        this.geese = geese;
         waveCount = 0;
     }
 
-    public void NewWave()
-    {
-        waveCount++;
-        int GeeseSwarm = IntialGeese * waveCount;
-        for (int i = 0; i < GeeseSwarm; i++)
-        {
-            Geese newGoose = new Geese(this);
-            geese.add(newGoose);
-        }
-    }
+    public void NewWave() {
 
-    public void updateGeese(PolygonSprite player, CollisionManager collisionManager)
-    {
-        for (Geese goose : geese)
+        waveCount++;
+
+        int numberOfGeese = 3 + waveCount;
+
+        for (int i = 0; i < numberOfGeese; i++)
         {
-            goose.GooseMove(player, collisionManager);
+
+            Geese newGoose = new Geese(this);
+
+            geese.add(newGoose);
         }
     }
 
@@ -42,13 +34,13 @@ public class GooseWaveManager
         geese.remove(goose);
     }
 
-    public List<Geese> getGeese()
-    {
-        return geese;
-    }
-
     public int getWaveCount()
     {
         return waveCount;
+    }
+
+    public List<Geese> getGeese()
+    {
+        return geese;
     }
 }

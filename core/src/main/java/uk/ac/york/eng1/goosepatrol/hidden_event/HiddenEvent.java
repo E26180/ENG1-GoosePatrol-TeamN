@@ -45,12 +45,13 @@ public class HiddenEvent {
     public float distanceFromPlayer(PolygonSprite player) {
 
         float[] playerPosition = getPlayerPosition(player);
+        float[] eventPosition = getPos();
 
         //Horizontal distance
-        float distanceX = playerPosition[0] - this.posX;
+        float distanceX = playerPosition[0] - eventPosition[0];
 
         //Vertical distance
-        float distanceY = playerPosition[1] - this.posY;
+        float distanceY = playerPosition[1] - eventPosition[1];
 
         //Distance as the crow flies
         return (float) Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
