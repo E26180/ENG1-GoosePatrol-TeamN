@@ -29,11 +29,6 @@ public class GooseWaveManager
         }
     }
 
-    public void removeGoose(Geese goose)
-    {
-        geese.remove(goose);
-    }
-
     public int getWaveCount()
     {
         return waveCount;
@@ -42,5 +37,9 @@ public class GooseWaveManager
     public List<Geese> getGeese()
     {
         return geese;
+    }
+
+    public void removeFlownGeese() {
+        geese.removeIf(Geese::getFlownAway);
     }
 }

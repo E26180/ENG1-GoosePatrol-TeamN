@@ -145,6 +145,7 @@ public class GameScreen implements Screen {
     private void update(float delta, PolygonSprite player)
     {
         timer.update(delta);
+        waveManager.removeFlownGeese();
 
         for (HiddenEvent event : this.hiddenEvents) {
             if (event.isPlayerInActiveRange(this.player)) {
