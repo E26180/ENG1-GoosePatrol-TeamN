@@ -4,7 +4,6 @@ import uk.ac.york.eng1.goosepatrol.item.Feedable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.math.Rectangle;
-import java.util.Random;
 import uk.ac.york.eng1.goosepatrol.CollisionManager;
 
 /**
@@ -16,18 +15,28 @@ public class Geese implements Feedable
     private float GooseX;
     private float GooseY;
     private float Fullness = 0;
-    private float GooseSpeed = 5;
-    private final float DefaultGooseSpeed = 5;
-    private float GooseWidth = 1f;
-    private float GooseHeight = 1f;
+    private final float DefaultGooseSpeed = 15;
+    private float GooseSpeed = DefaultGooseSpeed;
+    private float GooseWidth = 5f;
+    private float GooseHeight = 5f;
     private final float MaxFullness = 10;
     private boolean hasFlownAway = false;
 
     private GooseWaveManager waveManager;
 
-    public Geese(GooseWaveManager manager)
-    {
+    public Geese(GooseWaveManager manager) {
         waveManager = manager;
+        int bound = (int) (Math.random() * 2);
+        int side = (int) (Math.random() * 2);
+        switch (bound) {
+            case 0:
+                this.GooseX = side == 0 ? 10f : 630f;
+                this.GooseY = (int) (Math.random() * 460) + 11;
+                break;
+            case 1:
+                this.GooseX = (int) (Math.random() * 620) + 11;
+                this.GooseY = side == 0 ? 10f : 470f;
+        }
     }
 
     public void SetGooseSpeed(float imp)
