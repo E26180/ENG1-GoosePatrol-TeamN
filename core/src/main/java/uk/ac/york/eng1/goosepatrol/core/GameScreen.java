@@ -34,6 +34,9 @@ public class GameScreen implements Screen {
     private GameState state = GameState.PAUSED; // starts paused
     private final GooseWaveManager waveManager;
 
+    /** Creates a new round in the paused state.
+     *
+     * @param game the game managing screens and shared rendering resources */
     public GameScreen(CoreMain game) {
         this.game = game;
         this.timer = new GameTimer();
@@ -132,7 +135,7 @@ public class GameScreen implements Screen {
 
     // --- Update ---
 
-    /** Per-frame logic, RUNNING only: timer, player, geese, hidden events. */
+    /** Updates the timer while the round is running. */
     private void update(float delta)
     {
         timer.update(delta);
