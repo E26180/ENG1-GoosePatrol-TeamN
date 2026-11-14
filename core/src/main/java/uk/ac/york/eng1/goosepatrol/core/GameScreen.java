@@ -159,6 +159,7 @@ public class GameScreen implements Screen {
     private void update(float delta)
     {
         timer.update(delta);
+        waveManager.removeFlownGeese();
 
         if (timer.isFinished()) {
             return;

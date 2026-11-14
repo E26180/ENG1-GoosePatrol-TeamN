@@ -52,7 +52,7 @@ public class HEGooseSpeed extends HiddenEvent {
 
         //Increases speed for all existing goose instances
         for (Geese goose : existingGeese) {
-            goose.SetGooseSpeed(6.5f);
+            goose.SetGooseSpeed(1.3f);
         }
 
         //Sets 10-second timer till the event ends
@@ -77,7 +77,7 @@ public class HEGooseSpeed extends HiddenEvent {
             //Sets the speed of every existing goose to original value (5f)
             this.existingGeese = geeseList;
             for (Geese goose : existingGeese) {
-                goose.SetGooseSpeed(5f);
+                goose.ResetGooseSpeed();
             }
             return this.existingGeese;
         } else {
