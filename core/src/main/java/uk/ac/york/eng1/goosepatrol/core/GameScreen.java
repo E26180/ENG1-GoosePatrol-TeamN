@@ -87,8 +87,8 @@ public class GameScreen implements Screen {
         this.waveManager.NewWave(mapManager.getCollisionManager(), player);
         //Create and register the two hidden events for this round.
         this.itemEvent1 = new HEItems(400f, 300f);
-        this.itemEvent2 = new HEItems(250f, 1700f);
-        this.itemEvent3 = new HEItems(1800f, 1200f);
+        this.itemEvent2 = new HEItems(250f, 850f);
+        this.itemEvent3 = new HEItems(1350f, 850f);
         this.speedEvent1 = new HEGooseSpeed(1200f, 800f);
         this.speedEvent2 = new HEGooseSpeed(900f, 400f);
 
@@ -304,8 +304,8 @@ public class GameScreen implements Screen {
         // Activate the temporary speed effect when the player reaches it.
         if (!speedEvent1.getIsActivated() && speedEvent1.isPlayerInActiveRange(player)) {
             speedEvent1.trigger(geese);
-        } else if (!speedEvent1.getIsActivated() && speedEvent1.isPlayerInActiveRange(player)) {
-            speedEvent1.trigger(geese);
+        } else if (!speedEvent2.getIsActivated() && speedEvent2.isPlayerInActiveRange(player)) {
+            speedEvent2.trigger(geese);
         }
     }
 
@@ -367,6 +367,29 @@ public class GameScreen implements Screen {
         float height = Gdx.graphics.getHeight();
 
         batch.begin();
+
+        // Show instructions while the game is paused.
+        if (state == GameState.PAUSED) {
+            game.getFont(24).draw(
+                batch,
+                "HOW TO PLAY",
+                20f, height / 2f + 190f,
+                Math.max(1f, width - 40f), Align.center, true
+            );
+
+            game.getFont(16).draw(
+                batch,
+                "Feed all three waves before five minutes run out.\n"
+                    + "WASD / Arrow keys: Move\n"
+                    + "1: Select oats    2: Select bread\n"
+                    + "Left click near a goose: Feed\n"
+                    + "P / Esc: Pause or resume\n"
+                    + "Explore to discover hidden events.\n"
+                    + "Press SPACE to start or resume.",
+                20f, height / 2f + 150f,
+                Math.max(1f, width - 40f), Align.center, true
+            );
+        }
 
         // Show wave information in the top-right corner.
         game.getFont(24).draw(
