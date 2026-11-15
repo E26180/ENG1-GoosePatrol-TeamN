@@ -33,6 +33,7 @@ public class KeyboardInput implements ControlsInput {
 
     @Override
     public void playerInput(int key, PolygonSprite player, Inventory inventory) {
+        String keyButton = Keys.toString(key);
         float movementSpeed = controls.getPlayerVelocity();
         Item selectedItem = inventory.getSelected();
         switch (key) {
