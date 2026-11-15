@@ -18,6 +18,7 @@ import uk.ac.york.eng1.goosepatrol.hidden_event.HiddenEvent;
 import uk.ac.york.eng1.goosepatrol.geese.GooseWaveManager;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
+import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Gameplay screen. Holds everything belonging to one round
@@ -39,6 +40,7 @@ public class GameScreen implements Screen {
     private final GooseWaveManager waveManager;
     private final HEItems itemEvent;
     private final HEGooseSpeed speedEvent;
+    private Texture gooseTexture;
 
     /** Creates a new round in the paused state.
      *
@@ -50,7 +52,9 @@ public class GameScreen implements Screen {
         this.hud = new HUD();
         this.bag = new Inventory(this.geese);
         this.input = new ItemInput(this.bag, this.mapManager.getCamera());
-        this.waveManager = new GooseWaveManager(this.geese);
+        //goose texture
+        gooseTexture = new Texture(Gdx.files.internal("textures/geese/goose.png"));
+        waveManager = new GooseWaveManager(geese, game.getBatch(), gooseTexture);
         // Create the first goose wave for this round.
         this.waveManager.NewWave();
         //Create and register the two hidden events for this round.
@@ -59,6 +63,7 @@ public class GameScreen implements Screen {
 
         this.hiddenEvents.add(this.itemEvent);
         this.hiddenEvents.add(this.speedEvent);
+
 
     }
 
@@ -109,6 +114,11 @@ public class GameScreen implements Screen {
     @Override public void dispose() {
         mapManager.dispose();
         hud.dispose();
+
+        if (gooseTexture != null)
+        {
+            gooseTexture.dispose();
+        }
     }
 
     // --- Pause / resume ---
@@ -254,6 +264,10 @@ public class GameScreen implements Screen {
         // Show the current wave and remaining geese in the top-right corner.
         batch.begin();
 
+        for (Geese goose : geese)
+        {
+            goose.draw();
+        }
         game.getFont(24).draw(batch, "Wave: " + waveManager.getWaveCount() + "/" + TOTAL_WAVES, 20, height - 20, Math.max(1f, width - 40), Align.right, false);
         game.getFont(24).draw(batch, "Geese left: " + geese.size(), 20, height - 55, Math.max(1f, width - 40), Align.right, false);
 

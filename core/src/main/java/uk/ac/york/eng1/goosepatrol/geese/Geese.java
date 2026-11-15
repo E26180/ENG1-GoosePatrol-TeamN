@@ -6,6 +6,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.math.Rectangle;
 import uk.ac.york.eng1.goosepatrol.CollisionManager;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.Texture;
+
 
 /**
  * Base class for geese
@@ -22,6 +25,9 @@ public class Geese implements Feedable
     private float GooseHeight = 5f;
     private final float MaxFullness = 10;
     private boolean hasFlownAway = false;
+    private SpriteBatch batch;
+    private Texture texture;
+
 
     public Geese() {
         int bound = (int) (Math.random() * 2);
@@ -137,4 +143,31 @@ public class Geese implements Feedable
     public boolean getFlownAway() {
         return this.hasFlownAway;
     }
+
+    public SpriteBatch getBatch()
+    {
+        return batch;
+    }
+
+    public void setBatch(SpriteBatch batch)
+    {
+        this.batch = batch;
+    }
+
+    public void setTexture(Texture texture)
+    {
+        this.texture = texture;
+    }
+
+    public void draw()
+    {
+        if (batch == null || texture == null || hasFlownAway)
+        {
+            return;
+        }
+        batch.draw(texture, GooseX, GooseY, GooseWidth, GooseHeight);
+    }
+
+
+
 }
