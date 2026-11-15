@@ -21,8 +21,7 @@ public class CoreMain extends Game {
     private BitmapFont createFont(FreeTypeFontGenerator generator, int size) {
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.size = size;
-        BitmapFont font = generator.generateFont(parameter);
-        return font;
+        return generator.generateFont(parameter);
     }
 
     /**
