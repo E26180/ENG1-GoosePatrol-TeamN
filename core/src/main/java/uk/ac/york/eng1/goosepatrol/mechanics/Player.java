@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Matrix4;
 
 public class Player extends PolygonSprite {
 
@@ -40,7 +41,15 @@ public class Player extends PolygonSprite {
         super.set(sprite);
     }
 
-    public void draw() {}
+    public void draw(Matrix4 projection) {
+        playerBatch.setProjectionMatrix(projection);
+        playerBatch.begin();
+        super.draw(playerBatch);
+        playerBatch.end();
+    }
 
+    public void dispose() {
+        playerBatch.dispose();
+    }
 
 }

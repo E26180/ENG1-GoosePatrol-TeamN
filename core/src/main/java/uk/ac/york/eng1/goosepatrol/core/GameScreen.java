@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import uk.ac.york.eng1.goosepatrol.MapManager;
 import uk.ac.york.eng1.goosepatrol.HUD;
 import uk.ac.york.eng1.goosepatrol.geese.Geese;
@@ -18,7 +22,8 @@ import uk.ac.york.eng1.goosepatrol.hidden_event.HiddenEvent;
 import uk.ac.york.eng1.goosepatrol.geese.GooseWaveManager;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
-import com.badlogic.gdx.graphics.Texture;
+import uk.ac.york.eng1.goosepatrol.mechanics.Player;
+import uk.ac.york.eng1.goosepatrol.mechanics.KeyboardInput;
 
 /**
  * Gameplay screen. Holds everything belonging to one round
@@ -37,10 +42,13 @@ public class GameScreen implements Screen {
     private final Inventory bag;
     private final ItemInput input;
     private GameState state = GameState.PAUSED; // starts paused
+    private Player player;
+    private Texture playerTexture;
     private final GooseWaveManager waveManager;
     private final HEItems itemEvent;
     private final HEGooseSpeed speedEvent;
     private Texture gooseTexture;
+    private final KeyboardInput keyboard = new KeyboardInput();
 
     /** Creates a new round in the paused state.
      *
@@ -49,6 +57,22 @@ public class GameScreen implements Screen {
         this.game = game;
         this.timer = new GameTimer();
         this.mapManager = new MapManager();
+        this.playerTexture = new Texture(
+            Gdx.files.internal("textures/player/student.png")
+        );
+
+        TextureRegion playerFrame = new TextureRegion(
+            this.playerTexture, 0, 0, 32, 32
+        );
+
+        float[] vertices = {0, 0, 32, 0, 32, 32, 0, 32};
+        short[] triangles = {0, 1, 2, 2, 3, 0};
+
+        this.player = new Player(
+            new PolygonRegion(playerFrame, vertices, triangles)
+        );
+        this.player.setPosition(800f, 500f);
+        this.mapManager.getCamera().zoom = 0.5f;
         this.hud = new HUD();
         this.bag = new Inventory(this.geese);
         this.input = new ItemInput(this.bag, this.mapManager.getCamera());
@@ -80,8 +104,20 @@ public class GameScreen implements Screen {
         handlePauseInput();
 
         if (state == GameState.RUNNING) {
+            float oldX = player.getX();
+            float oldY = player.getY();
+
+            keyboard.update(player, bag);
+
+            player.setPosition(Math.max(0f, Math.min(player.getX(), 1600f - player.getWidth())),Math.max(0f, Math.min(player.getY(), 1280f - player.getHeight())));
+
+            if (mapManager.getCollisionManager().collidesWith(player.getBoundingRectangle())) {
+                player.setPosition(oldX, oldY);
+            }
+
             input.update();
             update(delta);
+            updateHiddenEvents(player);
 
             if (checkEndConditions()) {
                 // The end check will switch screens, so stop drawing this one.
@@ -119,6 +155,8 @@ public class GameScreen implements Screen {
         {
             gooseTexture.dispose();
         }
+        player.dispose();
+        playerTexture.dispose();
     }
 
     // --- Pause / resume ---
@@ -253,7 +291,19 @@ public class GameScreen implements Screen {
     private void draw() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
 
+        OrthographicCamera camera = mapManager.getCamera();
+
+        float halfWidth = camera.viewportWidth * camera.zoom / 2f;
+        float halfHeight = camera.viewportHeight * camera.zoom / 2f;
+
+        float playerCenterX = player.getX() + player.getWidth() / 2f;
+        float playerCenterY = player.getY() + player.getHeight() / 2f;
+
+        camera.position.set(
+            Math.max(halfWidth, Math.min(playerCenterX, 1600f - halfWidth)),Math.max(halfHeight, Math.min(playerCenterY, 1280f - halfHeight)), 0f);
+
         mapManager.render();
+        player.draw(mapManager.getCamera().combined);
 
         hud.draw(game.getBatch(), timer.getRemaining(), state == GameState.PAUSED, bag.getUsed(), getTriggeredEventCount());
 
