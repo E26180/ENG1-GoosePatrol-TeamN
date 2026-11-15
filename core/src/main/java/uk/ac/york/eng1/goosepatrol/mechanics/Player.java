@@ -29,9 +29,6 @@ public class Player extends PolygonSprite {
 
     public Player(PolygonRegion region) {
         super(region);
-        Texture playerTexture = new Texture(Gdx.files.internal("assets/textures/player/student.png"));
-        TextureRegion playerRectangle = new TextureRegion(playerTexture, x, y, width, height);
-        PolygonRegion playerRegion = new PolygonRegion(playerRectangle, vertices, new short[2]);
     }
 
     public Player(PolygonSprite sprite) {
