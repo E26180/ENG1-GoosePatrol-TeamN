@@ -13,7 +13,7 @@ public class CollisionManager {
     //Constructor that receives the loaded Tiled map.
     public CollisionManager(TiledMap map){
         //Searches the map's layers and retrieves the related layer.
-        MapLayer layer = map.getLayers().get("collision");
+        MapLayer layer = map.getLayers().get("Collision");
         //Checks whether the collision layer exists
         if(layer == null){
             //Displays a warning message.

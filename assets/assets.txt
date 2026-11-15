@@ -1,5 +1,6 @@
 audio/eat.wav
 audio/event.wav
+audio/flap.wav
 audio/honk.wav
 audio/lose.wav
 audio/wave.wav

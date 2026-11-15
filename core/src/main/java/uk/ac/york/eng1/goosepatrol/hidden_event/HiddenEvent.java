@@ -1,5 +1,7 @@
 package uk.ac.york.eng1.goosepatrol.hidden_event;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 
 /**
@@ -62,6 +64,16 @@ public class HiddenEvent {
      */
 
     public void activate() { this.isActivated = true; }
+
+    /**
+     * Plays the event sound, then disposes it
+     */
+
+    protected void playSound() {
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/event.wav"));
+        sound.play(1.0f);
+        sound.dispose();
+    }
 
     /*
     Get Methods

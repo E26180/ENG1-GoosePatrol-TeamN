@@ -37,33 +37,33 @@ public class KeyboardInput implements ControlsInput {
         Item selectedItem = inventory.getSelected();
         switch (key) {
             case Keys.LEFT, Keys.A:
-                if (Gdx.input.isKeyPressed(Keys.UP)){
+                if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)){
                     controls.moveNW(player, movementSpeed);
-                } else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+                } else if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
                     controls.moveSW(player, movementSpeed);
                 } else {
                     controls.moveLeft(player, movementSpeed);
                 } break;
             case Keys.RIGHT, Keys.D:
-                if (Gdx.input.isKeyPressed(Keys.UP)){
+                if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)){
                     controls.moveNE(player, movementSpeed);
-                } else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+                } else if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
                     controls.moveSE(player, movementSpeed);
                 } else {
                     controls.moveRight(player, movementSpeed);
                 } break;
             case Keys.UP, Keys.W:
-                if (Gdx.input.isKeyPressed(Keys.LEFT)){
+                if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)){
                     controls.moveNW(player, movementSpeed);
-                } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+                } else if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) {
                     controls.moveNE(player, movementSpeed);
                 } else {
                     controls.moveUp(player, movementSpeed);
                 } break;
             case Keys.DOWN, Keys.S:
-                if (Gdx.input.isKeyPressed(Keys.LEFT)){
+                if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
                     controls.moveSW(player, movementSpeed);
-                } else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+                } else if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) {
                     controls.moveSE(player, movementSpeed);
                 } else {
                     controls.moveDown(player, movementSpeed);
@@ -84,6 +84,28 @@ public class KeyboardInput implements ControlsInput {
             playerInput(key, player, inventory);
             return true;
         } else { return false;}
+    }
+
+    public void update(PolygonSprite player, Inventory inventory) {
+        if (processInput(Keys.LEFT, player, inventory)
+            || processInput(Keys.A, player, inventory)) {
+            return;
+        }
+
+        if (processInput(Keys.RIGHT, player, inventory)
+            || processInput(Keys.D, player, inventory)) {
+            return;
+        }
+
+        if (processInput(Keys.UP, player, inventory)
+            || processInput(Keys.W, player, inventory)) {
+            return;
+        }
+
+        if (processInput(Keys.DOWN, player, inventory)
+            || processInput(Keys.S, player, inventory)) {
+            return;
+        }
     }
 
     public boolean cancelInput(int key, PolygonSprite player) {
