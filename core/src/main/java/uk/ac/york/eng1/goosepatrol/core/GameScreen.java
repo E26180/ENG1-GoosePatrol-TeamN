@@ -244,7 +244,7 @@ public class GameScreen implements Screen {
 
         // Move active geese towards the player.
         for (Geese goose : geese) {
-            goose.GooseMove(player, mapManager.getCollisionManager());
+            goose.GooseMove(player, mapManager.getCollisionManager(), geese);
         }
 
         // Start another wave only after the current one is cleared.

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import uk.ac.york.eng1.goosepatrol.CollisionManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
+import java.util.List;
 
 
 /**
@@ -33,11 +34,10 @@ public class Geese implements Feedable
      *
      * @param collisionManager the map collision checker
      * @param player the current player
+     * @param geese the current geese
      */
     public void placeSpawn(
-        CollisionManager collisionManager,
-        PolygonSprite player
-    ) {
+        CollisionManager collisionManager, PolygonSprite player, List<Geese> geese) {
         for (int attempt = 0; attempt < 100; attempt++) {
             // Spawn in the central area south of the main building.
             GooseX = 220f + (float) Math.random() * (1180f - GooseWidth);
@@ -45,8 +45,7 @@ public class Geese implements Feedable
 
             Rectangle spawnBounds = getBoundingRectangle();
 
-            if (!collisionManager.collidesWith(spawnBounds)
-                && !spawnBounds.overlaps(player.getBoundingRectangle())) {
+            if (!collisionManager.collidesWith(spawnBounds) && !spawnBounds.overlaps(player.getBoundingRectangle()) && !overlapsGoose(spawnBounds, geese)) {
                 return;
             }
         }
@@ -119,6 +118,23 @@ public class Geese implements Feedable
     }
 
     /**
+     * Checks whether bounds overlap another active goose.
+     *
+     * @param bounds the proposed collision bounds
+     * @param geese the current geese
+     * @return whether another goose blocks the position
+     */
+    private boolean overlapsGoose(Rectangle bounds, List<Geese> geese) {
+        for (Geese other : geese) {
+            if (other != this && !other.getFlownAway()
+                && bounds.overlaps(other.getBoundingRectangle())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * How full the goose is, used by the HUD feed bar.
      * @return a value from 0 (empty) to 1 (full)
      */
@@ -147,7 +163,7 @@ public class Geese implements Feedable
         }
     }
 
-    public void GooseMove(PolygonSprite player, CollisionManager collisionManager)
+    public void GooseMove(PolygonSprite player, CollisionManager collisionManager, List<Geese> geese)
     {
         if (this.hasFlownAway) {
             return;
@@ -168,12 +184,12 @@ public class Geese implements Feedable
         float moveY = dy * movement;
         Rectangle gooseBounds = new Rectangle(GooseX, GooseY, GooseWidth, GooseHeight);
         gooseBounds.setPosition(GooseX + moveX, GooseY);
-        if (!collisionManager.collidesWith(gooseBounds) && !gooseBounds.overlaps((player.getBoundingRectangle())))
+        if (!collisionManager.collidesWith(gooseBounds) && !gooseBounds.overlaps(player.getBoundingRectangle()) && !overlapsGoose(gooseBounds, geese))
         {
             GooseX += moveX;
         }
         gooseBounds.setPosition(GooseX, GooseY + moveY);
-        if (!collisionManager.collidesWith(gooseBounds) && !gooseBounds.overlaps((player.getBoundingRectangle())))
+        if (!collisionManager.collidesWith(gooseBounds) && !gooseBounds.overlaps(player.getBoundingRectangle()) && !overlapsGoose(gooseBounds, geese))
         {
             GooseY += moveY;
         }
