@@ -21,8 +21,8 @@ public class Geese implements Feedable
     private float Fullness = 0;
     private final float DefaultGooseSpeed = 15;
     private float GooseSpeed = DefaultGooseSpeed;
-    private float GooseWidth = 5f;
-    private float GooseHeight = 5f;
+    private float GooseWidth = 10f;
+    private float GooseHeight = 10f;
     private final float MaxFullness = 10;
     private boolean hasFlownAway = false;
     private SpriteBatch batch;

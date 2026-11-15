@@ -32,8 +32,8 @@ public class Inventory {
         this.used = 0;
 
         // Starting quantities and distances can be adjusted here.
-        this.items.add(new Oats(10, 32));
-        this.items.add(new Bread(5, 100));
+        this.items.add(new Oats(20, 32));
+        this.items.add(new Bread(10, 100));
     }
 
     /**
