@@ -132,11 +132,15 @@ public class GameScreen implements Screen {
 
     // --- Update ---
 
+    private void NewWave()
+    {
+        waveManager.NewWave();
+    }
+
     /** Per-frame logic, RUNNING only: timer, player, geese, hidden events. */
     private void update(float delta)
     {
         timer.update(delta);
-
     }
 
     /** Checks win then lose; switches screen if the round ended. */
