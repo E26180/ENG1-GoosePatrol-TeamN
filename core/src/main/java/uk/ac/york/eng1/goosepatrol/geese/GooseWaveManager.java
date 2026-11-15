@@ -26,7 +26,7 @@ public class GooseWaveManager
 
         waveCount++;
 
-        int numberOfGeese = 3 + 2 * waveCount;
+        int numberOfGeese = 1 + waveCount;
 
         for (int i = 0; i < numberOfGeese; i++)
         {
