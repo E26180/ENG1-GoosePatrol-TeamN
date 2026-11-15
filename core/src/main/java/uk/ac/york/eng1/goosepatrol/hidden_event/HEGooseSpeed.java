@@ -28,6 +28,8 @@ public class HEGooseSpeed extends HiddenEvent {
     //Boolean flag (true if the game is paused, false otherwise)
     private boolean isPaused = false;
 
+    private boolean effectFinished = false;
+
 
     /**
      * Constructor that sets the event activation coordinates
@@ -51,7 +53,7 @@ public class HEGooseSpeed extends HiddenEvent {
         playSound();
 
         //Sets existingGeese field to match the currently rendered geese list
-        this.existingGeese = geeseList;
+        this.existingGeese = new ArrayList<>(geeseList);
 
         //Increases speed for all existing goose instances
         for (Geese goose : existingGeese) {
@@ -69,24 +71,24 @@ public class HEGooseSpeed extends HiddenEvent {
      * Checks whether the event timer (10s) has run out
      *
      * @param geeseList list of all existing geese
-     * @return boolean flag
+     * @return current geese list
      */
 
     public List<Geese> checkActive(List<Geese> geeseList) {
 
         //Checks if the event is over
-        if (Instant.now().getEpochSecond() > this.activationTime) {
+        if (Instant.now().getEpochSecond() >= this.activationTime) {
 
             //Sets the speed of every existing goose to original value (5f)
-            this.existingGeese = geeseList;
             for (Geese goose : existingGeese) {
                 goose.ResetGooseSpeed();
             }
-            return this.existingGeese;
-        } else {
-            return geeseList;
+
+            this.effectFinished = true;
         }
-    }
+        return geeseList;
+        }
+
 
     /**
      * Ensures that pausing the game doesn't affect the remaining event time
