@@ -32,6 +32,8 @@ public class HEItems extends HiddenEvent {
      */
     public void trigger(Inventory bag) {
 
+        playSound();
+
         //Adds items to the bag
         bag.addItem(new Bread(5, 15));
         bag.addItem(new Oats(10, 30));

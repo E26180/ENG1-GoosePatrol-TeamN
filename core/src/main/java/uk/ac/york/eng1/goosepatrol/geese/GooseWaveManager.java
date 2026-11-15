@@ -23,7 +23,7 @@ public class GooseWaveManager
         for (int i = 0; i < numberOfGeese; i++)
         {
 
-            Geese newGoose = new Geese(this);
+            Geese newGoose = new Geese();
 
             geese.add(newGoose);
         }
@@ -39,7 +39,8 @@ public class GooseWaveManager
         return geese;
     }
 
-    public void removeFlownGeese() {
+    public void removeFlownGeese()
+    {
         geese.removeIf(Geese::getFlownAway);
     }
 }
