@@ -43,12 +43,15 @@ public class GameScreen implements Screen {
     private final Inventory bag;
     private final ItemInput input;
     private GameState state = GameState.PAUSED; // starts paused
-    private Player player;
-    private Texture playerTexture;
+    private final Player player;
+    private final Texture playerTexture;
     private final GooseWaveManager waveManager;
-    private final HEItems itemEvent;
-    private final HEGooseSpeed speedEvent;
-    private Texture gooseTexture;
+    private final HEItems itemEvent1;
+    private final HEItems itemEvent2;
+    private final HEItems itemEvent3;
+    private final HEGooseSpeed speedEvent1;
+    private final HEGooseSpeed speedEvent2;
+    private final Texture gooseTexture;
     private final KeyboardInput keyboard = new KeyboardInput();
 
     /** Creates a new round in the paused state.
@@ -83,11 +86,17 @@ public class GameScreen implements Screen {
         // Create the first goose wave for this round.
         this.waveManager.NewWave(mapManager.getCollisionManager(), player);
         //Create and register the two hidden events for this round.
-        this.itemEvent = new HEItems(400f, 300f);
-        this.speedEvent = new HEGooseSpeed(1200f, 800f);
+        this.itemEvent1 = new HEItems(400f, 300f);
+        this.itemEvent2 = new HEItems(250f, 1700f);
+        this.itemEvent3 = new HEItems(1800f, 1200f);
+        this.speedEvent1 = new HEGooseSpeed(1200f, 800f);
+        this.speedEvent2 = new HEGooseSpeed(900f, 400f);
 
-        this.hiddenEvents.add(this.itemEvent);
-        this.hiddenEvents.add(this.speedEvent);
+        this.hiddenEvents.add(this.itemEvent1);
+        this.hiddenEvents.add(this.itemEvent2);
+        this.hiddenEvents.add(this.itemEvent3);
+        this.hiddenEvents.add(this.speedEvent1);
+        this.hiddenEvents.add(this.speedEvent2);
 
 
     }
@@ -195,7 +204,8 @@ public class GameScreen implements Screen {
             state = GameState.PAUSED;
             timer.isPaused = true;
             // Preserve the remaining duration of the speed event.
-            speedEvent.onPause();
+            speedEvent1.onPause();
+            speedEvent2.onPause();
         }
     }
 
@@ -205,7 +215,8 @@ public class GameScreen implements Screen {
             state = GameState.RUNNING;
             timer.isPaused = false;
             // Resume the speed event from its remaining duration.
-            speedEvent.onResume();
+            speedEvent1.onResume();
+            speedEvent2.onResume();
         }
     }
 
@@ -216,14 +227,19 @@ public class GameScreen implements Screen {
     {
         timer.update(delta);
         waveManager.removeFlownGeese();
+        updateHiddenEvents(this.player);
 
         if (timer.isFinished()) {
             return;
         }
 
         // Update the triggered speed event and restore speed after it expires.
-        if (speedEvent.getIsActivated()) {
-            speedEvent.checkActive(geese);
+        if (speedEvent1.getIsActivated()) {
+            speedEvent1.checkActive(geese);
+        }
+
+        if (speedEvent2.getIsActivated()) {
+            speedEvent2.checkActive(geese);
         }
 
         // Move active geese towards the player.
@@ -277,13 +293,19 @@ public class GameScreen implements Screen {
         }
 
         // Refill the inventory when the player reaches the item event.
-        if (!itemEvent.getIsActivated() && itemEvent.isPlayerInActiveRange(player)) {
-            itemEvent.trigger(bag);
+        if (!itemEvent1.getIsActivated() && itemEvent1.isPlayerInActiveRange(player)) {
+            itemEvent1.trigger(bag);
+        } else if (!itemEvent2.getIsActivated() && itemEvent2.isPlayerInActiveRange(player)) {
+            itemEvent2.trigger(bag);
+        } else if (!itemEvent3.getIsActivated() && itemEvent3.isPlayerInActiveRange(player)) {
+            itemEvent3.trigger(bag);
         }
 
         // Activate the temporary speed effect when the player reaches it.
-        if (!speedEvent.getIsActivated() && speedEvent.isPlayerInActiveRange(player)) {
-            speedEvent.trigger(geese);
+        if (!speedEvent1.getIsActivated() && speedEvent1.isPlayerInActiveRange(player)) {
+            speedEvent1.trigger(geese);
+        } else if (!speedEvent1.getIsActivated() && speedEvent1.isPlayerInActiveRange(player)) {
+            speedEvent1.trigger(geese);
         }
     }
 
