@@ -3,6 +3,8 @@ package uk.ac.york.eng1.goosepatrol.geese;
 import java.util.List;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import uk.ac.york.eng1.goosepatrol.CollisionManager;
 
 public class GooseWaveManager
 {
@@ -20,7 +22,7 @@ public class GooseWaveManager
         this.waveCount = 0;
     }
 
-    public void NewWave() {
+    public void NewWave(CollisionManager collisionManager, PolygonSprite player) {
 
         waveCount++;
 
@@ -30,6 +32,7 @@ public class GooseWaveManager
         {
 
             Geese newGoose = new Geese();
+            newGoose.placeSpawn(collisionManager, player);
             newGoose.setBatch(batch);
             newGoose.setTexture(gooseTexture);
             geese.add(newGoose);

@@ -24,6 +24,7 @@ import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
 import uk.ac.york.eng1.goosepatrol.mechanics.Player;
 import uk.ac.york.eng1.goosepatrol.mechanics.KeyboardInput;
+import uk.ac.york.eng1.goosepatrol.item.Item;
 
 /**
  * Gameplay screen. Holds everything belonging to one round
@@ -83,7 +84,7 @@ public class GameScreen implements Screen {
         gooseTexture = new Texture(Gdx.files.internal("textures/geese/goose.png"));
         waveManager = new GooseWaveManager(geese, game.getBatch(), gooseTexture);
         // Create the first goose wave for this round.
-        this.waveManager.NewWave();
+        this.waveManager.NewWave(mapManager.getCollisionManager(), player);
         //Create and register the two hidden events for this round.
         this.itemEvent1 = new HEItems(400f, 300f);
         this.itemEvent2 = new HEItems(250f, 1700f);
@@ -122,6 +123,15 @@ public class GameScreen implements Screen {
 
             if (mapManager.getCollisionManager().collidesWith(player.getBoundingRectangle())) {
                 player.setPosition(oldX, oldY);
+            }
+
+            // Reject player movement into an active goose.
+            for (Geese goose : geese) {
+                if (!goose.getFlownAway()
+                    && player.getBoundingRectangle().overlaps(goose.getBoundingRectangle())) {
+                    player.setPosition(oldX, oldY);
+                    break;
+                }
             }
 
             input.update();
@@ -232,9 +242,14 @@ public class GameScreen implements Screen {
             speedEvent2.checkActive(geese);
         }
 
+        // Move active geese towards the player.
+        for (Geese goose : geese) {
+            goose.GooseMove(player, mapManager.getCollisionManager());
+        }
+
         // Start another wave only after the current one is cleared.
         if (geese.isEmpty() && waveManager.getWaveCount() < TOTAL_WAVES) {
-            waveManager.NewWave();
+            waveManager.NewWave(mapManager.getCollisionManager(), player);
         }
     }
 
@@ -322,26 +337,73 @@ public class GameScreen implements Screen {
         float playerCenterY = player.getY() + player.getHeight() / 2f;
 
         camera.position.set(
-            Math.max(halfWidth, Math.min(playerCenterX, 1600f - halfWidth)),Math.max(halfHeight, Math.min(playerCenterY, 1280f - halfHeight)), 0f);
+            Math.max(halfWidth, Math.min(playerCenterX, 1600f - halfWidth)),
+            Math.max(halfHeight, Math.min(playerCenterY, 1280f - halfHeight)),
+            0f
+        );
 
         mapManager.render();
-        player.draw(mapManager.getCamera().combined);
-
-        hud.draw(game.getBatch(), timer.getRemaining(), state == GameState.PAUSED, bag.getUsed(), getTriggeredEventCount());
+        player.draw(camera.combined);
 
         SpriteBatch batch = game.getBatch();
+
+        // Draw geese using the world camera.
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+
+        for (Geese goose : geese) {
+            goose.draw();
+        }
+
+        batch.end();
+
+        // Switch to screen coordinates for the interface.
+        hud.draw(
+            batch, timer.getRemaining(), state == GameState.PAUSED,
+            bag.getUsed(), getTriggeredEventCount()
+        );
+
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
 
-        // Show the current wave and remaining geese in the top-right corner.
         batch.begin();
 
-        for (Geese goose : geese)
-        {
-            goose.draw();
+        // Show wave information in the top-right corner.
+        game.getFont(24).draw(
+            batch,
+            "Wave: " + waveManager.getWaveCount() + "/" + TOTAL_WAVES,
+            20, height - 20, Math.max(1f, width - 40), Align.right, false
+        );
+
+        game.getFont(24).draw(
+            batch,
+            "Geese left: " + geese.size(),
+            20, height - 55, Math.max(1f, width - 40), Align.right, false
+        );
+
+        // Keep inventory in the bottom-left corner of the screen.
+        float inventoryY = 50f + bag.getItems().size() * 22f;
+
+        game.getFont(16).draw(
+            batch, "Inventory (1/2 to select)", 20f, inventoryY
+        );
+
+        for (int i = 0; i < bag.getItems().size(); i++) {
+            Item item = bag.getItems().get(i);
+            String marker = item == bag.getSelected() ? "> " : "  ";
+
+            game.getFont(16).draw(
+                batch,
+                marker + (i + 1) + ": " + item.getName()
+                    + " - " + item.getUses() + " left",
+                20f,
+                inventoryY - (i + 1) * 22f
+            );
         }
-        game.getFont(24).draw(batch, "Wave: " + waveManager.getWaveCount() + "/" + TOTAL_WAVES, 20, height - 20, Math.max(1f, width - 40), Align.right, false);
-        game.getFont(24).draw(batch, "Geese left: " + geese.size(), 20, height - 55, Math.max(1f, width - 40), Align.right, false);
+
+        game.getFont(16).draw(
+            batch, "Left click near a goose to feed", 20f, 22f
+        );
 
         batch.end();
     }
