@@ -24,7 +24,7 @@ public class Geese implements Feedable
     private float GooseSpeed = DefaultGooseSpeed;
     private float GooseWidth = 28f;
     private float GooseHeight = 32f;
-    private final float MaxFullness = 10;
+    private final float MaxFullness = 12;
     private boolean hasFlownAway = false;
     private SpriteBatch batch;
     private Texture texture;
@@ -156,7 +156,7 @@ public class Geese implements Feedable
 
         playSound("audio/eat.wav", 0.6f);
 
-        Fullness += 2.5;
+        Fullness += 4;
         if (Fullness >= MaxFullness)
         {
             GooseFlyAway();
