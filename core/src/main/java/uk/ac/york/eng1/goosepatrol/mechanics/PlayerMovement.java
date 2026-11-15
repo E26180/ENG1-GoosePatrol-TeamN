@@ -17,10 +17,9 @@ public class PlayerMovement {
 
     private float playerVelocity;
     private boolean isBoosted;
-    float delta = Gdx.graphics.getDeltaTime();
 
     PlayerMovement() {
-        playerVelocity = 3;
+        playerVelocity = 160f;
         isBoosted = false;
     }
 
@@ -56,39 +55,52 @@ public class PlayerMovement {
     }
 
     public void moveLeft(PolygonSprite playerSprite, float velocity) {
-        playerSprite.translateX(-velocity*delta);
+        float delta = Gdx.graphics.getDeltaTime();
+        playerSprite.translateX(-velocity * delta);
     }
 
     public void moveRight(PolygonSprite playerSprite, float velocity) {
-        playerSprite.translateX(velocity*delta);
+        float delta = Gdx.graphics.getDeltaTime();
+        playerSprite.translateX(velocity * delta);
     }
 
     public void moveUp(PolygonSprite playerSprite, float velocity) {
-        playerSprite.translateY(velocity*delta);
+        float delta = Gdx.graphics.getDeltaTime();
+        playerSprite.translateY(velocity * delta);
     }
 
     public void moveDown(PolygonSprite playerSprite, float velocity) {
-        playerSprite.translateY(-velocity*delta);
+        float delta = Gdx.graphics.getDeltaTime();
+        playerSprite.translateY(-velocity * delta);
     }
 
     public void moveNW(PolygonSprite playerSprite, float velocity) {
-        playerSprite.translateX((float) (-Math.sqrt(2)*velocity*delta));
-        playerSprite.translateY((float) (Math.sqrt(2)*velocity*delta));
+        float delta = Gdx.graphics.getDeltaTime();
+        float step = (float) (velocity * delta / Math.sqrt(2));
+        playerSprite.translateX(-step);
+        playerSprite.translateY(step);
     }
 
     public void moveNE(PolygonSprite playerSprite, float velocity) {
-        playerSprite.translateX((float) (Math.sqrt(2)*velocity*delta));
-        playerSprite.translateY((float) (Math.sqrt(2)*velocity*delta));
+        float delta = Gdx.graphics.getDeltaTime();
+        float step = (float) (velocity * delta / Math.sqrt(2));
+        playerSprite.translateX(step);
+        playerSprite.translateY(step);
     }
 
     public void moveSE(PolygonSprite playerSprite, float velocity) {
-        playerSprite.translateX((float) (Math.sqrt(2)*velocity*delta));
-        playerSprite.translateY((float) (-Math.sqrt(2)*velocity*delta));
+        float delta = Gdx.graphics.getDeltaTime();
+        float step = (float) (velocity * delta / Math.sqrt(2));
+        playerSprite.translateX(step);
+        playerSprite.translateY(-step);
+
     }
 
     public void moveSW(PolygonSprite playerSprite, float velocity) {
-        playerSprite.translateX((float) (-Math.sqrt(2)*velocity*delta));
-        playerSprite.translateY((float) (-Math.sqrt(2)*velocity*delta));
+        float delta = Gdx.graphics.getDeltaTime();
+        float step = (float) (velocity * delta / Math.sqrt(2));
+        playerSprite.translateX(-step);
+        playerSprite.translateY(-step);
     }
 
     public boolean quickUse(Item item, List<Feedable> geese) {
@@ -123,6 +135,7 @@ public class PlayerMovement {
     }
 
     protected void scare(PolygonSprite playerSprite, Sprite[] geese) {
+        float delta = Gdx.graphics.getDeltaTime();
         Circle scarecircle = new Circle(playerSprite.getX(), playerSprite.getY(), 2f);
         for (Sprite goose : geese) {
             if (scarecircle.contains(goose.getX(), goose.getY())
