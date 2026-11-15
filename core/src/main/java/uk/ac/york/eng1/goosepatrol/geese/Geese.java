@@ -19,19 +19,45 @@ public class Geese implements Feedable
     private float GooseX;
     private float GooseY;
     private float Fullness = 0;
-    private final float DefaultGooseSpeed = 15;
+    private final float DefaultGooseSpeed = 50;
     private float GooseSpeed = DefaultGooseSpeed;
-    private float GooseWidth = 5f;
-    private float GooseHeight = 5f;
+    private float GooseWidth = 28f;
+    private float GooseHeight = 32f;
     private final float MaxFullness = 10;
     private boolean hasFlownAway = false;
     private SpriteBatch batch;
     private Texture texture;
 
+    /**
+     * Places the goose on clear ground away from the player.
+     *
+     * @param collisionManager the map collision checker
+     * @param player the current player
+     */
+    public void placeSpawn(
+        CollisionManager collisionManager,
+        PolygonSprite player
+    ) {
+        for (int attempt = 0; attempt < 100; attempt++) {
+            // Spawn in the central area south of the main building.
+            GooseX = 220f + (float) Math.random() * (1180f - GooseWidth);
+            GooseY = 380f + (float) Math.random() * (220f - GooseHeight);
+
+            Rectangle spawnBounds = getBoundingRectangle();
+
+            if (!collisionManager.collidesWith(spawnBounds)
+                && !spawnBounds.overlaps(player.getBoundingRectangle())) {
+                return;
+            }
+        }
+
+        throw new IllegalStateException("No clear goose spawn position found");
+    }
 
     public Geese() {
         int bound = (int) (Math.random() * 2);
         int side = (int) (Math.random() * 2);
+
         switch (bound) {
             case 0:
                 this.GooseX = side == 0 ? 10f : 1590f;
@@ -40,8 +66,12 @@ public class Geese implements Feedable
             case 1:
                 this.GooseX = (int) (Math.random() * 1580) + 11;
                 this.GooseY = side == 0 ? 10f : 1270;
-        }
-    }
+        } // switch ends here
+
+        // Keep the complete goose inside the map when it spawns.
+        GooseX = Math.max(0f, Math.min(GooseX, 1600f - GooseWidth));
+        GooseY = Math.max(0f, Math.min(GooseY, 1280f - GooseHeight));
+    } // constructor ends here
 
     protected void playSound(String path) {
         Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));
@@ -77,6 +107,15 @@ public class Geese implements Feedable
     public float getY()
     {
         return GooseY;
+    }
+
+    /**
+     * Returns the goose's collision bounds in map coordinates.
+     *
+     * @return the goose's bounding rectangle
+     */
+    public Rectangle getBoundingRectangle() {
+        return new Rectangle(GooseX, GooseY, GooseWidth, GooseHeight);
     }
 
     /**
@@ -129,12 +168,12 @@ public class Geese implements Feedable
         float moveY = dy * movement;
         Rectangle gooseBounds = new Rectangle(GooseX, GooseY, GooseWidth, GooseHeight);
         gooseBounds.setPosition(GooseX + moveX, GooseY);
-        if (!collisionManager.collidesWith(gooseBounds))
+        if (!collisionManager.collidesWith(gooseBounds) && !gooseBounds.overlaps((player.getBoundingRectangle())))
         {
             GooseX += moveX;
         }
         gooseBounds.setPosition(GooseX, GooseY + moveY);
-        if (!collisionManager.collidesWith(gooseBounds))
+        if (!collisionManager.collidesWith(gooseBounds) && !gooseBounds.overlaps((player.getBoundingRectangle())))
         {
             GooseY += moveY;
         }
