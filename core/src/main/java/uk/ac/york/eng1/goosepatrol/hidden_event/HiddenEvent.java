@@ -18,7 +18,7 @@ public class HiddenEvent {
     private final float posY;
 
     //Radius in which the event is triggered
-    private final float activationRadius = 50;
+    private final float activationRadius = 150;
 
     //Shows if the event has been activated
     //  Prevents multiple activations

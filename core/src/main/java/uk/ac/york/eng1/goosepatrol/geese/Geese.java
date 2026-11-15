@@ -72,7 +72,7 @@ public class Geese implements Feedable
         GooseY = Math.max(0f, Math.min(GooseY, 1280f - GooseHeight));
     } // constructor ends here
 
-    protected void playSound(String path) {
+    protected void playSound(String path, float vol) {
         Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));
         sound.play(1.0f);
         sound.dispose();
@@ -85,7 +85,7 @@ public class Geese implements Feedable
 
     public void ResetGooseSpeed()
     {
-        playSound("audio/honk.wav");
+        playSound("audio/honk.wav", 1.0f);
         GooseSpeed = DefaultGooseSpeed;
     }
 
@@ -93,7 +93,7 @@ public class Geese implements Feedable
     {
         this.hasFlownAway = true;
         this.Fullness = this.MaxFullness;
-        playSound("audio/flap.wav");
+        playSound("audio/flap.wav", 1.0f);
     }
 
     @Override
@@ -154,7 +154,7 @@ public class Geese implements Feedable
     public void feed()
     {
 
-        playSound("audio/eat.wav");
+        playSound("audio/eat.wav", 0.6f);
 
         Fullness += 2.5;
         if (Fullness >= MaxFullness)
