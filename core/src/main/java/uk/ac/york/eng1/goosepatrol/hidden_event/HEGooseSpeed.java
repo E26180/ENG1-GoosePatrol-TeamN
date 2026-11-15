@@ -47,6 +47,9 @@ public class HEGooseSpeed extends HiddenEvent {
      */
 
     public void trigger(List<Geese> geeseList) {
+
+        playSound();
+
         //Sets existingGeese field to match the currently rendered geese list
         this.existingGeese = geeseList;
 

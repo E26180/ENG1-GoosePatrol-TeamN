@@ -1,5 +1,6 @@
 package uk.ac.york.eng1.goosepatrol.geese;
 
+import com.badlogic.gdx.audio.Sound;
 import uk.ac.york.eng1.goosepatrol.item.Feedable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
@@ -22,10 +23,7 @@ public class Geese implements Feedable
     private final float MaxFullness = 10;
     private boolean hasFlownAway = false;
 
-    private GooseWaveManager waveManager;
-
-    public Geese(GooseWaveManager manager) {
-        waveManager = manager;
+    public Geese() {
         int bound = (int) (Math.random() * 2);
         int side = (int) (Math.random() * 2);
         switch (bound) {
@@ -39,17 +37,28 @@ public class Geese implements Feedable
         }
     }
 
+    protected void playSound(String path) {
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));
+        sound.play(1.0f);
+        sound.dispose();
+    }
+
     public void SetGooseSpeed(float imp)
     {
         GooseSpeed *= imp;
     }
 
-    public void ResetGooseSpeed() { GooseSpeed = DefaultGooseSpeed; }
+    public void ResetGooseSpeed()
+    {
+        playSound("audio/honk.wav");
+        GooseSpeed = DefaultGooseSpeed;
+    }
 
     public void GooseFlyAway()
     {
         this.hasFlownAway = true;
         this.Fullness = this.MaxFullness;
+        playSound("audio/flap.wav");
     }
 
     @Override
@@ -83,6 +92,9 @@ public class Geese implements Feedable
     @Override
     public void feed()
     {
+
+        playSound("audio/eat.wav");
+
         Fullness += 2.5;
         if (Fullness >= MaxFullness)
         {
