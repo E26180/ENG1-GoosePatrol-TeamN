@@ -1,17 +1,23 @@
 package uk.ac.york.eng1.goosepatrol.geese;
 
 import java.util.List;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.Texture;
 
 public class GooseWaveManager
 {
 
     private List<Geese> geese;
     private int waveCount;
+    private SpriteBatch batch;
+    private Texture gooseTexture;
 
-    public GooseWaveManager(List<Geese> geese)
+    public GooseWaveManager(List<Geese> geese, SpriteBatch batch, Texture gooseTexture)
     {
         this.geese = geese;
-        waveCount = 0;
+        this.batch = batch;
+        this.gooseTexture = gooseTexture;
+        this.waveCount = 0;
     }
 
     public void NewWave() {
@@ -24,7 +30,8 @@ public class GooseWaveManager
         {
 
             Geese newGoose = new Geese();
-
+            newGoose.setBatch(batch);
+            newGoose.setTexture(gooseTexture);
             geese.add(newGoose);
         }
     }
@@ -43,4 +50,6 @@ public class GooseWaveManager
     {
         geese.removeIf(Geese::getFlownAway);
     }
+
+
 }
