@@ -32,7 +32,7 @@ public class GooseWaveManager
         {
 
             Geese newGoose = new Geese();
-            newGoose.placeSpawn(collisionManager, player);
+            newGoose.placeSpawn(collisionManager, player, geese);
             newGoose.setBatch(batch);
             newGoose.setTexture(gooseTexture);
             geese.add(newGoose);
