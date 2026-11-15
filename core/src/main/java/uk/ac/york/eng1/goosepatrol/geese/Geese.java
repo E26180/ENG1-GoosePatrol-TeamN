@@ -1,5 +1,6 @@
 package uk.ac.york.eng1.goosepatrol.geese;
 
+import com.badlogic.gdx.audio.Sound;
 import uk.ac.york.eng1.goosepatrol.item.Feedable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
@@ -14,27 +15,50 @@ public class Geese implements Feedable
 {
     private float GooseX;
     private float GooseY;
-    private float GooseHunger = 0;
-    private float GooseSpeed = 5;
-    private float GooseWidth = 1f;
-    private float GooseHeight = 1f;
-    private final float MaxGooseHunger = 10;
+    private float Fullness = 0;
+    private final float DefaultGooseSpeed = 15;
+    private float GooseSpeed = DefaultGooseSpeed;
+    private float GooseWidth = 5f;
+    private float GooseHeight = 5f;
+    private final float MaxFullness = 10;
+    private boolean hasFlownAway = false;
 
-    private GooseWaveManager waveManager;
+    public Geese() {
+        int bound = (int) (Math.random() * 2);
+        int side = (int) (Math.random() * 2);
+        switch (bound) {
+            case 0:
+                this.GooseX = side == 0 ? 10f : 1590f;
+                this.GooseY = (int) (Math.random() * 1260) + 11;
+                break;
+            case 1:
+                this.GooseX = (int) (Math.random() * 1580) + 11;
+                this.GooseY = side == 0 ? 10f : 1270;
+        }
+    }
 
-    public Geese(GooseWaveManager manager)
-    {
-        waveManager = manager;
+    protected void playSound(String path) {
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal(path));
+        sound.play(1.0f);
+        sound.dispose();
     }
 
     public void SetGooseSpeed(float imp)
     {
-        GooseSpeed = imp;
+        GooseSpeed *= imp;
+    }
+
+    public void ResetGooseSpeed()
+    {
+        playSound("audio/honk.wav");
+        GooseSpeed = DefaultGooseSpeed;
     }
 
     public void GooseFlyAway()
     {
-        waveManager.removeGoose(this);
+        this.hasFlownAway = true;
+        this.Fullness = this.MaxFullness;
+        playSound("audio/flap.wav");
     }
 
     @Override
@@ -56,20 +80,23 @@ public class Geese implements Feedable
     @Override
     public float getFeedLevel()
     {
-        return GooseHunger / MaxGooseHunger;
+        return Fullness / MaxFullness;
     }
 
     @Override
     public boolean isHungry()
     {
-        return GooseHunger != 0;
+        return this.Fullness < this.MaxFullness;
     }
 
     @Override
     public void feed()
     {
-        GooseHunger += 2.5;
-        if (GooseHunger == MaxGooseHunger)
+
+        playSound("audio/eat.wav");
+
+        Fullness += 2.5;
+        if (Fullness >= MaxFullness)
         {
             GooseFlyAway();
         }
@@ -77,6 +104,9 @@ public class Geese implements Feedable
 
     public void GooseMove(PolygonSprite player, CollisionManager collisionManager)
     {
+        if (this.hasFlownAway) {
+            return;
+        }
         float playerX = player.getX() + player.getWidth() / 2;
         float playerY = player.getY() + player.getHeight() / 2;
         float dx = playerX - (GooseX + GooseWidth / 2);
@@ -102,5 +132,9 @@ public class Geese implements Feedable
         {
             GooseY += moveY;
         }
+    }
+
+    public boolean getFlownAway() {
+        return this.hasFlownAway;
     }
 }

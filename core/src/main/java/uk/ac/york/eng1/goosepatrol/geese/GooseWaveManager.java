@@ -18,20 +18,15 @@ public class GooseWaveManager
 
         waveCount++;
 
-        int numberOfGeese = 3 + waveCount;
+        int numberOfGeese = 3 + 2 * waveCount;
 
         for (int i = 0; i < numberOfGeese; i++)
         {
 
-            Geese newGoose = new Geese(this);
+            Geese newGoose = new Geese();
 
             geese.add(newGoose);
         }
-    }
-
-    public void removeGoose(Geese goose)
-    {
-        geese.remove(goose);
     }
 
     public int getWaveCount()
@@ -42,5 +37,10 @@ public class GooseWaveManager
     public List<Geese> getGeese()
     {
         return geese;
+    }
+
+    public void removeFlownGeese()
+    {
+        geese.removeIf(Geese::getFlownAway);
     }
 }

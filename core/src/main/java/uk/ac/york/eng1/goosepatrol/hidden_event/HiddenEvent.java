@@ -1,5 +1,9 @@
 package uk.ac.york.eng1.goosepatrol.hidden_event;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+
 /**
  * Contains get methods, activate() and player distance methods for the
  *      hidden event classes
@@ -36,16 +40,20 @@ public class HiddenEvent {
     /**
      * Measures the distance between the event epicentre and the player's position
      *
-     * @param playerPosition (x, y) of the player's current location
+     * @param player (x, y) of the player's current location through PolygonSprite class
      * @return distance between the player and event epicentre
      */
 
-    public float distanceFromPlayer(float[] playerPosition) {
+    public float distanceFromPlayer(PolygonSprite player) {
+
+        float[] playerPosition = getPlayerPosition(player);
+        float[] eventPosition = getPos();
+
         //Horizontal distance
-        float distanceX = playerPosition[0] - this.posX;
+        float distanceX = playerPosition[0] - eventPosition[0];
 
         //Vertical distance
-        float distanceY = playerPosition[1] - this.posY;
+        float distanceY = playerPosition[1] - eventPosition[1];
 
         //Distance as the crow flies
         return (float) Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
@@ -57,6 +65,16 @@ public class HiddenEvent {
 
     public void activate() { this.isActivated = true; }
 
+    /**
+     * Plays the event sound, then disposes it
+     */
+
+    protected void playSound() {
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/event.wav"));
+        sound.play(1.0f);
+        sound.dispose();
+    }
+
     /*
     Get Methods
      */
@@ -64,12 +82,12 @@ public class HiddenEvent {
     /**
      * Checks if the player is close enough to activate the event
      *
-     * @param playerPosition (x, y) of the player's current location
+     * @param player (x, y) of the player's current location through PolygonSprite class
      * @return boolean showing if the event should be activated
      */
 
-    public boolean isPlayerInActiveRange(float[] playerPosition) {
-        return this.distanceFromPlayer(playerPosition) < this.activationRadius;
+    public boolean isPlayerInActiveRange(PolygonSprite player) {
+        return this.distanceFromPlayer(player) < this.activationRadius;
     }
 
     /**
@@ -97,4 +115,16 @@ public class HiddenEvent {
      */
 
     public boolean getIsActivated() { return this.isActivated; }
+
+
+    /**
+     * Gets the player position from PolygonSprite and returns (x, y) as float[]
+     *
+     * @param player PolygonSprite object
+     * @return (x, y)
+     */
+    public float[] getPlayerPosition(PolygonSprite player) {
+        return new float[] {player.getX() + player.getWidth() / 2, player.getY() +
+            player.getHeight() / 2};
+    }
 }

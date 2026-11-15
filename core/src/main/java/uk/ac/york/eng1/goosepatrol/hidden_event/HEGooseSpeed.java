@@ -3,6 +3,7 @@ package uk.ac.york.eng1.goosepatrol.hidden_event;
 import uk.ac.york.eng1.goosepatrol.geese.Geese;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,12 +47,15 @@ public class HEGooseSpeed extends HiddenEvent {
      */
 
     public void trigger(List<Geese> geeseList) {
+
+        playSound();
+
         //Sets existingGeese field to match the currently rendered geese list
         this.existingGeese = geeseList;
 
         //Increases speed for all existing goose instances
         for (Geese goose : existingGeese) {
-            goose.SetGooseSpeed(6.5f);
+            goose.SetGooseSpeed(1.3f);
         }
 
         //Sets 10-second timer till the event ends
@@ -68,7 +72,7 @@ public class HEGooseSpeed extends HiddenEvent {
      * @return boolean flag
      */
 
-    public boolean checkActive(List<Geese> geeseList) {
+    public List<Geese> checkActive(List<Geese> geeseList) {
 
         //Checks if the event is over
         if (Instant.now().getEpochSecond() > this.activationTime) {
@@ -76,11 +80,11 @@ public class HEGooseSpeed extends HiddenEvent {
             //Sets the speed of every existing goose to original value (5f)
             this.existingGeese = geeseList;
             for (Geese goose : existingGeese) {
-                goose.SetGooseSpeed(5f);
+                goose.ResetGooseSpeed();
             }
-            return false;
+            return this.existingGeese;
         } else {
-            return true;
+            return geeseList;
         }
     }
 

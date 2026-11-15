@@ -5,7 +5,10 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import uk.ac.york.eng1.goosepatrol.MapManager;
 import uk.ac.york.eng1.goosepatrol.HUD;
 import uk.ac.york.eng1.goosepatrol.geese.Geese;
@@ -13,6 +16,8 @@ import uk.ac.york.eng1.goosepatrol.item.Inventory;
 import uk.ac.york.eng1.goosepatrol.item.ItemInput;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HiddenEvent;
 import uk.ac.york.eng1.goosepatrol.geese.GooseWaveManager;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
+import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
 
 
 
@@ -23,6 +28,7 @@ import uk.ac.york.eng1.goosepatrol.geese.GooseWaveManager;
  */
 public class GameScreen implements Screen {
 
+    private static final int TOTAL_WAVES = 3;
     private final CoreMain game;
     private final GameTimer timer;
     private final MapManager mapManager;
@@ -33,7 +39,12 @@ public class GameScreen implements Screen {
     private final ItemInput input;
     private GameState state = GameState.PAUSED; // starts paused
     private final GooseWaveManager waveManager;
+    private final HEItems itemEvent;
+    private final HEGooseSpeed speedEvent;
 
+    /** Creates a new round in the paused state.
+     *
+     * @param game the game managing screens and shared rendering resources */
     public GameScreen(CoreMain game) {
         this.game = game;
         this.timer = new GameTimer();
@@ -42,6 +53,14 @@ public class GameScreen implements Screen {
         this.bag = new Inventory(this.geese);
         this.input = new ItemInput(this.bag, this.mapManager.getCamera());
         this.waveManager = new GooseWaveManager(this.geese);
+        // Create the first goose wave for this round.
+        this.waveManager.NewWave();
+        //Create and register the two hidden events for this round.
+        this.itemEvent = new HEItems(400f, 300f);
+        this.speedEvent = new HEGooseSpeed(1200f, 800f);
+
+        this.hiddenEvents.add(this.itemEvent);
+        this.hiddenEvents.add(this.speedEvent);
 
     }
 
@@ -119,6 +138,8 @@ public class GameScreen implements Screen {
         if (state == GameState.RUNNING) {
             state = GameState.PAUSED;
             timer.isPaused = true;
+            // Preserve the remaining duration of the speed event.
+            speedEvent.onPause();
         }
     }
 
@@ -127,20 +148,32 @@ public class GameScreen implements Screen {
         if (state == GameState.PAUSED) {
             state = GameState.RUNNING;
             timer.isPaused = false;
+            // Resume the speed event from its remaining duration.
+            speedEvent.onResume();
         }
     }
 
     // --- Update ---
 
-    private void NewWave()
-    {
-        waveManager.NewWave();
-    }
-
-    /** Per-frame logic, RUNNING only: timer, player, geese, hidden events. */
+    /** Updates the timer, checks the speed effect and starts waves when needed. */
     private void update(float delta)
     {
         timer.update(delta);
+        waveManager.removeFlownGeese();
+
+        if (timer.isFinished()) {
+            return;
+        }
+
+        // Update the triggered speed event and restore speed after it expires.
+        if (speedEvent.getIsActivated()) {
+            speedEvent.checkActive(geese);
+        }
+
+        // Start another wave only after the current one is cleared.
+        if (geese.isEmpty() && waveManager.getWaveCount() < TOTAL_WAVES) {
+            waveManager.NewWave();
+        }
     }
 
     /** Checks win then lose; switches screen if the round ended. */
@@ -168,8 +201,30 @@ public class GameScreen implements Screen {
         return false;
     }
 
-    /** TODO: real win condition. */
-    private boolean hasWon() { return false; }
+    /** Returns whether all three waves were cleared before time expired. */
+    private boolean hasWon() {
+        return !timer.isFinished() && waveManager.getWaveCount() >= TOTAL_WAVES && geese.isEmpty();
+    }
+
+    /** Triggers each hidden event once when the player enters its range.
+     *
+     * @param player the player sprite used for position checks
+     */
+    private void updateHiddenEvents(PolygonSprite player) {
+        if (player == null || state != GameState.RUNNING || timer.isFinished()) {
+            return;
+        }
+
+        // Refill the inventory when the player reaches the item event.
+        if (!itemEvent.getIsActivated() && itemEvent.isPlayerInActiveRange(player)) {
+            itemEvent.trigger(bag);
+        }
+
+        // Activate the temporary speed effect when the player reaches it.
+        if (!speedEvent.getIsActivated() && speedEvent.isPlayerInActiveRange(player)) {
+            speedEvent.trigger(geese);
+        }
+    }
 
     /** Returns the number of events activated in this round. */
     private int getTriggeredEventCount() {
@@ -193,5 +248,17 @@ public class GameScreen implements Screen {
         mapManager.render();
 
         hud.draw(game.getBatch(), timer.getRemaining(), state == GameState.PAUSED, bag.getUsed(), getTriggeredEventCount());
+
+        SpriteBatch batch = game.getBatch();
+        float width = Gdx.graphics.getWidth();
+        float height = Gdx.graphics.getHeight();
+
+        // Show the current wave and remaining geese in the top-right corner.
+        batch.begin();
+
+        game.getFont(24).draw(batch, "Wave: " + waveManager.getWaveCount() + "/" + TOTAL_WAVES, 20, height - 20, Math.max(1f, width - 40), Align.right, false);
+        game.getFont(24).draw(batch, "Geese left: " + geese.size(), 20, height - 55, Math.max(1f, width - 40), Align.right, false);
+
+        batch.end();
     }
 }

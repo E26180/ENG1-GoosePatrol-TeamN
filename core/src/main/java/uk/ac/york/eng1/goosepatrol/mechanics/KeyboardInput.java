@@ -3,6 +3,11 @@ package uk.ac.york.eng1.goosepatrol.mechanics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.*;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import uk.ac.york.eng1.goosepatrol.item.Inventory;
+import uk.ac.york.eng1.goosepatrol.item.Item;
+
+import java.util.ArrayList;
 
 public class KeyboardInput implements ControlsInput {
 
@@ -27,9 +32,10 @@ public class KeyboardInput implements ControlsInput {
     }
 
     @Override
-    public void playerInput(int key, PolygonSprite player) {
+    public void playerInput(int key, PolygonSprite player, Inventory inventory) {
         String keyButton = Keys.toString(key);
         float movementSpeed = controls.getPlayerVelocity();
+        Item selectedItem = inventory.getSelected();
         switch (key) {
             case Keys.LEFT, Keys.A:
                 if (Gdx.input.isKeyPressed(Keys.UP)){
@@ -63,13 +69,20 @@ public class KeyboardInput implements ControlsInput {
                 } else {
                     controls.moveDown(player, movementSpeed);
                 } break;
+            case Keys.F:
+                controls.quickUse(selectedItem, new ArrayList<>());
+                break;
+            case Keys.C:
+                controls.scare(player, new Sprite[2]);
+            case Keys.T:
+                boolean anySelected = controls.dropItem(selectedItem, inventory);
         }
     }
 
     @Override
-    public boolean processInput(int key, PolygonSprite player) {
+    public boolean processInput(int key, PolygonSprite player, Inventory inventory) {
         if (Gdx.input.isKeyPressed(key)) {
-            playerInput(key, player);
+            playerInput(key, player, inventory);
             return true;
         } else { return false;}
     }
