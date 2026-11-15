@@ -19,8 +19,6 @@ import uk.ac.york.eng1.goosepatrol.geese.GooseWaveManager;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HEItems;
 import uk.ac.york.eng1.goosepatrol.hidden_event.HEGooseSpeed;
 
-
-
 /**
  * Gameplay screen. Holds everything belonging to one round
  * (MapManager, geese, Inventory, ItemInput, GameTimer), so restart
