@@ -76,6 +76,8 @@ public class HEGooseSpeed extends HiddenEvent {
 
     public List<Geese> checkActive(List<Geese> geeseList) {
 
+        if (effectFinished) return geeseList;
+
         //Checks if the event is over
         if (Instant.now().getEpochSecond() >= this.activationTime) {
 
